@@ -262,17 +262,11 @@ router.patch('/users/:username/role',
 router.get('/users/:username/detail', async (req, res, next) => {
   try {
     const { username } = req.params;
-    const user = await User.findOne({ username }).lean();
+    const user = await User.findOne({ username }, { passwordHash: 0 }).lean();
     if (!user) return res.status(404).json({ ok: false, error: 'User not found.' });
 
-    const completionMap = {};
-    (user.progress || []).forEach(p => { completionMap[p.topicId] = p; });
-
-    const topics = ALL_TOPICS.map(t => ({
-      ...t,
-      completed: completionMap[t.topicId]?.completed || false,
-      completedAt: completionMap[t.topicId]?.completedAt || null,
-    }));
+    const topics = topicsWithProgress(user.progress);
+    const progress = overallProgress(user.progress);
 
     const logs = await Log.find({ username }).sort({ date: -1 }).limit(100).lean();
 
@@ -286,7 +280,9 @@ router.get('/users/:username/detail', async (req, res, next) => {
         expiresAt: user.expiresAt,
         createdAt: user.createdAt,
         lastLoginAt: user.lastLoginAt,
-        ...user, // spreads everything except passwordHash (it's not in the lean projection above — add explicit select)
+        totalTopics: progress.total,
+        completedTopics: progress.done,
+        progressPct: progress.percent,
       },
       topics,
       logs,

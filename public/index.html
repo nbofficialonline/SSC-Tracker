@@ -1,0 +1,1631 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SSC Prep Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root{
+        --pr:#1e3a8a;--pr-d:#0f2460;--pr-l:#2d52b3;
+        --gold:#f59e0b;--gold-l:#fbbf24;--gold-d:#d97706;
+        --teal:#0d9488;--teal-l:#14b8a6;
+        --red:#ef4444;--red-bg:#fee2e2;
+        --green:#10b981;--green-bg:#d1fae5;
+        --bg:#f0f4fa;--surface:#ffffff;--surface2:#f8fafd;
+        --text:#1e293b;--text2:#475569;--muted:#94a3b8;
+        --border:#e2e8f0;--border2:#cbd5e1;
+        --shadow:0 2px 12px rgba(15,23,42,.07);
+        --shadow2:0 8px 32px rgba(15,23,42,.13);
+        --shadow3:0 20px 60px rgba(15,23,42,.2);
+        --r:12px;--r2:20px;
+        --tr:0.2s cubic-bezier(.4,0,.2,1);
+        --sidebar-w:260px;
+        --font:'Sora',sans-serif;
+        --mono:'JetBrains Mono',monospace;
+      }
+      [data-theme=dark]{
+        --bg:#0d1117;--surface:#161b22;--surface2:#21262d;
+        --text:#e6edf3;--text2:#8b949e;--muted:#6e7681;
+        --border:#30363d;--border2:#484f58;
+        --shadow:0 2px 12px rgba(0,0,0,.3);
+        --shadow2:0 8px 32px rgba(0,0,0,.4);
+        --shadow3:0 20px 60px rgba(0,0,0,.5);
+        --pr:#3b82f6;--pr-d:#2563eb;--pr-l:#60a5fa;
+      }
+      *{box-sizing:border-box;margin:0;padding:0}
+      html,body{min-height:100%;font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s}
+      button,input,select{font-family:inherit}
+      button{cursor:pointer}
+
+      /* â”€â”€ Animations â”€â”€ */
+      @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+      @keyframes popIn{from{opacity:0;transform:scale(.93) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+      @keyframes slideLeft{from{opacity:0;transform:translateX(-100%)}to{opacity:1;transform:translateX(0)}}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+      @keyframes shimmer{100%{transform:translateX(100%)}}
+      @keyframes toastIn{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+      @keyframes toastOut{from{transform:translateX(0);opacity:1}to{transform:translateX(110%);opacity:0}}
+      @keyframes checkBounce{0%{transform:scale(1)}40%{transform:scale(1.35)}70%{transform:scale(.9)}100%{transform:scale(1)}}
+      @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+
+      /* â”€â”€ Login â”€â”€ */
+      .login-page{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      padding:24px 14px;
+      background:linear-gradient(135deg,#0a0f1e 0%,#0f2460 50%,#0a0f1e 100%);
+      position:relative;overflow:hidden;
+    }
+    .login-orb{
+      position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.35;
+    }
+    .login-orb.a{width:400px;height:400px;background:radial-gradient(circle,#f59e0b,transparent);top:-80px;left:-100px}
+    .login-orb.b{width:300px;height:300px;background:radial-gradient(circle,#0d9488,transparent);bottom:-60px;right:-60px}
+    .login-card{
+      width:min(460px,94vw);position:relative;z-index:1;
+      padding:44px 40px;border-radius:28px;
+      background:rgba(15,36,96,.35);
+      border:1.5px solid rgba(245,158,11,.25);
+      border-top:2px solid var(--gold);
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
+      backdrop-filter:blur(24px);
+      animation:popIn .5s ease;
+    }
+    .login-logo{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:1px solid rgba(245,158,11,.18)}
+    .login-mark{
+      width:76px;height:76px;margin:0 auto 14px;border-radius:22px;
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:800;font-size:22px;letter-spacing:.5px;
+      background:linear-gradient(135deg,var(--gold),#f97316);
+      box-shadow:0 0 40px rgba(245,158,11,.45);
+      animation:float 4s ease-in-out infinite;
+    }
+    .login-logo h1{color:#fff;font-size:19px;font-weight:800;margin-bottom:4px}
+    .login-logo p{color:var(--gold-l);font-size:12px;font-weight:600;letter-spacing:.3px}
+    .login-logo small{display:block;margin-top:3px;color:rgba(255,255,255,.45);font-size:11px}
+    .tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:22px}
+    .tab{flex:1;border:0;background:transparent;color:rgba(255,255,255,.45);padding:11px 8px;font-size:13px;font-weight:700;position:relative;transition:var(--tr)}
+    .tab.active{color:var(--gold)}
+    .tab.active:after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--gold);border-radius:99px}
+    .login-form{display:none;animation:fadeUp .22s ease}
+    .login-form.active{display:block}
+    .field{margin-bottom:14px}
+    .field label{display:block;color:rgba(255,255,255,.7);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:7px}
+    .field input,.field select{
+      width:100%;min-height:44px;border:1.5px solid rgba(245,158,11,.35);border-radius:11px;
+      padding:10px 13px;color:#fff;background:rgba(255,255,255,.1);font-size:14px;outline:none;transition:var(--tr);
+    }
+    .field input::placeholder{color:rgba(255,255,255,.4)}
+    .field input:focus,.field select:focus{border-color:var(--gold);background:rgba(255,255,255,.18);box-shadow:0 0 0 3px rgba(245,158,11,.18)}
+    .login-btn{
+      width:100%;min-height:46px;border:0;border-radius:12px;
+      background:linear-gradient(135deg,var(--gold),#f97316);
+      color:#fff;font-size:14px;font-weight:800;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      box-shadow:0 8px 28px rgba(245,158,11,.3);transition:var(--tr);
+    }
+    .login-btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(245,158,11,.38)}
+    .login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .note{margin-top:13px;padding:11px 13px;border-radius:10px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);color:rgba(255,255,255,.65);font-size:12px;line-height:1.55}
+
+    /* â”€â”€ App shell â”€â”€ */
+    .app{min-height:100vh;display:grid;grid-template-columns:var(--sidebar-w) 1fr}
+    .sidebar{
+      height:100vh;position:sticky;top:0;
+      padding:18px 12px;color:#fff;
+      background:linear-gradient(170deg,var(--pr) 0%,var(--pr-d) 100%);
+      box-shadow:6px 0 24px rgba(15,23,42,.15);
+      animation:slideLeft .32s ease;z-index:10;
+      display:flex;flex-direction:column;gap:0;overflow-y:auto;overflow-x:hidden;
+      scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;
+    }
+    .sidebar::-webkit-scrollbar{width:4px}
+    .sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:4px}
+    .brand{display:flex;gap:11px;align-items:center;padding:10px 8px 20px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.11)}
+    .brand-mark{
+      width:42px;height:42px;border-radius:13px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--gold),#f97316);
+      color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px;
+      box-shadow:0 6px 18px rgba(245,158,11,.35);
+    }
+    .brand h2{font-size:15px;color:#fff;font-weight:800;line-height:1.2}
+    .brand p{font-size:11px;margin-top:2px;color:rgba(255,255,255,.5);font-weight:500}
+    .nav{display:grid;gap:4px;margin-bottom:6px}
+    .nav button{
+      width:100%;border:0;border-radius:10px;background:transparent;
+      color:rgba(255,255,255,.62);padding:10px 12px;
+      text-align:left;font-weight:700;font-size:13px;
+      transition:var(--tr);display:flex;align-items:center;gap:8px;
+    }
+    .nav button:hover,.nav button.active{background:rgba(245,158,11,.15);color:var(--gold-l)}
+    .nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .side-divider{height:1px;background:rgba(255,255,255,.09);margin:10px 8px}
+    .side-card{
+      margin-top:auto;padding:12px;border-radius:13px;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+      font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.65);
+    }
+    .side-card b{display:block;color:#fff;font-size:13px;margin-bottom:3px}
+    .streak-badge{
+      display:inline-flex;align-items:center;gap:5px;
+      background:linear-gradient(135deg,#f97316,var(--gold));
+      color:#fff;border-radius:8px;padding:4px 9px;font-size:12px;font-weight:700;
+      margin-top:8px;
+    }
+
+    /* â”€â”€ Main â”€â”€ */
+    .main{min-width:0;padding:22px;background:var(--bg);transition:background .3s}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;animation:fadeUp .22s ease}
+    .title h1{font-size:22px;color:var(--text);font-weight:800;margin-bottom:2px}
+    .title p{font-size:12px;color:var(--muted);font-weight:500}
+    .actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+
+    /* â”€â”€ Buttons â”€â”€ */
+    .btn{
+      min-height:37px;border-radius:10px;padding:7px 13px;
+      border:1.5px solid transparent;font-size:12.5px;font-weight:700;
+      display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:var(--tr);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{color:#fff;background:linear-gradient(135deg,var(--gold),#f97316);box-shadow:0 6px 18px rgba(245,158,11,.22)}
+    .btn.dark{color:#fff;background:var(--pr);box-shadow:0 4px 14px rgba(30,58,138,.25)}
+    .btn.ghost{background:var(--surface);color:var(--text2);border-color:var(--border)}
+    .btn.warn{background:#fef3c7;color:#92400e;border-color:#fde68a}
+    .btn.danger{background:var(--red-bg);color:#991b1b;border-color:#fecaca}
+    .btn.green{background:var(--green);color:#fff;box-shadow:0 4px 14px rgba(16,185,129,.22)}
+    .btn.teal{background:var(--teal);color:#fff}
+    .btn.sm{min-height:30px;padding:5px 10px;font-size:12px;border-radius:8px}
+
+    /* â”€â”€ Metrics grid â”€â”€ */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:13px}
+    .metric{
+      background:var(--surface);border:1px solid var(--border);border-radius:16px;
+      padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+      animation:fadeUp .25s ease;transition:transform .2s,box-shadow .2s,background .3s,border-color .3s;
+    }
+    .metric:before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
+    .metric:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+    .metric b{display:block;font-size:27px;color:var(--pr);line-height:1;margin-bottom:6px;font-weight:800}
+    .metric span{font-size:12px;color:var(--muted);font-weight:700;display:block}
+    .metric small{display:block;margin-top:6px;font-size:11px;color:var(--muted)}
+    [data-theme=dark] .metric b{color:var(--pr-l)}
+
+    /* â”€â”€ Cards â”€â”€ */
+    .card{
+      margin-top:13px;padding:18px;border-radius:16px;
+      background:var(--surface);border:1px solid var(--border);
+      box-shadow:var(--shadow);animation:fadeUp .25s ease;
+      transition:background .3s,border-color .3s;
+    }
+    .card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}
+    .card h3{font-size:14px;color:var(--pr);font-weight:800}
+    [data-theme=dark] .card h3{color:var(--pr-l)}
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+
+    /* â”€â”€ Progress bars â”€â”€ */
+    .progress{height:9px;border-radius:999px;background:var(--border);overflow:hidden}
+    .bar{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--teal));transition:width .4s ease}
+    .hero-progress{height:13px}
+
+    /* â”€â”€ Filters â”€â”€ */
+    .filters{display:grid;grid-template-columns:2fr repeat(3,minmax(120px,1fr));gap:9px}
+    .input input,.input select{
+      width:100%;min-height:39px;border:1.5px solid var(--border);border-radius:10px;
+      background:var(--surface);color:var(--text);padding:8px 11px;outline:none;transition:var(--tr);font-size:13px;
+    }
+    .input input:focus,.input select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,158,11,.13)}
+
+    /* â”€â”€ Category grid â”€â”€ */
+    .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:9px}
+    .cat-card{
+      background:var(--surface2);border:1.5px solid var(--border);border-radius:13px;
+      padding:13px 14px;text-align:left;cursor:pointer;width:100%;
+      transition:var(--tr);
+    }
+    .cat-card:hover{border-color:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 22px rgba(245,158,11,.14)}
+    .cat-card.active{border-color:var(--gold);background:linear-gradient(180deg,#fff7ed,var(--surface));box-shadow:0 10px 26px rgba(245,158,11,.16)}
+    [data-theme=dark] .cat-card.active{background:linear-gradient(180deg,rgba(245,158,11,.12),var(--surface))}
+    .cat-card b{display:block;font-size:13px;color:var(--text);font-weight:700;margin-bottom:5px}
+    .cat-card span{display:block;font-size:11.5px;color:var(--muted);margin-bottom:7px}
+    .cat-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+    .cat-count{font-size:11px;color:var(--muted);font-weight:700}
+
+    /* â”€â”€ Topic groups â”€â”€ */
+    .topic-group{
+      margin-top:9px;border:1px solid var(--border);border-radius:14px;
+      background:var(--surface);overflow:hidden;transition:box-shadow .2s,background .3s,border-color .3s;
+    }
+    .topic-group:hover{box-shadow:var(--shadow)}
+    .topic-group summary{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px 15px;cursor:pointer;list-style:none;user-select:none;
+      background:var(--surface2);border-bottom:1px solid var(--border);
+      transition:background .18s;
+    }
+    .topic-group summary::-webkit-details-marker{display:none}
+    .topic-group summary:hover{background:var(--bg)}
+    .group-title{font-size:13.5px;font-weight:800;color:var(--text)}
+    .group-actions{display:flex;gap:6px;align-items:center}
+    .subsection{padding:0 14px}
+    .subsection h4{
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:11.5px;color:var(--muted);font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+      padding:9px 0 6px;border-bottom:1px solid var(--border);margin-bottom:2px;
+    }
+    .subsection-actions{display:flex;gap:5px;align-items:center}
+    .topic{
+      display:grid;grid-template-columns:18px 1fr auto;
+      align-items:start;gap:9px;padding:8px 0;
+      border-top:1px dashed var(--border);transition:background .15s,transform .15s;border-radius:8px;
+    }
+    .topic:first-of-type{border-top:0}
+    .topic:hover{background:var(--surface2);transform:translateX(2px);padding-left:4px;padding-right:4px}
+    .topic input[type=checkbox]{
+      width:17px;height:17px;margin-top:2px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;
+    }
+    .topic input:checked{animation:checkBounce .25s ease}
+    .topic-title{color:var(--text2);font-size:13px;line-height:1.35;font-weight:500}
+    .done{opacity:.5;text-decoration:line-through;text-decoration-color:var(--muted)}
+    .topic.saving{opacity:.65;pointer-events:none}
+
+    /* â”€â”€ Pills â”€â”€ */
+    .pill{
+      display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+      border-radius:999px;border:1px solid var(--border);padding:3px 8px;
+      background:var(--surface);color:var(--text2);font-size:11px;font-weight:700;
+    }
+    .pill.high{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
+    .pill.medium{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+    .pill.low{background:var(--surface2);color:var(--muted);border-color:var(--border)}
+    .pill.active{background:var(--green-bg);color:#047857;border-color:#a7f3d0}
+    .pill.disabled{background:var(--red-bg);color:#991b1b;border-color:#fecaca}
+    .pill.expired{background:#fef3c7;color:#92400e;border-color:#fde68a}
+    .pill.admin{background:#eef2ff;color:#3730a3;border-color:#c7d2fe}
+    [data-theme=dark] .pill.high{background:rgba(249,115,22,.15);color:#fb923c;border-color:rgba(249,115,22,.3)}
+    [data-theme=dark] .pill.medium{background:rgba(59,130,246,.15);color:#60a5fa;border-color:rgba(59,130,246,.3)}
+    [data-theme=dark] .pill.active{background:rgba(16,185,129,.15);color:#34d399;border-color:rgba(16,185,129,.3)}
+
+    /* â”€â”€ Topic list header â”€â”€ */
+    .topic-list-head{
+      margin-top:13px;padding:15px 18px;border:1px solid var(--border);border-radius:16px;
+      background:linear-gradient(135deg,var(--pr),var(--pr-d));color:#fff;
+      box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .topic-list-head h3{color:#fff;font-size:15px;font-weight:800}
+    .topic-list-head p{margin-top:3px;color:rgba(255,255,255,.65);font-size:12px}
+    .topic-list-head .pill{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22);color:#fff}
+    .tlh-actions{display:flex;gap:7px;align-items:center}
+
+    /* â”€â”€ Charts â”€â”€ */
+    .dashboard-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:13px;margin-top:13px}
+    .chart-card{min-height:230px}
+    .donut-wrap{display:grid;grid-template-columns:155px 1fr;gap:16px;align-items:center}
+    .donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--border)}
+    .donut-center{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;background:var(--surface);box-shadow:var(--shadow);text-align:center}
+    .donut-center b{display:block;color:var(--pr);font-size:24px;line-height:1;font-weight:800}
+    .donut-center span{display:block;margin-top:4px;color:var(--muted);font-size:11px;font-weight:700}
+    [data-theme=dark] .donut-center b{color:var(--pr-l)}
+    .chart-list{display:grid;gap:9px}
+    .chart-row{display:grid;gap:5px}
+    .chart-row-head{display:flex;justify-content:space-between;gap:10px;color:var(--text2);font-size:12px;font-weight:700}
+    .bar-track{height:9px;border-radius:999px;overflow:hidden;background:var(--border)}
+    .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--teal));transition:width .45s ease}
+    .bar-fill.green{background:linear-gradient(90deg,var(--green),var(--teal-l))}
+    .bar-fill.warn{background:linear-gradient(90deg,var(--gold),#f97316)}
+    .bar-fill.red{background:linear-gradient(90deg,var(--red),#f97316)}
+
+    /* â”€â”€ Hero card â”€â”€ */
+    .hero-card{
+      position:relative;overflow:hidden;
+      background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 60%,#fff7ed 100%);
+    }
+    [data-theme=dark] .hero-card{background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 60%,rgba(245,158,11,.08) 100%)}
+    .hero-card:after{
+      content:'';position:absolute;width:160px;height:160px;right:-50px;top:-60px;
+      border-radius:50%;background:rgba(245,158,11,.12);pointer-events:none;
+    }
+
+    /* â”€â”€ Study timer â”€â”€ */
+    .timer-bar{
+      display:flex;align-items:center;gap:10px;padding:10px 15px;border-radius:12px;
+      background:var(--surface2);border:1px solid var(--border);margin-top:10px;
+      font-family:var(--mono);font-size:14px;font-weight:600;color:var(--text);
+      transition:background .3s,border-color .3s;
+    }
+    .timer-display{font-size:22px;font-weight:700;color:var(--gold);min-width:70px}
+    .timer-label{font-size:11px;color:var(--muted);font-family:var(--font);font-weight:700;flex:1}
+    .timer-running .timer-display{animation:pulse 1.5s ease-in-out infinite}
+
+    /* â”€â”€ Empty / loading â”€â”€ */
+    .empty{padding:30px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--border);border-radius:14px;margin-top:13px}
+    .loading{min-height:200px;display:grid;place-items:center;color:var(--muted)}
+    .skeleton{position:relative;overflow:hidden;background:var(--border);border-radius:10px}
+    .skeleton:after{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:shimmer 1.2s infinite}
+    [data-theme=dark] .skeleton:after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)}
+    .loader-lines{display:grid;gap:9px;padding:16px}
+    .loader-lines .skeleton:nth-child(1){height:18px;width:60%}
+    .loader-lines .skeleton:nth-child(2){height:13px;width:85%}
+    .loader-lines .skeleton:nth-child(3){height:13px;width:75%}
+    .loader-lines .skeleton:nth-child(4){height:13px;width:90%}
+    .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite}
+
+    /* â”€â”€ Toast â”€â”€ */
+    .toast-zone{position:fixed;top:14px;right:14px;z-index:60;display:grid;gap:7px;pointer-events:none}
+    .toast{
+      min-width:240px;max-width:340px;padding:11px 13px;border-radius:11px;
+      border-left:4px solid var(--gold);color:#fff;background:#0f172a;
+      box-shadow:var(--shadow2);font-size:13px;animation:toastIn .22s ease;pointer-events:all;
+    }
+    .toast.ok{border-left-color:var(--green)}
+    .toast.err{border-left-color:var(--red)}
+
+    /* â”€â”€ Modal â”€â”€ */
+    .modal-shade{position:fixed;inset:0;z-index:40;background:rgba(15,23,42,.55);display:flex;align-items:flex-start;justify-content:center;padding:40px 14px;overflow:auto;backdrop-filter:blur(4px)}
+    .modal{width:min(900px,100%);padding:20px;background:var(--surface);border-radius:22px;box-shadow:var(--shadow3);animation:popIn .22s ease;border:1px solid var(--border)}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .modal-head h3{font-size:16px;font-weight:800;color:var(--text)}
+    .modal-close{border:0;background:var(--surface2);color:var(--muted);width:32px;height:32px;border-radius:8px;font-size:18px;display:flex;align-items:center;justify-content:center}
+    .modal-close:hover{background:var(--red-bg);color:var(--red)}
+
+    /* â”€â”€ Keyboard shortcut badge â”€â”€ */
+    .kbd{
+      display:inline-flex;align-items:center;gap:2px;font-family:var(--mono);
+      font-size:10px;background:var(--surface2);border:1px solid var(--border2);
+      border-radius:5px;padding:1px 5px;color:var(--muted);
+    }
+
+    /* â”€â”€ Admin â”€â”€ */
+    .admin-user{margin-top:9px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow);transition:background .3s,border-color .3s}
+    .admin-user-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .admin-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+    .admin-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 13px}
+    .admin-tabs button{border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text2);padding:8px 13px;font-weight:700;font-size:13px;transition:var(--tr)}
+    .admin-tabs button.active,.admin-tabs button:hover{color:#fff;background:var(--pr);border-color:var(--pr);transform:translateY(-1px)}
+    .admin-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:13px;animation:fadeUp .22s ease}
+    .user-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--border)}
+    .user-row:first-of-type{border-top:0}
+    .setting-row{display:flex;align-items:center;justify-content:space-between;gap:13px;padding:13px;border:1px solid var(--border);border-radius:13px;background:var(--surface2)}
+    .switch{width:50px;height:28px;border:0;border-radius:999px;background:var(--border2);padding:3px;transition:var(--tr)}
+    .switch:before{content:'';display:block;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(15,23,42,.2);transition:var(--tr)}
+    .switch.on{background:var(--green)}
+    .switch.on:before{transform:translateX(22px)}
+    .topic-admin-list{max-height:400px;overflow:auto;border:1px solid var(--border);border-radius:13px}
+    .topic-admin-row{display:grid;grid-template-columns:24px 1fr auto;gap:9px;align-items:start;padding:10px 13px;border-top:1px solid var(--border)}
+    .topic-admin-row:first-child{border-top:0}
+    .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:11px}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th,td{padding:9px;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+    th{color:var(--pr);background:var(--surface2);font-weight:700}
+    [data-theme=dark] th{color:var(--pr-l)}
+    .admin-user.saving{opacity:.7;pointer-events:none}
+    @keyframes savedFlash{0%{background:#ecfdf5;border-color:#86efac}100%{background:var(--surface);border-color:var(--border)}}
+    .admin-user.saved{animation:savedFlash .75s ease}
+
+    /* â”€â”€ Hamburger (mobile) â”€â”€ */
+    .hamburger{
+      display:none;border:0;background:var(--surface);border-radius:10px;
+      width:38px;height:38px;align-items:center;justify-content:center;
+      flex-direction:column;gap:4px;cursor:pointer;box-shadow:var(--shadow);
+    }
+    .hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:var(--tr)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9;backdrop-filter:blur(2px)}
+
+    /* â”€â”€ Theme toggle â”€â”€ */
+    .theme-btn{
+      border:1.5px solid var(--border);background:var(--surface);color:var(--text2);
+      border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+      font-size:17px;transition:var(--tr);
+    }
+    .theme-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* â”€â”€ Responsive â”€â”€ */
+    @media(max-width:980px){
+      .dashboard-grid,.donut-wrap{grid-template-columns:1fr}
+      .donut{margin:0 auto}
+    }
+    @media(max-width:860px){
+      .app{grid-template-columns:1fr}
+      .sidebar{height:auto;position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;transform:translateX(-100%);transition:transform .28s ease;z-index:11}
+      .sidebar.open{transform:translateX(0)}
+      .sidebar-overlay.show{display:block}
+      .main{padding:14px}
+      .hamburger{display:flex}
+      .topbar{align-items:flex-start;flex-direction:column;gap:9px}
+      .filters{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:560px){
+      .main{padding:10px}
+      .filters{grid-template-columns:1fr}
+      .grid,.cat-grid{grid-template-columns:1fr 1fr}
+      .actions,.admin-actions{width:100%}
+      .actions .btn,.admin-actions .btn{flex:1}
+      .dashboard-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:380px){
+      .grid,.cat-grid{grid-template-columns:1fr}
+    }
+
+    </style>
+    
+</head
+  >
+
+  <body>
+    
+
+    <div id="app"></div>
+    
+
+    <div id="toastZone" class="toast-zone"></div>
+    
+
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="closeSidebar()"
+    ></div>
+    
+
+
+    <script>
+      
+/* â”€â”€ State â”€â”€ */
+var state = {
+  screen:'login',loginTab:'user',loading:false,loadingCategory:false,
+  user:null,categories:[],categoryProgress:{},overallProgress:null,
+  overallProgressLoading:false,selectedCategory:'',topics:[],
+  filters:{q:'',category:'',status:'all',priority:'all'},
+  busyTopics:{},busyTopic:'',
+  admin:null,adminToken:'',adminUsers:[],adminDashboard:null,adminDetail:null,
+  adminDetailFilter:'',adminTab:'users',adminUserFilter:{q:'',status:'all'},
+  studyTimerSec:0,studyTimerRunning:false,studyTimerInterval:null,
+  filterTimer:null,theme:'light',streak:0
+};
+
+/* â”€â”€ Perf cache â”€â”€ */
+var CACHE_TTL = 3600000; // 1h
+function cacheSet(k,v){try{localStorage.setItem('ssc_'+k,JSON.stringify({v:v,t:Date.now()}))}catch(e){}}
+function cacheGet(k){try{var d=JSON.parse(localStorage.getItem('ssc_'+k)||'null');if(d&&Date.now()-d.t<CACHE_TTL)return d.v}catch(e){}return null}
+function cacheClear(k){try{localStorage.removeItem('ssc_'+k)}catch(e){}}
+
+/* â”€â”€ Theme â”€â”€ */
+function loadTheme(){
+  var saved=localStorage.getItem('ssc_theme')||'light';
+  state.theme=saved;
+  document.documentElement.setAttribute('data-theme',saved);
+}
+function toggleTheme(){
+  state.theme=state.theme==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',state.theme);
+  localStorage.setItem('ssc_theme',state.theme);
+  var btn=document.getElementById('themeBtn');
+  if(btn)btn.textContent=state.theme==='dark'?'Light':'Dark';
+}
+loadTheme();
+
+/* â”€â”€ Streak â”€â”€ */
+function loadStreak(){
+  try{
+    var data=JSON.parse(localStorage.getItem('ssc_streak')||'{}');
+    var today=new Date().toISOString().slice(0,10);
+    if(data.last===today){state.streak=data.count||0;return}
+    var yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    if(data.last===yesterday){state.streak=data.count||0}else{state.streak=0}
+  }catch(e){state.streak=0}
+}
+function recordStudyToday(){
+  try{
+    var today=new Date().toISOString().slice(0,10);
+    var data=JSON.parse(localStorage.getItem('ssc_streak')||'{}');
+    if(data.last===today)return;
+    var yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    var count=(data.last===yesterday)?(data.count||0)+1:1;
+    localStorage.setItem('ssc_streak',JSON.stringify({last:today,count:count}));
+    state.streak=count;
+  }catch(e){}
+}
+loadStreak();
+
+/* â”€â”€ Utils â”€â”€ */
+function el(id){return document.getElementById(id)}
+function escapeHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function escapeAttr(s){return String(s==null?'':s).replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function jsArg(v){return escapeAttr(JSON.stringify(String(v==null?'':v)))}
+function pct(done,total){return total?Math.round(done*100/total):0}
+function fmtDate(d){if(!d)return 'No expiry';try{return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return String(d)}}
+function shortDate(d){if(!d)return 'No limit';try{var ms=new Date(d)-Date.now();if(ms<0)return 'Expired';var days=Math.ceil(ms/86400000);return days+'d left'}catch(e){return String(d)}}
+function fmtTimer(s){var m=Math.floor(s/60);var sec=s%60;return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')}
+// Fetch the CSRF token once on page load and store it
+var CSRF_TOKEN = "";
+
+async function initCsrf() {
+  try {
+    const r = await fetch("/api/csrf-token", { credentials: "include" });
+    const data = await r.json();
+    CSRF_TOKEN = data.csrfToken || "";
+  } catch (e) {
+    console.error("CSRF init failed", e);
+  }
+}
+
+// Universal API call helper (replaces gs())
+async function api(method, path, body) {
+  const opts = {
+    method: method.toUpperCase(),
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": CSRF_TOKEN,
+    },
+  };
+  if (body && method.toUpperCase() !== "GET") {
+    opts.body = JSON.stringify(body);
+  }
+  const res = await fetch("/api" + path, opts);
+
+  if (res.status === 401) {
+    // Session expired
+    state.user = null;
+    state.admin = null;
+    state.screen = "login";
+    renderLogin();
+    toast("Session expired. Please login again.", "err");
+    throw new Error("Session expired");
+  }
+
+  const data = await res.json();
+  if (!res.ok || data.ok === false) {
+    throw new Error(data.error || `HTTP ${res.status}`);
+  }
+  return data;
+}
+
+function toast(msg,type,dur){
+  var z=el('toastZone');if(!z)return;
+  var d=document.createElement('div');
+  d.className='toast '+(type||'');d.textContent=msg;
+  z.appendChild(d);
+  var t=dur||3000;
+  setTimeout(function(){d.style.animation='toastOut .22s ease forwards';setTimeout(function(){d.remove()},220)},t);
+}
+function fail(err){toast(err&&err.message?err.message:String(err),'err')}
+function render(){if(state.screen==='login')renderLogin();else if(state.screen==='user')renderUser();else if(state.screen==='admin')renderAdmin()}
+
+/* â”€â”€ Timer â”€â”€ */
+function startTimer(){
+  if(state.studyTimerRunning)return;
+  state.studyTimerRunning=true;recordStudyToday();
+  state.studyTimerInterval=setInterval(function(){
+    state.studyTimerSec++;
+    var d=el('timerDisplay');if(d)d.textContent=fmtTimer(state.studyTimerSec);
+    var b=el('timerBar');if(b)b.classList.add('timer-running');
+  },1000);
+  var d=el('timerDisplay');if(d)d.textContent=fmtTimer(state.studyTimerSec);
+  toast('Study timer started ','ok');
+}
+function pauseTimer(){
+  if(!state.studyTimerRunning)return;
+  state.studyTimerRunning=false;
+  clearInterval(state.studyTimerInterval);
+  var b=el('timerBar');if(b)b.classList.remove('timer-running');
+  toast('Timer paused at '+fmtTimer(state.studyTimerSec),'');
+}
+function resetTimer(){
+  pauseTimer();state.studyTimerSec=0;
+  var d=el('timerDisplay');if(d)d.textContent='00:00';
+}
+
+/* â”€â”€ Sidebar mobile â”€â”€ */
+function openSidebar(){
+  var s=document.querySelector('.sidebar');var o=el('sidebarOverlay');
+  if(s)s.classList.add('open');if(o)o.classList.add('show');
+}
+function closeSidebar(){
+  var s=document.querySelector('.sidebar');var o=el('sidebarOverlay');
+  if(s)s.classList.remove('open');if(o)o.classList.remove('show');
+}
+
+/* â”€â”€ Keyboard shortcuts â”€â”€ */
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')return;
+  if(e.key==='/'&&state.screen==='user'){e.preventDefault();var s=document.querySelector('.filters input');if(s){s.focus();s.select()}}
+  if(e.key==='t'&&state.screen==='user'){e.preventDefault();if(state.studyTimerRunning)pauseTimer();else startTimer()}
+  if(e.key==='Escape'){closeModal()}
+});
+
+/* â”€â”€ Export CSV â”€â”€ */
+function exportCsv(){
+  if(!state.topics||!state.topics.length){toast('No topics loaded to export','err');return}
+  var rows=[['Topic','Category','Subsection','Priority','Status','Completed At']];
+  state.topics.forEach(function(t){
+    rows.push([
+      '"'+String(t.topicName||'').replace(/"/g,'""')+'"',
+      '"'+String(t.category||'').replace(/"/g,'""')+'"',
+      '"'+String(t.subsection||'').replace(/"/g,'""')+'"',
+      t.priority||'medium',
+      t.completed?'Done':'Pending',
+      t.completedAt?new Date(t.completedAt).toLocaleDateString('en-IN'):''
+    ]);
+  });
+  var csv=rows.map(function(r){return r.join(',')}).join('\
+');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='ssc_progress_'+state.selectedCategory+'_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  toast('CSV downloaded!','ok');
+}
+
+/* â”€â”€ Mark all in subsection â”€â”€ */
+async function markSubsectionDone(category,subsection,done){
+  if(!state.user)return;
+  var items=state.topics.filter(function(t){return t.category===category&&t.subsection===subsection&&t.completed!==done});
+  if(!items.length){toast('Nothing to change','');return}
+  recordStudyToday();
+  for(var i=0;i<items.length;i++){
+    var t=items[i];
+    if(state.busyTopics[t.topicId])continue;
+    t.completed=done;t.completedAt=done?new Date().toISOString():null;
+    state.busyTopics[t.topicId]=true;
+    try{await api('POST','/user/toggle-topic',{topicId:t.topicId})}catch(e){}
+    delete state.busyTopics[t.topicId];
+  }
+  updateCategoryProgress(category,state.topics);
+  refreshUserProgressChrome();
+  renderUser();
+  toast((done?'Marked all done':'Marked all pending')+': '+subsection,'ok');
+}
+
+/* â”€â”€ Mark all in category group â”€â”€ */
+async function markGroupDone(category,done){
+  if(!state.user)return;
+  var items=state.topics.filter(function(t){return t.category===category&&t.completed!==done});
+  if(!items.length){toast('Nothing to change','');return}
+  recordStudyToday();
+  for(var i=0;i<items.length;i++){
+    var t=items[i];
+    if(state.busyTopics[t.topicId])continue;
+    t.completed=done;t.completedAt=done?new Date().toISOString():null;
+    state.busyTopics[t.topicId]=true;
+    try{await api('POST','/user/toggle-topic',{topicId:t.topicId})}catch(e){}
+    delete state.busyTopics[t.topicId];
+  }
+  updateCategoryProgress(category,state.topics);
+  refreshUserProgressChrome();
+  renderUser();
+  toast((done?'Entire group done':'Group reset')+': '+category,'ok');
+}
+
+/* â”€â”€ Login â”€â”€ */
+function renderLogin(){
+  state.screen='login';
+  el('app').innerHTML=
+    '<div class="login-page">'+
+    '<div class="login-orb a"></div><div class="login-orb b"></div>'+
+    '<div class="login-card">'+
+    '<div class="login-logo">'+
+    '<div class="login-mark">SSC</div>'+
+    '<h1>Prep Tracker</h1>'+
+    '<p>CAREERWILL - STUDY SMART</p>'+
+    '<small>Track every class. Ace every exam.</small>'+
+    '</div>'+
+    '<div class="tabs">'+
+    '<button class="tab '+(state.loginTab==='user'?'active':'')+'" onclick="switchTab(\'user\')">Student Login</button>'+
+    '<button class="tab '+(state.loginTab==='register'?'active':'')+'" onclick="switchTab(\'register\')">Register</button>'+
+    '<button class="tab '+(state.loginTab==='admin'?'active':'')+'" onclick="switchTab(\'admin\')">Admin</button>'+
+    '</div>'+
+    // User login
+    '<div id="tabUser" class="login-form '+(state.loginTab==='user'?'active':'')+'">'+'<div class="field"><label>Username</label><input id="lu" type="text" placeholder="your username" autocomplete="username"/></div>'+'<div class="field"><label>Password</label><input id="lp" type="password" placeholder="password" autocomplete="current-password"/></div>'+'<button class="login-btn" id="loginBtn" onclick="doLogin()">Login</button>'+'</div>'+
+    // Register
+    '<div id="tabRegister" class="login-form '+(state.loginTab==='register'?'active':'')+'">'+'<div class="field"><label>Name</label><input id="rn" type="text" placeholder="Your full name"/></div>'+'<div class="field"><label>Username</label><input id="ru" type="text" placeholder="choose a username" autocomplete="username"/></div>'+'<div class="field"><label>Password</label><input id="rp" type="password" placeholder="min 6 chars" autocomplete="new-password"/></div>'+'<button class="login-btn" id="regBtn" onclick="doRegister()">Register</button>'+'<div class="note">Registrations may be disabled by admin. Contact your instructor for access.</div>'+'</div>'+
+    // Admin login
+    '<div id="tabAdmin" class="login-form '+(state.loginTab==='admin'?'active':'')+'">'+'<div class="field"><label>Admin Username</label><input id="au" type="text" placeholder="admin username" autocomplete="username"/></div>'+'<div class="field"><label>Admin Password</label><input id="ap" type="password" placeholder="password" autocomplete="current-password"/></div>'+'<button class="login-btn" id="adminLoginBtn" onclick="doAdminLogin()" style="background:linear-gradient(135deg,var(--pr-l),var(--pr))">Admin Login</button>'+'</div>'+
+    '</div></div>';
+  setTimeout(function(){var i=el('lu');if(i)i.focus()},100);
+  // Enter key support
+  setTimeout(function(){
+    ['lu','lp','ru','rp','rn','au','ap'].forEach(function(id){
+      var inp=el(id);if(!inp)return;
+      inp.addEventListener('keydown',function(e){if(e.key==='Enter'){if(state.loginTab==='user')doLogin();else if(state.loginTab==='register')doRegister();else doAdminLogin()}});
+    });
+  },150);
+}
+function switchTab(t){state.loginTab=t;renderLogin()}
+
+async function doLogin(){
+  var u=(el('lu').value||'').trim(),p=el('lp').value||'';
+  if(!u||!p){toast('Enter username and password','err');return}
+  var btn=el('loginBtn');btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Logging in...';
+  try{
+    var r=await api('POST','/auth/login',{username:u,password:p});
+    if(!r||!r.ok){toast(r&&r.error||'Invalid credentials','err');return}
+    state.user=r.user;state.screen='user';
+    state.categories=r.categories||[];
+    cacheSet('cats_'+state.user.username,state.categories);
+    // Try restore last category
+    var lastCat=cacheGet('lastcat_'+state.user.username);
+    if(lastCat&&state.categories.find(function(c){return c.category===lastCat})){
+      state.overallProgress=null;state.overallProgressLoading=true;
+      renderUser();fetchOverallProgress();
+      loadCategory(lastCat,false);
+    } else {
+      state.overallProgress=null;state.overallProgressLoading=true;
+      renderUser();fetchOverallProgress();
+    }
+  }catch(err){fail(err)}
+  finally{if(btn){btn.disabled=false;btn.innerHTML='Login'}}
+}
+
+async function doRegister(){
+  var n=(el('rn').value||'').trim(),u=(el('ru').value||'').trim(),p=el('rp').value||'';
+  if(!u||!p){toast('Username and password required','err');return}
+  var btn=el('regBtn');btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
+  try{
+    var r=await api('POST','/auth/register',{username:u,password:p,name:n});
+    if(!r.ok){toast(r.error||'Registration failed','err');return}
+    toast('Account created! Please login.','ok');switchTab('user');
+  }catch(err){fail(err)}
+  finally{if(btn){btn.disabled=false;btn.innerHTML='Register'}}
+}
+
+async function doAdminLogin(){
+  var u=(el('au').value||'').trim(),p=el('ap').value||'';
+  if(!u||!p){toast('Enter admin credentials','err');return}
+  var btn=el('adminLoginBtn');btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
+  try{
+    var r=await api('POST','/auth/login',{username:u,password:p});
+    if(!r||!r.ok){toast(r&&r.error||'Invalid admin credentials','err');return}
+    state.admin=r.user;state.adminToken='';state.screen='admin';
+    state.adminDashboard=null;state.adminUsers=[];
+    renderAdmin();adminRefresh();
+  }catch(err){fail(err)}
+  finally{if(btn){btn.disabled=false;btn.innerHTML='Admin Login'}}
+}
+
+/* â”€â”€ Shell â”€â”€ */
+function shell(title,subtitle,active,body,adminMode){
+  var who=adminMode?((state.admin&&state.admin.username)||'admin'):((state.user&&state.user.username)||'user');
+  var navItems=adminMode?[
+    {label:'Dashboard',act:'dashboard',click:'adminRefresh()'},
+    {label:'Users',act:'users',click:'scrollAdminUsers()'},
+    {label:'Logs',act:'logs',click:'adminRefresh()'},
+    {label:'Settings',act:'settings',click:'adminRefresh()'},
+    {label:'Logout',act:'',click:'adminLogoutUi()'}
+  ]:[
+    {label:'Dashboard',act:'dashboard',click:'reloadUser()'},
+    {label:'Topics',act:'topics',click:'scrollTopics()'},
+    {label:'Export CSV',act:'',click:'exportCsv()'},
+    {label:'Logout',act:'',click:'logout()'}
+  ];
+
+  var streakHtml=state.streak>0?'<div class="streak-badge">'+state.streak+' day streak</div>':'';
+  var timerHtml=!adminMode?('<div class="timer-bar" id="timerBar">'+
+    '<span class="timer-display" id="timerDisplay">'+fmtTimer(state.studyTimerSec)+'</span>'+
+    '<span class="timer-label">Study session<br><span class="muted" style="font-size:10px;font-weight:500">Press <span class="kbd">T</span> to toggle</span></span>'+
+    '<button class="btn sm ghost" onclick="'+(state.studyTimerRunning?'pauseTimer()':'startTimer()')+'\">'+
+    (state.studyTimerRunning?'Pause':'Start')+'</button>'+
+    '<button class="btn sm ghost" onclick="resetTimer()" title="Reset">Reset</button>'+
+    '</div>'):'';
+
+  return (
+    '<div class="app">'+
+    '<button class="hamburger" onclick="openSidebar()" style="position:fixed;top:12px;left:12px;z-index:20" id="hamburgerBtn">'+
+    '<span></span><span></span><span></span></button>'+
+    '<aside class="sidebar">'+
+    '<div class="brand"><div class="brand-mark">SSC</div><div><h2>Prep Tracker</h2><p>'+(adminMode?'Admin console':'Study dashboard')+'</p></div></div>'+
+    '<nav class="nav">'+
+    navItems.map(function(n){return '<button class="'+(active===n.act?'active':'')+'" onclick="'+n.click+';closeSidebar()"><span class="nav-icon">'+n.label.split(' ')[0]+'</span>'+n.label.split(' ').slice(1).join(' ')+'</button>'}).join('')+
+    '</nav>'+
+    '<div class="side-divider"></div>'+
+    '<div class="side-card"><b>'+escapeHtml(who)+'</b>'+
+    (adminMode?'Admin panel':'Click a folder to load topics')+
+    streakHtml+
+    '</div>'+
+    '</aside>'+
+    '<main class="main">'+
+    '<div class="topbar">'+
+    '<div style="display:flex;align-items:center;gap:10px">'+
+    '<div style="width:38px;flex-shrink:0"></div>'+/* hamburger space */
+    '<div class="title"><h1>'+escapeHtml(title)+'</h1><p>'+escapeHtml(subtitle)+'</p></div>'+
+    '</div>'+
+    '<div class="actions">'+
+    (adminMode
+      ?'<button class="btn ghost sm" onclick="adminRefresh()">Refresh</button><button class="btn dark sm" onclick="adminLogoutUi()">Logout</button>'
+      :'<button class="btn ghost sm" onclick="reloadUser()">Refresh</button><button id="themeBtn" class="theme-btn" onclick="toggleTheme()" title="Toggle dark mode">'+(state.theme==='dark'?'Light':'Dark')+'</button><button class="btn danger sm" onclick="resetAll()">Reset</button><button class="btn dark sm" onclick="logout()">Logout</button>'
+    )+
+    '</div></div>'+
+    timerHtml+
+    body+
+    '</main></div>'
+  );
+}
+
+/* â”€â”€ Topic helpers â”€â”€ */
+function topicStats(list){
+  var total=list.length,done=list.filter(function(x){return x.completed}).length;
+  var highPending=list.filter(function(x){return String(x.priority||'').toLowerCase()==='high'&&!x.completed}).length;
+  return{total:total,done:done,pending:total-done,highPending:highPending,percent:pct(done,total)};
+}
+function updateCategoryProgress(category,topics){
+  category=String(category||'General');
+  var s=topicStats(topics||[]);
+  state.categoryProgress[category]={total:s.total,done:s.done,percent:s.percent,pending:s.pending,highPending:s.highPending};
+}
+function totalPrepTopics(){return(state.categories||[]).reduce(function(sum,c){return sum+Number(c.total||0)},0)}
+function normalizeOverallProgress(progress){
+  if(!progress)return null;
+  var total=Number(progress.total!==undefined?progress.total:totalPrepTopics());
+  var done=Number(progress.done||0);
+  done=Math.max(0,Math.min(done,total||done));
+  return{total:total,done:done,pending:Math.max(0,total-done),percent:pct(done,total)};
+}
+function getOverallProgress(){state.overallProgress=normalizeOverallProgress(state.overallProgress);return state.overallProgress}
+function setOverallProgress(progress){state.overallProgress=normalizeOverallProgress(progress);state.overallProgressLoading=false;refreshOverallProgressChrome()}
+function adjustOverallProgress(delta){var o=getOverallProgress();if(!o)return;setOverallProgress({total:o.total,done:o.done+Number(delta||0)})}
+async function fetchOverallProgress(){
+  if(!state.user)return;
+  state.overallProgressLoading=true;refreshOverallProgressChrome();
+  try{
+    var r=await api('GET','/user/overall-progress');
+    if(!r||!r.ok){state.overallProgressLoading=false;refreshOverallProgressChrome();return}
+    setOverallProgress(r.overallProgress);
+  }catch(err){state.overallProgressLoading=false;refreshOverallProgressChrome()}
+}
+function getCategories(){
+  if(state.categories&&state.categories.length){
+    return state.categories.map(function(c){
+      var name=c.category||c.name||'General';
+      var progress=state.categoryProgress[name]||{};
+      var total=Number(progress.total||c.total||0);
+      var done=Number(progress.done||0);
+      return{name:name,total:total,done:done,percent:pct(done,total),high:Number(c.high||0),medium:Number(c.medium||0),low:Number(c.low||0),loaded:Boolean(state.categoryProgress[name])};
+    });
+  }
+  var map={};
+  state.topics.forEach(function(t){var c=t.category||'General';if(!map[c])map[c]={total:0,done:0};map[c].total++;if(t.completed)map[c].done++});
+  return Object.keys(map).map(function(name){return{name:name,total:map[name].total,done:map[name].done,percent:pct(map[name].done,map[name].total),loaded:true}});
+}
+function filteredTopics(){
+  var q=state.filters.q.trim().toLowerCase();
+  return state.topics.filter(function(t){
+    if(state.filters.category&&t.category!==state.filters.category)return false;
+    if(state.filters.priority!=='all'&&t.priority!==state.filters.priority)return false;
+    if(state.filters.status==='done'&&!t.completed)return false;
+    if(state.filters.status==='pending'&&t.completed)return false;
+    if(q){var hay=[t.topicName,t.category,t.subsection].join(' ').toLowerCase();if(hay.indexOf(q)===-1)return false}
+    return true;
+  });
+}
+function groupTopics(list){
+  var grouped={};
+  list.forEach(function(t){
+    var cat=t.category||'General',sub=t.subsection||'General';
+    if(!grouped[cat])grouped[cat]={};
+    if(!grouped[cat][sub])grouped[cat][sub]=[];
+    grouped[cat][sub].push(t);
+  });
+  return grouped;
+}
+function setFilter(key,value){
+  if(key==='category'){
+    if(value){loadCategory(value,true)}else{state.filters.category=state.selectedCategory||'';renderUser()}
+    return;
+  }
+  state.filters[key]=value;renderUser();
+}
+function setFilterDebounced(key,value){
+  clearTimeout(state.filterTimer);
+  state.filterTimer=setTimeout(function(){setFilter(key,value)},160);
+}
+
+/* â”€â”€ Charts â”€â”€ */
+function renderDonutChart(stats){
+  var deg=Math.max(0,Math.min(360,Math.round((stats.percent||0)*3.6)));
+  return '<div class="donut-wrap">'+
+    '<div class="donut" style="background:conic-gradient(var(--green) 0deg '+deg+'deg,var(--border) '+deg+'deg 360deg)">'+
+    '<div class="donut-center"><div><b>'+stats.percent+'%</b><span>done</span></div></div>'+
+    '</div>'+
+    '<div class="chart-list">'+
+    renderChartRow('Completed',stats.done,stats.total,'green')+
+    renderChartRow('Pending',stats.pending,stats.total,'warn')+
+    renderChartRow('High priority pending',stats.highPending,stats.total,'')+
+    '</div></div>';
+}
+function renderChartRow(label,value,total,cls){
+  var p=pct(value||0,total||0);
+  return '<div class="chart-row"><div class="chart-row-head"><span>'+escapeHtml(label)+'</span><span>'+escapeHtml(value||0)+(total?' / '+escapeHtml(total):'')+'</span></div>'+
+    '<div class="bar-track"><div class="bar-fill '+(cls||'')+'" style="width:'+p+'%"></div></div></div>';
+}
+function renderPriorityBars(list){
+  var counts={high:0,medium:0,low:0};
+  list.forEach(function(t){var p=String(t.priority||'medium').toLowerCase();if(!counts[p])counts[p]=0;counts[p]++});
+  return '<div class="chart-list">'+renderChartRow('High',counts.high||0,list.length,'warn')+renderChartRow('Medium',counts.medium||0,list.length,'')+renderChartRow('Low',counts.low||0,list.length,'green')+'</div>';
+}
+function renderCategoryDistribution(cats){
+  var total=cats.reduce(function(sum,c){return sum+Number(c.total||0)},0);
+  var top=cats.slice(0,8);
+  if(!top.length)return '<div class="empty">No subjects yet. Build master topics first.</div>';
+  return '<div class="chart-list">'+top.map(function(c){return renderChartRow(c.name,c.total||0,total,'')}).join('')+'</div>';
+}
+function loadingTopicHtml(){
+  return '<div style="margin-top:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface)"><div class="loader-lines"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div></div>';
+}
+
+/* â”€â”€ Render user â”€â”€ */
+function renderUser(){
+  if(!state.user){renderLogin();return}
+  var s=topicStats(state.topics);
+  var cats=getCategories();
+  var overall=getOverallProgress();
+  var overallCard=state.overallProgressLoading||!overall
+    ?'<div class="metric"><b id="overallProgressPct">...</b><span>Overall progress</span><small id="overallProgressMessage">Fetching your overall stats...</small></div>'
+    :'<div class="metric"><b id="overallProgressPct">'+overall.percent+'%</b><span>Overall progress</span><small id="overallProgressMessage"><em id="overallProgressDone" style="font-style:normal">'+overall.done+'</em>/<em id="overallProgressTotal" style="font-style:normal">'+overall.total+'</em> topics completed</small></div>';
+  var shown=filteredTopics();
+  var grouped=groupTopics(shown);
+  var selectedLabel=state.selectedCategory||'No subject selected';
+  var openDetails=Boolean(state.filters.q.trim());
+  var catOptions=cats.map(function(c){return'<option value="'+escapeAttr(c.name)+'"'+(state.selectedCategory===c.name?' selected':'')+'>'+escapeHtml(c.name)+'</option>'}).join('');
+
+  var body='';
+
+  // Metrics
+  body+='<div class="grid" style="margin-top:6px">';
+  body+=overallCard;
+  body+='<div class="metric"><b id="userProgressPct">'+s.percent+'%</b><span>Subject progress</span><small><em id="userProgressDone" style="font-style:normal">'+s.done+'</em>/<em id="userProgressTotal" style="font-style:normal">'+s.total+'</em> loaded topics</small></div>';
+  body+='<div class="metric"><b id="userPendingCount">'+s.pending+'</b><span>Pending topics</span><small><em id="userHighPendingCount" style="font-style:normal">'+s.highPending+'</em> high-priority</small></div>';
+  body+='<div class="metric"><b>'+cats.length+'</b><span>Subjects available</span><small>Click any folder to load</small></div>';
+  body+='<div class="metric"><b>'+escapeHtml(shortDate(state.user.expiresAt))+'</b><span>Account validity</span><small>'+escapeHtml(fmtDate(state.user.expiresAt))+'</small></div>';
+  body+='</div>';
+
+  // Hero card
+  body+='<div class="card hero-card">';
+  body+='<div class="card-head"><h3>Study dashboard</h3><span class="pill active">'+escapeHtml(selectedLabel)+'</span></div>';
+  body+='<div class="progress hero-progress"><div id="userHeroProgressBar" class="bar" style="width:'+s.percent+'%\"></div></div>';
+  body+='<p class="muted small" style="margin-top:9px">Select a folder below to load topics. Use <span class="kbd">/</span> to search. <span class="kbd">T</span> toggles the study timer.</p>';
+  body+='</div>';
+
+  // Dashboard grid
+  body+='<div class="dashboard-grid">';
+  body+='<div class="card chart-card"><div class="card-head"><h3>Subject progress</h3><span class="muted small">Loaded subject</span></div>';
+  body+=renderDonutChart(s);
+  body+='</div>';
+  body+='<div class="card chart-card"><div class="card-head"><h3>Priority spread</h3><span class="muted small">All loaded topics</span></div>';
+  body+=state.topics.length?renderPriorityBars(state.topics):renderCategoryDistribution(cats);
+  body+='</div>';
+  body+='</div>';
+
+  // Folders
+  body+='<div class="card"><div class="card-head"><h3>Subjects</h3><span class="muted small">'+cats.length+' available</span></div>';
+  if(!cats.length){
+    body+='<div class="empty">No subjects found. Run setupRawFilesSheet() and buildMasterTopicsFromRawFiles() first.</div>';
+  } else {
+    body+='<div class="cat-grid">';
+    body+=cats.map(function(c){
+      var statusText=c.loaded?c.done+'/'+c.total+' - '+c.percent+'%':c.total+' topics';
+      return '<button class="cat-card'+(state.selectedCategory===c.name?' active':'')+'" onclick="loadCategory('+jsArg(c.name)+',true)">'+
+        '<div class="cat-meta"><b>'+escapeHtml(c.name)+'</b><span class="cat-count">'+(c.loaded?'Loaded':'Folder')+'</span></div>'+
+        '<span>'+escapeHtml(statusText)+'</span>'+
+        '<div class="progress" style="margin-top:6px"><div class="bar" style="width:'+c.percent+'%\"></div></div>'+
+        '</button>';
+    }).join('');
+    body+='</div>';
+  }
+  body+='</div>';
+
+  // Filters
+  body+='<div class="card"><div class="card-head"><h3>Search & Filters</h3><span class=\"muted small\">'+shown.length+' shown</span></div>';
+  body+='<div class="filters">';
+  body+='<div class="input"><input type="text" placeholder="Search topics... (press /)" value="'+escapeAttr(state.filters.q)+'" oninput="setFilterDebounced(\'q\',this.value)"></div>';
+  body+='<div class="input"><select onchange="setFilter(\'category\',this.value)"><option value="">All subjects</option>'+catOptions+'</select></div>';
+  body+='<div class="input"><select onchange="setFilter(\'status\',this.value)"><option value="all"'+(state.filters.status==='all'?' selected':'')+'>All status</option><option value="pending"'+(state.filters.status==='pending'?' selected':'')+'>Pending</option><option value="done"'+(state.filters.status==='done'?' selected':'')+'>Done</option></select></div>';
+  body+='<div class="input"><select onchange="setFilter(\'priority\',this.value)"><option value="all"'+(state.filters.priority==='all'?' selected':'')+'>All priority</option><option value="high"'+(state.filters.priority==='high'?' selected':'')+'>High</option><option value="medium"'+(state.filters.priority==='medium'?' selected':'')+'>Medium</option><option value="low"'+(state.filters.priority==='low'?' selected':'')+'>Low</option></select></div>';
+  body+='</div></div>';
+
+  // Topic list
+  body+='<div id="topicList">';
+  body+='<div class="topic-list-head"><div><h3>'+escapeHtml(selectedLabel)+'</h3><p>'+(state.selectedCategory?'Tick topics after completing a class.':'Choose a subject folder above.')+'</p></div>';
+  body+='<div class="tlh-actions"><span class="pill">'+shown.length+' topics</span>';
+  if(state.selectedCategory&&shown.length>0){
+    body+='<button class="btn sm green" onclick="exportCsv()" title="Export CSV">CSV</button>';
+  }
+  body+='</div></div>';
+
+  if(state.loadingCategory){
+    body+=loadingTopicHtml();
+  } else if(!state.selectedCategory){
+    body+='<div class="empty">No subject loaded. Click a folder above to get started.</div>';
+  } else if(!shown.length){
+    body+='<div class="empty">No topics match the current filters.</div>';
+  } else {
+    body+=Object.keys(grouped).map(function(cat,idx){
+      var catItems=shown.filter(function(t){return t.category===cat});
+      var catDone=catItems.filter(function(t){return t.completed}).length;
+      var catPct=pct(catDone,catItems.length);
+      var html='';
+      html+='<details class="topic-group"'+(openDetails||idx===0?' open':'')+' data-cat="'+escapeAttr(cat)+'">';
+      html+='<summary>';
+      html+='<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">'+
+        '<span class="group-title">'+escapeHtml(cat)+'</span>'+
+        '<span class="pill active">'+catDone+'/'+catItems.length+'</span>'+
+        '<div style="flex:1;max-width:120px"><div class="bar-track" style="height:7px"><div class="bar-fill green" style="width:'+catPct+'%\"></div></div></div>'+
+        '</div>';
+      html+='<div class="group-actions">'+
+        '<button class="btn sm green" onclick="event.preventDefault();event.stopPropagation();markGroupDone('+jsArg(cat)+',true)" title="Mark all done">All</button>'+
+        '<button class="btn sm ghost" onclick="event.preventDefault();event.stopPropagation();markGroupDone('+jsArg(cat)+',false)" title="Uncheck all">Reset</button>'+
+        '</div>';
+      html+='</summary>';
+      html+=Object.keys(grouped[cat]).map(function(sub){
+        var subItems=grouped[cat][sub];
+        var subDone=subItems.filter(function(t){return t.completed}).length;
+        var inner='<div class="subsection">';
+        inner+='<h4><span>'+escapeHtml(sub)+'</span>'+
+          '<div class="subsection-actions">'+
+          '<span style="color:var(--muted);margin-right:6px">'+subDone+'/'+subItems.length+'</span>'+
+          '<button class="btn sm green" onclick="markSubsectionDone('+jsArg(cat)+','+jsArg(sub)+',true)" title="Mark section done" style="padding:3px 8px;min-height:24px;font-size:11px">Done</button>'+
+          '</div>'+
+          '</h4>';
+        inner+=subItems.map(function(t){
+          return '<div class="topic'+(state.busyTopics&&state.busyTopics[t.topicId]?' saving':'')+'" data-topic-id="'+escapeAttr(t.topicId)+'">'+
+            '<input type="checkbox"'+(t.completed?' checked':'')+' '+(state.busyTopics&&state.busyTopics[t.topicId]?'disabled':'')+' onchange="toggleTopicUi('+jsArg(t.topicId)+',this)">'+
+            '<div class="topic-title'+(t.completed?' done':'')+'">'+escapeHtml(t.topicName)+'</div>'+
+            '<span class="pill '+escapeAttr(t.priority||'medium')+'">'+escapeHtml(t.priority||'medium')+'</span>'+
+            '</div>';
+        }).join('');
+        inner+='</div>';
+        return inner;
+      }).join('');
+      html+='</details>';
+      return html;
+    }).join('');
+  }
+  body+='</div>';
+
+  el('app').innerHTML=shell(
+    state.user.name||state.user.username,
+    state.user.username+' - '+(state.selectedCategory||'select a subject')+' - '+s.percent+'% complete',
+    'topics',body,false
+  );
+}
+
+/* â”€â”€ Load category â”€â”€ */
+async function loadCategory(category,shouldScroll){
+  if(!state.user||!category)return;
+  state.loadingCategory=true;state.selectedCategory=category;state.filters.category=category;state.topics=[];
+  renderUser();
+  if(shouldScroll)setTimeout(scrollTopics,40);
+  try{
+    var r=await api('GET','/user/topics?category='+encodeURIComponent(category));
+    if(!r.ok){toast(r.error||'Could not load subject','err');return}
+    state.topics=r.topics||[];
+    setOverallProgress(r.overallProgress);
+    updateCategoryProgress(category,state.topics);
+    state.selectedCategory=category;state.filters.category=category;
+    cacheSet('lastcat_'+state.user.username,category);
+    renderUser();
+    if(shouldScroll)setTimeout(scrollTopics,80);
+    recordStudyToday();
+  }catch(err){fail(err)}
+  finally{state.loadingCategory=false;renderUser();if(shouldScroll)setTimeout(scrollTopics,100)}
+}
+
+/* â”€â”€ Reload â”€â”€ */
+async function reloadUser(){
+  if(!state.user)return;
+  state.loading=true;renderUser();
+  try{
+    var r=await api('GET','/user/categories');
+    if(!r.ok){toast(r.error||'Could not refresh','err');return}
+    state.user=r.user;state.categories=r.categories||[];
+    cacheSet('cats_'+state.user.username,state.categories);
+    if(r.overallProgress){setOverallProgress(r.overallProgress)}else{state.overallProgress=null;state.overallProgressLoading=true;fetchOverallProgress()}
+    if(state.selectedCategory){state.loading=false;await loadCategory(state.selectedCategory,false)}
+    else{state.topics=[];toast('Refreshed','ok')}
+  }catch(err){fail(err)}
+  finally{state.loading=false;renderUser()}
+}
+
+/* â”€â”€ Toggle topic â”€â”€ */
+async function toggleTopicUi(topicId,checkbox){
+  state.busyTopics=state.busyTopics||{};
+  if(state.busyTopics[topicId])return;
+  var item=state.topics.find(function(x){return x.topicId===topicId});
+  if(!item)return;
+  var oldCompleted=Boolean(item.completed),oldCompletedAt=item.completedAt||null;
+  var nextCompleted=checkbox?Boolean(checkbox.checked):!oldCompleted;
+  item.completed=nextCompleted;item.completedAt=nextCompleted?oldCompletedAt||new Date().toISOString():null;
+  state.busyTopics[topicId]=true;state.busyTopic=topicId;
+  updateCategoryProgress(state.selectedCategory||item.category,state.topics);
+  paintTopicCheckbox(checkbox,nextCompleted,true);refreshUserProgressChrome();
+  adjustOverallProgress(nextCompleted===oldCompleted?0:nextCompleted?1:-1);
+  if(nextCompleted)recordStudyToday();
+  try{
+    var r=await api('POST','/user/toggle-topic',{topicId:topicId});
+    if(!r.ok)throw new Error(r.error||'Update failed');
+    var saved=Boolean(r.completed);
+    if(saved!==nextCompleted)adjustOverallProgress(saved?1:-1);
+    item.completed=saved;item.completedAt=r.completedAt||null;
+    updateCategoryProgress(state.selectedCategory||item.category,state.topics);
+    paintTopicCheckbox(checkbox,item.completed,false);refreshUserProgressChrome();
+  }catch(err){
+    item.completed=oldCompleted;item.completedAt=oldCompletedAt;
+    updateCategoryProgress(state.selectedCategory||item.category,state.topics);
+    paintTopicCheckbox(checkbox,oldCompleted,false);refreshUserProgressChrome();
+    adjustOverallProgress(nextCompleted===oldCompleted?0:oldCompleted?1:-1);
+    fail(err);
+  }finally{delete state.busyTopics[topicId];state.busyTopic=''}
+}
+
+function paintTopicCheckbox(checkbox,completed,saving){
+  if(!checkbox)return;
+  checkbox.checked=Boolean(completed);checkbox.disabled=Boolean(saving);
+  var row=checkbox.closest?checkbox.closest('.topic'):null;
+  if(row){
+    row.classList.toggle('saving',Boolean(saving));
+    var title=row.querySelector('.topic-title');if(title)title.classList.toggle('done',Boolean(completed));
+  }
+}
+
+function refreshUserProgressChrome(){
+  var s=topicStats(state.topics);
+  var nodes={userProgressPct:s.percent+'%',userProgressDone:s.done,userProgressTotal:s.total,userPendingCount:s.pending,userHighPendingCount:s.highPending};
+  Object.keys(nodes).forEach(function(id){var n=el(id);if(n)n.textContent=nodes[id]});
+  var bar=el('userHeroProgressBar');if(bar)bar.style.width=s.percent+'%';
+}
+
+function refreshOverallProgressChrome(){
+  var o=getOverallProgress();
+  if(state.overallProgressLoading||!o){
+    var pctNode=el('overallProgressPct');var msgNode=el('overallProgressMessage');
+    if(pctNode)pctNode.textContent='...';if(msgNode)msgNode.textContent='Fetching overall progress...';return;
+  }
+  var nodes={overallProgressPct:o.percent+'%',overallProgressDone:o.done,overallProgressTotal:o.total};
+  var msgNode=el('overallProgressMessage');
+  if(msgNode&&!el('overallProgressDone')){
+    msgNode.innerHTML='<em id="overallProgressDone" style="font-style:normal"></em>/<em id="overallProgressTotal" style="font-style:normal"></em> topics completed';
+  }
+  Object.keys(nodes).forEach(function(id){var n=el(id);if(n)n.textContent=nodes[id]});
+}
+
+async function resetAll(){
+  if(!confirm('Reset all progress for this account?'))return;
+  try{
+    var r=await api('POST','/user/reset-progress',{});
+    if(r&&r.ok===false){toast(r.error||'Reset failed','err');return}
+    state.topics.forEach(function(t){t.completed=false;t.completedAt=null});
+    state.categoryProgress={};setOverallProgress({total:totalPrepTopics(),done:0});
+    if(state.selectedCategory)updateCategoryProgress(state.selectedCategory,state.topics);
+    renderUser();toast('Progress reset','ok');
+  }catch(err){fail(err)}
+}
+
+function logout(){
+  pauseTimer();state.screen='login';state.user=null;state.categories=[];state.categoryProgress={};
+  state.overallProgress=null;state.selectedCategory='';state.topics=[];
+  state.filters={q:'',category:'',status:'all',priority:'all'};renderLogin();
+}
+function scrollTopics(){var n=el('topicList');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}
+
+/* ========================================
+   ADMIN SECTION
+======================================== */
+function statValue(k){return state.adminDashboard&&state.adminDashboard.stats?state.adminDashboard.stats[k]:0}
+function adminFindUser(username){return(state.adminUsers||[]).find(function(u){return String(u.username||'').toLowerCase()===String(username||'').toLowerCase()})}
+function adminPatchUser(username,changes){var u=adminFindUser(username);if(u)Object.assign(u,changes)}
+function adminStatusForUser(u){
+  if(u.disabled)return'disabled';
+  if(u.expiresAt&&new Date(u.expiresAt)<new Date())return'expired';
+  return'active';
+}
+function adminDaysRemainingForUser(u){
+  if(!u.expiresAt)return'';
+  var ms=new Date(u.expiresAt)-Date.now();
+  if(ms<0)return-1;return Math.ceil(ms/86400000);
+}
+
+function renderAdmin(){
+  if(!state.admin){renderLogin();return}
+  var stats=state.adminDashboard?state.adminDashboard.stats:{};
+  var logs=(state.adminDashboard&&state.adminDashboard.recentLogs)||[];
+  var settings=(state.adminDashboard&&state.adminDashboard.settings)||{};
+  var body='';
+
+  if(state.loading){
+    body='<div class="card loading"><div><div class="spinner" style="margin:0 auto 10px"></div>Loading dashboard...</div></div>';
+  } else {
+    // Stats
+    body+='<div class="grid" style="margin-top:6px">';
+    body+='<div class="metric"><b>'+escapeHtml(statValue('totalUsers')||0)+'</b><span>Total students</span><small>'+escapeHtml(statValue('active')||0)+' active</small></div>';
+    body+='<div class="metric"><b>'+escapeHtml(statValue('masterTopics')||0)+'</b><span>Master topics</span></div>';
+    body+='<div class="metric"><b>'+escapeHtml(statValue('disabled')||0)+'</b><span>Disabled accounts</span></div>';
+    body+='<div class="metric"><b>'+escapeHtml(statValue('expiringSoon')||0)+'</b><span>Expiring in 7d</span></div>';
+    body+='</div>';
+
+    // Admin tabs
+    body+='<div class="card" style="margin-top:13px"><div class="admin-tabs">';
+    ['users','logs','settings','create'].forEach(function(tab){
+      var labels={users:'Users',logs:'Logs',settings:'Site Settings',create:'New User'};
+      body+='<button class="'+(state.adminTab===tab?'active':'')+'" onclick="state.adminTab=&quot;'+tab+'&quot;;renderAdmin()">'+labels[tab]+'</button>';
+    });
+    body+='</div>';
+
+    if(state.adminTab==='users'){
+      body+=renderAdminUsers();
+    } else if(state.adminTab==='logs'){
+      body+=renderAdminLogs(logs);
+    } else if(state.adminTab==='settings'){
+      body+=renderAdminSettings(settings);
+    } else if(state.adminTab==='create'){
+      body+=renderAdminCreate();
+    }
+    body+='</div>';
+
+    // User detail
+    if(state.adminDetail){body+=renderAdminDetail()}
+  }
+
+  el('app').innerHTML=shell(
+    'Admin Console',
+    'Logged in as '+escapeHtml(state.admin.username||'')+' - '+escapeHtml(statValue('totalUsers')||0)+' students',
+    'dashboard',body,true
+  );
+}
+
+function renderAdminUsers(){
+  var out='';
+  out+='<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">';
+  out+='<div class="input" style="flex:1"><input type="text" placeholder="Search users..." value="'+escapeAttr(state.adminUserFilter.q||'')+'" oninput="state.adminUserFilter.q=this.value;renderAdmin()"></div>';
+  out+='<div class="input"><select onchange="state.adminUserFilter.status=this.value;renderAdmin()"><option value="all">All status</option><option value="active">Active</option><option value="disabled">Disabled</option><option value="expired">Expired</option><option value="admin">Admin</option></select></div>';
+  out+='</div>';
+  var users=state.adminUsers||[];
+  var q=(state.adminUserFilter.q||'').toLowerCase();
+  var sf=(state.adminUserFilter.status||'all');
+  var filtered=users.filter(function(u){
+    if(q){var hay=[u.username,u.name,u.role,u.status].join(' ').toLowerCase();if(hay.indexOf(q)===-1)return false}
+    if(sf!=='all'){if(sf==='admin')return u.role==='admin';return u.status===sf}
+    return true;
+  });
+  if(!filtered.length){out+='<div class="empty">No users found.</div>';return out}
+  filtered.forEach(function(u){out+=renderAdminUserCard(u)});
+  return out;
+}
+
+function renderAdminUserCard(u){
+  var username=u.username||'';
+  var days=adminDaysRemainingForUser(u);
+  var daysStr=days===''?'No expiry':days<0?'Expired':days+' days left';
+  var statusCls=u.role==='admin'?'admin':u.status||'active';
+  return '<div class="admin-user" id="auser-'+escapeAttr(username)+'">'+
+    '<div class="admin-user-head">'+
+    '<div>'+
+    '<b>'+escapeHtml(u.name||username)+'</b> <span class="pill '+statusCls+'" style="margin-left:5px">'+escapeHtml(u.role==='admin'?'admin':u.status||'active')+'</span><br>'+
+    '<span class="small muted">@'+escapeHtml(username)+' - '+escapeHtml(daysStr)+'</span><br>'+
+    '<div class="progress" style="width:120px;margin-top:5px"><div class="bar" style="width:'+escapeAttr(u.progressPct||0)+'%\"></div></div>'+
+    '<span class="small muted">'+escapeHtml(u.completedTopics||0)+'/'+escapeHtml(u.totalTopics||0)+' topics</span>'+
+    '</div>'+
+    '<div class="admin-actions" id="aactions-'+escapeAttr(username)+'">'+
+    '<button class="btn sm ghost" onclick="adminViewUser('+jsArg(username)+')">View</button>'+
+    '<button class="btn sm warn" onclick="adminSetExpiryPrompt('+jsArg(username)+')">Expiry</button>'+
+    '<button class="btn sm '+(u.disabled?'green':'danger')+'" onclick="adminToggleDisabled('+jsArg(username)+','+(!u.disabled)+')">'+(u.disabled?'Enable':'Disable')+'</button>'+
+    '<button class="btn sm ghost" onclick="adminResetPasswordPrompt('+jsArg(username)+')">Pw</button>'+
+    '<button class="btn sm ghost" onclick="adminSetRolePrompt('+jsArg(username)+','+jsArg(u.role||'user')+')" title="Change role">Role</button>'+
+    '<button class="btn sm ghost" onclick="adminSeedTopics('+jsArg(username)+')">Seed</button>'+
+    '<button class="btn sm ghost" onclick="adminResetProgress('+jsArg(username)+')" title="Reset progress">Reset</button>'+
+    '<button class="btn sm danger" onclick="adminDeleteUser('+jsArg(username)+')">Delete</button>'+
+    '</div>'+
+    '</div></div>';
+}
+
+function renderAdminLogs(logs){
+  if(!logs||!logs.length)return'<div class="empty">No recent logs.</div>';
+  return'<div class="table-wrap"><table><thead><tr><th>User</th><th>Date</th><th>Topic</th><th>Action</th></tr></thead><tbody>'+
+    logs.map(function(l){return'<tr><td>'+escapeHtml(l.username)+'</td><td>'+escapeHtml(l.date)+'</td><td style="max-width:200px;word-break:break-all;font-family:var(--mono);font-size:11px">'+escapeHtml(l.topicId)+'</td><td><span class="pill '+(l.action==='completed'?'active':'')+'">'+escapeHtml(l.action)+'</span></td></tr>'}).join('')+
+    '</tbody></table></div>';
+}
+
+function renderAdminSettings(settings){
+  return'<div style="display:grid;gap:10px">'+
+    '<div class="setting-row"><div><b>New Registrations</b><br><span class="small muted">Allow new students to sign up</span></div>'+
+    '<button class="switch'+(settings.registrationsEnabled?' on':'')+'" onclick="adminToggleRegistrations()"></button></div>'+
+    '<div class="setting-row"><div><b>Rebuild Master Topics</b><br><span class="small muted">After editing raw_files sheet</span></div>'+
+    '<button class="btn dark sm" onclick="adminRebuildTopics()">Rebuild</button></div>'+
+    '</div>';
+}
+
+function renderAdminCreate(){
+  return'<div style="display:grid;gap:11px;max-width:420px">'+
+    '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Name</label><input id="cn" type="text" placeholder="Full name" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
+    '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Username</label><input id="cu" type="text" placeholder="username" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
+    '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Password</label><input id="cp" type="password" placeholder="min 6 chars" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
+    '<div style="display:flex;gap:8px">'+
+    '<input id="ca" type="number" placeholder="Validity amount" min="0" style="flex:1;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px">'+
+    '<select id="cunit" style="min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px">'+
+    '<option value="days">Days</option><option value="weeks">Weeks</option><option value="months">Months</option>'+
+    '</select></div>'+
+    '<button class="btn primary" onclick="adminCreateUserAction()">Create User</button>'+
+    '</div>';
+}
+
+function renderAdminDetail(){
+  var d=state.adminDetail;if(!d)return'';
+  var u=d.user||{};var username=u.username||'';
+  var topics=d.topics||[];var q=(state.adminDetailFilter||'').toLowerCase();
+  var filtered=q?topics.filter(function(t){return String(t.topicName||'').toLowerCase().indexOf(q)!==-1||String(t.category||'').toLowerCase().indexOf(q)!==-1}):topics;
+  return'<div class="card" id="adminDetailCard">'+
+    '<div class="card-head"><h3>'+escapeHtml(u.name||username)+' (@'+escapeHtml(username)+')</h3>'+
+    '<button class="modal-close" onclick="state.adminDetail=null;renderAdmin()">x</button></div>'+
+    '<div class="input" style="margin-bottom:11px"><input type="text" placeholder="Filter topics..." value="'+escapeAttr(state.adminDetailFilter||'')+'" oninput="state.adminDetailFilter=this.value;renderAdmin()"></div>'+
+    '<div class="topic-admin-list">'+
+    (filtered.length?filtered.slice(0,200).map(function(t){
+      return'<div class="topic-admin-row" id="atr-'+escapeAttr(t.topicId)+'">'+
+        '<input type="checkbox"'+(t.completed?' checked':'')+' onchange="adminToggleTopic('+jsArg(username)+','+jsArg(t.topicId)+',this)" style="accent-color:var(--gold)">'+
+        '<div><div style="font-size:13px;color:var(--text)">'+escapeHtml(t.topicName)+'</div><div class="small muted">'+escapeHtml(t.category)+' - '+escapeHtml(t.subsection)+'</div></div>'+
+        '<span class="pill '+escapeAttr(t.priority||'medium')+'">'+escapeHtml(t.priority||'medium')+'</span>'+
+        '</div>';
+    }).join(''):
+    '<div class="empty" style="margin:0;border:0">No topics found.</div>')+
+    '</div>'+
+    (topics.length>200?'<p class="small muted" style="padding:10px">Showing 200 of '+topics.length+'. Use filter to narrow down.</p>':'')+
+    '</div>';
+}
+
+function adminRefreshStatsChrome(){
+  var stats={totalUsers:0,active:0,disabled:0,expired:0,expiringSoon:0,admins:0};
+  (state.adminUsers||[]).forEach(function(u){
+    if(u.role==='admin'){stats.admins++;return}
+    stats.totalUsers++;
+    if(u.status==='active')stats.active++;
+    if(u.status==='disabled')stats.disabled++;
+    if(u.status==='expired')stats.expired++;
+    if(u.expiresAt&&u.daysRemaining>=0&&u.daysRemaining<=7)stats.expiringSoon++;
+  });
+  if(state.adminDashboard)state.adminDashboard.stats=Object.assign(state.adminDashboard.stats||{},stats);
+}
+
+function adminRenderUsersCardIfVisible(){renderAdmin()}
+
+async function adminRefresh(){
+  state.loading=true;renderAdmin();
+  try{
+    const [dash, users] = await Promise.all([
+      api('GET', '/admin/dashboard'),
+      api('GET', '/admin/users?q='+(state.adminUserFilter.q||'')+'&status='+(state.adminUserFilter.status||'all'))
+    ]);
+    if(!dash.ok || !users.ok){toast('Admin load failed','err');return}
+    state.adminDashboard=dash.dashboard;
+    state.adminUsers=users.users||[];
+    toast('Dashboard loaded','ok');
+  }catch(err){fail(err)}
+  finally{state.loading=false;renderAdmin()}
+}
+
+function scrollAdminUsers(){
+  renderAdmin();
+  setTimeout(function(){var n=document.querySelector('.admin-user');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})},200);
+}
+
+function adminSetUserSaving(username,saving){
+  var c=el('auser-'+username);if(!c)return;
+  c.classList.toggle('saving',saving);
+  if(!saving){c.classList.add('saved');setTimeout(function(){c.classList.remove('saved')},800)}
+}
+
+function adminUpdateUserRow(username){
+  var u=adminFindUser(username);if(!u)return;
+  var c=el('auser-'+username);if(!c)return;
+  var tmp=document.createElement('div');tmp.innerHTML=renderAdminUserCard(u);
+  c.replaceWith(tmp.firstChild);
+}
+
+/* â”€â”€ Admin actions â”€â”€ */
+async function adminCreateUserAction(){
+  var username=(el('cu')&&el('cu').value||'').trim();
+  var password=el('cp')&&el('cp').value||'';
+  var name=(el('cn')&&el('cn').value||'').trim();
+  var amount=Number(el('ca')&&el('ca').value||0);
+  var unit=el('cunit')&&el('cunit').value||'days';
+  var expiryDays=unit==='weeks'?amount*7:unit==='months'?amount*30:amount;
+  try{
+    var r=await api('POST','/admin/users/create',{username:username,password:password,name:name,expiryDays:expiryDays});
+    if(!r.ok){toast(r.error||'Create failed','err');return}
+    var total=Number(statValue('masterTopics')||0);
+    var created={username:r.username||username,name:name||username,role:'user',status:'active',disabled:false,expiresAt:r.expiresAt||'',daysRemaining:'',completedTopics:0,totalTopics:total,progressPct:0,lastLoginAt:''};
+    created.status=adminStatusForUser(created);created.daysRemaining=adminDaysRemainingForUser(created);
+    state.adminUsers.unshift(created);adminRefreshStatsChrome();renderAdmin();
+    if(el('cu'))el('cu').value='';if(el('cp'))el('cp').value='';if(el('cn'))el('cn').value='';if(el('ca'))el('ca').value='';
+    toast('User created','ok');
+  }catch(err){fail(err)}
+}
+
+async function adminToggleDisabled(username,disabled){
+  if(!confirm((disabled?'Disable ':'Enable ')+username+'?'))return;
+  adminSetUserSaving(username,true);
+  try{
+    var r=await api('PATCH','/admin/users/'+username+'/disable',{disabled:disabled});
+    if(!r.ok){toast(r.error||'Update failed','err');return}
+    adminPatchUser(username,{disabled:Boolean(r.disabled)});adminUpdateUserRow(username);toast('Updated','ok');
+  }catch(err){fail(err)}finally{adminSetUserSaving(username,false)}
+}
+
+function parseExpirySpec(spec){
+  spec=String(spec||'').trim().toLowerCase();if(!spec)return null;
+  var m=spec.match(/^(\\d+)\\s*([dwm])$/);if(!m)return false;
+  return{amount:Number(m[1]),unit:m[2]==='d'?'days':m[2]==='w'?'weeks':'months'};
+}
+
+async function adminSetExpiryPrompt(username){
+  var spec=prompt('Expiry: 30d, 4w, 6m. Blank to clear.');if(spec===null)return;
+  adminSetUserSaving(username,true);
+  try{
+    var parsed=parseExpirySpec(spec);var r;
+    if(parsed===null){r=await api('PATCH','/admin/users/'+username+'/expiry',{clearExpiry:true})}
+    else if(parsed===false){toast('Invalid. Use 30d, 4w, 6m.','err');return}
+    else{
+      var expiryDays=parsed.unit==='weeks'?parsed.amount*7:parsed.unit==='months'?parsed.amount*30:parsed.amount;
+      r=await api('PATCH','/admin/users/'+username+'/expiry',{expiryDays:expiryDays});
+    }
+    if(!r.ok){toast(r.error||'Failed','err');return}
+    adminPatchUser(username,{expiresAt:r.expiresAt||''});adminUpdateUserRow(username);toast('Expiry updated','ok');
+  }catch(err){fail(err)}finally{adminSetUserSaving(username,false)}
+}
+
+async function adminResetPasswordPrompt(username){
+  var pw=prompt('New password for '+username+':');if(pw===null)return;
+  try{
+    var r=await api('PATCH','/admin/users/'+username+'/password',{password:pw});
+    if(!r.ok){toast(r.error||'Failed','err');return}toast('Password reset','ok');
+  }catch(err){fail(err)}
+}
+
+async function adminSetRolePrompt(username,currentRole){
+  var role=prompt('Role for '+username+' (user/admin):',currentRole||'user');if(role===null)return;
+  adminSetUserSaving(username,true);
+  try{
+    var r=await api('PATCH','/admin/users/'+username+'/role',{role:role});
+    if(!r.ok){toast(r.error||'Failed','err');return}
+    var changes={role:r.role||role};if(changes.role==='admin'){changes.disabled=false;changes.expiresAt=''}
+    adminPatchUser(username,changes);adminUpdateUserRow(username);toast('Role updated','ok');
+  }catch(err){fail(err)}finally{adminSetUserSaving(username,false)}
+}
+
+async function adminResetProgress(username){
+  if(!confirm('Reset all progress for '+username+'?'))return;
+  adminSetUserSaving(username,true);
+  try{
+    var r=await api('POST','/admin/users/'+username+'/reset-progress',{});
+    if(!r.ok){toast(r.error||'Failed','err');return}
+    adminPatchUser(username,{completedTopics:0,progressPct:0});
+    if(state.adminDetail&&state.adminDetail.user&&state.adminDetail.user.username===username){
+      state.adminDetail.topics=(state.adminDetail.topics||[]).map(function(t){t.completed=false;t.completedAt='';return t});
+      adminRefreshDetailChrome(username);
+    }else{adminUpdateUserRow(username)}
+    toast('Progress reset','ok');
+  }catch(err){fail(err)}finally{adminSetUserSaving(username,false)}
+}
+
+async function adminSeedTopics(username){
+  adminSetUserSaving(username,true);
+  try{
+    var r=await api('POST','/admin/users/'+username+'/seed-topics',{});
+    if(!r.ok){toast(r.error||'Seed failed','err');return}
+    var u=adminFindUser(username);
+    if(u){adminPatchUser(username,{totalTopics:Number(r.totalMaster||u.totalTopics||0)});adminUpdateUserRow(username)}
+    toast('Seeded: '+(r.count||0)+' new topics','ok');
+  }catch(err){fail(err)}finally{adminSetUserSaving(username,false)}
+}
+
+async function adminDeleteUser(username){
+  if(!confirm('Delete '+username+' and all their data?'))return;
+  adminSetUserSaving(username,true);
+  try{
+    var r=await api('DELETE','/admin/users/'+username,{});
+    if(!r.ok){toast(r.error||'Delete failed','err');return}
+    state.adminDetail=null;
+    state.adminUsers=state.adminUsers.filter(function(u){return String(u.username||'').toLowerCase()!==String(username||'').toLowerCase()});
+    adminRefreshStatsChrome();renderAdmin();toast('User deleted','ok');
+  }catch(err){fail(err)}finally{adminSetUserSaving(username,false)}
+}
+
+async function adminViewUser(username){
+  try{
+    var r=await api('GET','/admin/users/'+username+'/detail');
+    if(!r.ok){toast(r.error||'Could not load user','err');return}
+    state.adminDetailFilter='';state.adminDetail=r;renderAdmin();
+    setTimeout(function(){var n=el('adminDetailCard');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})},100);
+  }catch(err){fail(err)}
+}
+
+async function adminToggleTopic(username,topicId,checkbox){
+  try{
+    var r=await api('POST','/admin/users/'+username+'/toggle-topic',{topicId:topicId});
+    if(!r.ok){toast(r.error||'Failed','err');if(checkbox)checkbox.checked=!checkbox.checked;return}
+    if(state.adminDetail&&state.adminDetail.topics){
+      var t=state.adminDetail.topics.find(function(x){return x.topicId===topicId});
+      if(t){t.completed=Boolean(r.completed);t.completedAt=r.completedAt||''}
+    }
+    adminRefreshDetailChrome(username);
+  }catch(err){fail(err);if(checkbox)checkbox.checked=!checkbox.checked}
+}
+
+function adminRefreshDetailChrome(username){
+  var u=adminFindUser(username);
+  var topics=state.adminDetail&&state.adminDetail.topics||[];
+  if(u){var done=topics.filter(function(t){return t.completed}).length;adminPatchUser(username,{completedTopics:done,progressPct:pct(done,u.totalTopics)});adminUpdateUserRow(username)}
+}
+
+async function adminToggleRegistrations(){
+  var cur=state.adminDashboard&&state.adminDashboard.settings&&state.adminDashboard.settings.registrationsEnabled;
+  try{
+    var r=await api('POST','/admin/settings',{key:'registrationsEnabled',value:!cur});
+    if(!r.ok){toast(r.error||'Failed','err');return}
+    if(state.adminDashboard&&state.adminDashboard.settings)state.adminDashboard.settings.registrationsEnabled=!cur;
+    renderAdmin();toast('Registrations '+((!cur)?'enabled':'disabled'),'ok');
+  }catch(err){fail(err)}
+}
+
+async function adminRebuildTopics(){
+  if(!confirm('Rebuild master topics from raw_files sheet?'))return;
+  var btn=event&&event.target;if(btn){btn.disabled=true;btn.textContent='Building...'}
+  try{
+    var r=await api('POST','/admin/rebuild-topics',{});
+    if(!r.ok){toast(r.error||'Rebuild failed','err');return}
+    toast('Rebuilt: '+r.count+' topics across '+Object.keys(r.categories||{}).length+' subjects','ok');
+  }catch(err){fail(err)}
+  finally{if(btn){btn.disabled=false;btn.textContent='Rebuild'}}
+}
+
+function adminLogoutUi(){
+  state.screen='login';state.admin=null;state.adminToken='';
+  state.adminUsers=[];state.adminDashboard=null;state.adminDetail=null;
+  renderLogin();
+}
+
+function closeModal(){state.adminDetail=null;if(state.screen==='admin')renderAdmin()}
+
+/* â”€â”€ Bootstrap â”€â”€ */
+async function bootstrap() {
+  await initCsrf();
+  try {
+    const r = await fetch("/api/auth/me", { credentials: "include" });
+    const data = await r.json();
+    if (data.ok && data.user) {
+      if (data.user.role === "admin") {
+        state.admin = data.user;
+        state.screen = "admin";
+        renderAdmin();
+        adminRefresh();
+      } else {
+        state.user = data.user;
+        state.screen = "user";
+        var cachedCats = cacheGet("cats_" + state.user.username);
+        if (cachedCats) {
+          state.categories = cachedCats;
+        }
+        renderUser();
+        reloadUser();
+      }
+    } else {
+      renderLogin();
+    }
+  } catch (e) {
+    renderLogin();
+  }
+}
+bootstrap();
+
+    </script>
+    
+
+  </body>
+  
+
+</html>
+
+

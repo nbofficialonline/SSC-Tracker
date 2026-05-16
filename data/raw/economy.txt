@@ -1,0 +1,176 @@
+Class-34 | Economy | Cost & Revenue Theory
+Class-33 | Economy | Production
+3500:00
+28-Dec-2025 13:00
+
+Class-33 | Economy | Production
+Class - 34 | Eco | Financial Market 2
+3400:0048:25
+01-Oct-2025 09:00
+
+Class - 34 | Eco | Financial Market 2
+Class - 33 | Eco | Financial Market 2
+3300:00
+30-Sep-2025 09:00
+
+Class - 33 | Eco | Financial Market 2
+Class - 32 | Eco | Financial Market 2
+3200:00
+29-Sep-2025 09:00
+
+Class - 32 | Eco | Financial Market 2
+Class-31 | Eco | Financial Market 2
+3100:0000:00
+26-Sep-2025 09:00
+
+Class-31 | Eco | Financial Market 2
+Class-30 | Eco | Foreign Trade
+3000:00
+25-Sep-2025 09:00
+
+Class-30 | Eco | Foreign Trade
+Class-29 | Eco | Economic Law & Curve
+2900:00
+24-Sep-2025 09:00
+
+Class-29 | Eco | Economic Law & Curve
+Class-28 | Eco | MSP/MSME/KCC/FC
+2800:00
+23-Sep-2025 09:00
+
+Class-28 | Eco | MSP/MSME/KCC/FC
+Class-27 | Eco | Market Structure
+2700:0041:36
+22-Sep-2025 09:00
+
+Class-27 | Eco | Market Structure
+Class-26 | Eco | Cost & Revenue Theory
+2600:00
+19-Sep-2025 09:00
+
+Class-26 | Eco | Cost & Revenue Theory
+Class-25 | Eco | Production Theory
+2500:00
+18-Sep-2025 09:00
+
+Class-25 | Eco | Production Theory
+Class-24 | Eco | Demand & Supply
+2400:0047:20
+17-Sep-2025 09:00
+
+Class-24 | Eco | Demand & Supply
+Class-23 | Eco | Demand & Supply
+2300:00
+16-Sep-2025 09:00
+
+Class-23 | Eco | Demand & Supply
+Class-22 | Eco | Money Supply
+2200:0039:44
+15-Sep-2025 09:00
+
+Class-22 | Eco | Money Supply
+Class-21 | Eco | Money
+2100:00
+12-Sep-2025 09:00
+
+Class-21 | Eco | Money
+Class-20 | Eco | Financial Market
+2000:0052:08
+11-Sep-2025 09:00
+
+Class-20 | Eco | Financial Market
+Class-19 | Eco | Financial Market
+1900:00
+10-Sep-2025 09:00
+
+Class-19 | Eco | Financial Market
+Class-18 | Eco | Banking
+1800:00
+09-Sep-2025 09:00
+
+Class-18 | Eco | Banking
+Class-17 | Eco | Banking
+1700:00
+08-Sep-2025 09:00
+
+Class-17 | Eco | Banking
+Class-16 | Eco | RBI
+1600:00
+04-Sep-2025 09:00
+
+Class-16 | Eco | RBI
+Class-15 | Eco | Unemployment
+1500:00
+03-Sep-2025 09:00
+
+Class-15 | Eco | Unemployment
+Class-14 | Eco | Poverty
+1400:00
+02-Sep-2025 09:00
+
+Class-14 | Eco | Poverty
+Class-13 | Eco | Taxation
+1300:00
+01-Sep-2025 09:00
+
+Class-13 | Eco | Taxation
+Class-12 | Eco | Taxation
+1200:0053:14
+30-Aug-2025 09:00
+
+Class-12 | Eco | Taxation
+Class-11 | Eco | Budget
+1100:00
+29-Aug-2025 09:00
+
+Class-11 | Eco | Budget
+Class-10 | Eco | Budget
+1000:0054:09
+28-Aug-2025 09:00
+
+Class-10 | Eco | Budget
+Class-09 | Eco | National Income
+900:00
+26-Aug-2025 09:00
+
+Class-09 | Eco | National Income
+Class-08 | Eco | National Income
+800:00
+25-Aug-2025 09:00
+
+Class-08 | Eco | National Income
+Class-07 | Eco | Industrial Policy
+700:0040:32
+22-Aug-2025 09:00
+
+Class-07 | Eco | Industrial Policy
+Class-06 | Eco | Economic Planning
+600:00
+21-Aug-2025 09:00
+
+Class-06 | Eco | Economic Planning
+Class-05 | Eco | Economic Planning
+500:0046:56
+20-Aug-2025 09:00
+
+Class-05 | Eco | Economic Planning
+Class-04 | Eco | Types Of Sector
+400:0040:51
+19-Aug-2025 09:00
+
+Class-04 | Eco | Types Of Sector
+Class-03 | Eco | Types Of Economy
+300:00
+18-Aug-2025 09:00
+
+Class-03 | Eco | Types Of Economy
+Class-02 | Eco | Branches of Economics
+200:00
+14-Aug-2025 09:00
+
+Class-02 | Eco | Branches of Economics
+Class-01 | Eco | Basic of Economics
+100:00
+13-Aug-2025 09:00
+
+Class-01 | Eco | Basic of Economics

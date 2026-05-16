@@ -1,0 +1,656 @@
+Class-04 | Permutation And Combination
+Class-03 |  Permutation And Combination
+13100:0053:24
+13-Mar-2026 15:40
+
+Class-03 | Permutation And Combination
+Class-02 |  Permutation And Combination
+13000:0052:04
+13-Mar-2026 15:38
+
+Class-02 | Permutation And Combination
+Class-01 |  Permutation And Combination
+12900:0001:47:52
+13-Mar-2026 15:36
+
+Class-01 | Permutation And Combination
+Monty Hall Problem
+12800:00
+13-Mar-2026 15:34
+
+Monty Hall Problem
+Class -02 | Logarithm
+12700:0059:36
+13-Mar-2026 15:32
+
+Class -02 | Logarithm
+Class -01 | Logarithm
+12600:0057:12
+13-Mar-2026 15:30
+
+Class -01 | Logarithm
+Class-05 | Probability
+12500:0039:27
+13-Mar-2026 15:28
+
+Class-05 | Probability
+Class-04 | Probability
+12400:0054:36
+13-Mar-2026 15:26
+
+Class-04 | Probability
+Class-03 | Probability
+12300:0001:09:33
+13-Mar-2026 15:24
+
+Class-03 | Probability
+Class-02 | Probability
+12200:0001:11:47
+13-Mar-2026 15:22
+
+Class-02 | Probability
+Class-01 | Probability
+12100:0001:09:05
+13-Mar-2026 15:20
+
+Class-01 | Probability
+Class -09 | Co-ordinate Geometry
+12000:0001:16:48
+13-Mar-2026 15:18
+
+Class -09 | Co-ordinate Geometry
+Class -08 | Co-ordinate Geometry
+11900:0001:16:04
+13-Mar-2026 15:16
+
+Class -08 | Co-ordinate Geometry
+Class -07 | Co-ordinate Geometry
+11800:0001:11:30
+13-Mar-2026 15:14
+
+Class -07 | Co-ordinate Geometry
+Class -06 | Co-ordinate Geometry
+11700:0001:11:12
+13-Mar-2026 15:12
+
+Class -06 | Co-ordinate Geometry
+Class -05 | Co-ordinate Geometry
+11600:0001:15:00
+13-Mar-2026 15:10
+
+Class -05 | Co-ordinate Geometry
+Class -04 | Co-ordinate Geometry
+11500:0001:10:30
+13-Mar-2026 15:08
+
+Class -04 | Co-ordinate Geometry
+Class -03 | Co-ordinate Geometry
+11400:0001:10:54
+13-Mar-2026 15:06
+
+Class -03 | Co-ordinate Geometry
+Class -02 | Co-ordinate Geometry
+11300:0001:17:12
+13-Mar-2026 15:04
+
+Class -02 | Co-ordinate Geometry
+Class -01 | Co-ordinate Geometry
+11200:0001:22:42
+13-Mar-2026 15:02
+
+Class -01 | Co-ordinate Geometry
+Class-13 | Mensuration 3D (Recorded)
+11100:0001:21:50
+12-Mar-2026 12:00
+
+Class-13 | Mensuration 3D (Recorded)
+Class-12 | Maths | Mensuration 3D
+11000:0001:04:56
+11-Mar-2026 12:00
+
+Class-12 | Maths | Mensuration 3D
+Class-11 | Maths | Mensuration 3D
+10900:0001:28:08
+10-Mar-2026 12:00
+
+Class-11 | Maths | Mensuration 3D
+Class-10 | Maths | Mensuration 3D
+10800:00
+09-Mar-2026 12:00
+
+Class-10 | Maths | Mensuration 3D
+Class-09 | Maths | Mensuration 3D
+10700:00
+07-Mar-2026 12:00
+
+Class-09 | Maths | Mensuration 3D
+Class-08 | Maths | Mensuration 3D
+10600:00
+06-Mar-2026 12:00
+
+Class-08 | Maths | Mensuration 3D
+Class-07 | Maths | Mensuration 3D
+10500:0001:15:52
+05-Mar-2026 12:00
+
+Class-07 | Maths | Mensuration 3D
+Class-06 | Maths | Mensuration 3D
+10400:0001:29:28
+02-Mar-2026 12:00
+
+Class-06 | Maths | Mensuration 3D
+Class-05 | Maths | Mensuration 3D
+10300:00
+28-Feb-2026 12:00
+
+Class-05 | Maths | Mensuration 3D
+Class-04 | Maths | Mensuration 3D
+10200:00
+27-Feb-2026 12:00
+
+Class-04 | Maths | Mensuration 3D
+Class-03 | Maths | Mensuration 3D
+10100:00
+26-Feb-2026 12:00
+
+Class-03 | Maths | Mensuration 3D
+Class-02 | Maths | Mensuration 3D
+10000:00
+25-Feb-2026 12:00
+
+Class-02 | Maths | Mensuration 3D
+Class-01 | Maths | Mensuration 3D
+9900:00
+24-Feb-2026 12:00
+
+Class-01 | Maths | Mensuration 3D
+Class-13 | Maths | Mensuration 2D
+9800:0057:36
+23-Feb-2026 12:00
+
+Class-13 | Maths | Mensuration 2D
+Class-12 | Maths | Mensuration 2D
+9700:0001:12:24
+21-Feb-2026 12:00
+
+Class-12 | Maths | Mensuration 2D
+Class-11 | Maths | Mensuration 2D
+9600:00
+20-Feb-2026 12:00
+
+Class-11 | Maths | Mensuration 2D
+Class-10 | Maths | Mensuration 2D
+9500:0001:25:28
+19-Feb-2026 12:00
+
+Class-10 | Maths | Mensuration 2D
+Class-09 | Maths | Mensuration 2D
+9400:00
+18-Feb-2026 12:00
+
+Class-09 | Maths | Mensuration 2D
+Class-08 | Maths | Mensuration 2D
+9300:0001:11:52
+17-Feb-2026 12:00
+
+Class-08 | Maths | Mensuration 2D
+Class-07 | Maths | Mensuration 2D
+9200:00
+16-Feb-2026 12:00
+
+Class-07 | Maths | Mensuration 2D
+Class-06 | Maths | Mensuration 2D
+9100:00
+14-Feb-2026 12:00
+
+Class-06 | Maths | Mensuration 2D
+Class-05 | Maths | Mensuration 2D
+9000:00
+13-Feb-2026 12:00
+
+Class-05 | Maths | Mensuration 2D
+Class-04 | Maths | Mensuration 2D
+8900:00
+12-Feb-2026 12:00
+
+Class-04 | Maths | Mensuration 2D
+Class-03 | Maths | Mensuration 2D
+8800:00
+11-Feb-2026 12:00
+
+Class-03 | Maths | Mensuration 2D
+Class-02 | Maths | Mensuration 2D
+8700:0001:25:28
+10-Feb-2026 12:00
+
+Class-02 | Maths | Mensuration 2D
+Class-01 | Maths | Mensuration 2D
+8600:0001:36:56
+09-Feb-2026 12:00
+
+Class-01 | Maths | Mensuration 2D
+Class-24 | Maths | Geometry |
+8500:0001:02:48
+07-Feb-2026 12:00
+
+Class-24 | Maths | Geometry |
+Class-23 | Maths | Geometry |
+8400:0001:10:24
+06-Feb-2026 12:00
+
+Class-23 | Maths | Geometry |
+Class-22 | Maths | Geometry | Geometry
+8300:00
+05-Feb-2026 12:00
+
+Class-22 | Maths | Geometry | Geometry
+Class-21 | Maths | Geometry
+8200:00
+04-Feb-2026 12:00
+
+Class-21 | Maths | Geometry
+Class-20 | Maths | Geometry
+8100:00
+03-Feb-2026 12:00
+
+Class-20 | Maths | Geometry
+Class-19 | Maths | Geometry
+8000:00
+02-Feb-2026 12:00
+
+Class-19 | Maths | Geometry
+Class-18 | Maths | Geometry
+7900:00
+31-Jan-2026 12:00
+
+Class-18 | Maths | Geometry
+Class-17 | Maths | Geometry
+7800:00
+30-Jan-2026 12:00
+
+Class-17 | Maths | Geometry
+Class-16 | Maths | Geometry
+7700:00
+29-Jan-2026 12:00
+
+Class-16 | Maths | Geometry
+Class-15 | Maths | Geometry
+7600:00
+28-Jan-2026 12:00
+
+Class-15 | Maths | Geometry
+Class-14 | Maths | Geometry
+7500:00
+27-Jan-2026 12:00
+
+Class-14 | Maths | Geometry
+Class-13 | Maths | Geometry
+7400:00
+24-Jan-2026 12:00
+
+Class-13 | Maths | Geometry
+Class-12 | Maths | Geometry
+7300:00
+23-Jan-2026 12:00
+
+Class-12 | Maths | Geometry
+Class-11 | Maths | Geometry
+7200:00
+22-Jan-2026 12:00
+
+Class-11 | Maths | Geometry
+Class-10 | Maths | Geometry
+7100:00
+21-Jan-2026 12:00
+
+Class-10 | Maths | Geometry
+Class-09 | Maths | Geometry
+7000:00
+20-Jan-2026 12:00
+
+Class-09 | Maths | Geometry
+Class-08 | Maths | Geometry
+6900:00
+19-Jan-2026 12:00
+
+Class-08 | Maths | Geometry
+Class-07 | Maths | Geometry
+6800:0001:31:43
+17-Jan-2026 12:00
+
+Class-07 | Maths | Geometry
+Class-06 | Maths | Geometry
+6700:00
+16-Jan-2026 12:00
+
+Class-06 | Maths | Geometry
+Class-05 | Maths | Geometry
+6600:00
+15-Jan-2026 12:00
+
+Class-05 | Maths | Geometry
+Class-04 | Maths | Geometry
+6500:00
+14-Jan-2026 12:00
+
+Class-04 | Maths | Geometry
+Class-03 | Maths | Geometry
+6400:0001:40:57
+13-Jan-2026 12:00
+
+Class-03 | Maths | Geometry
+Class-02 | Maths | Geometry
+6300:00
+12-Jan-2026 12:00
+
+Class-02 | Maths | Geometry
+Class-01 | Maths | Geometry
+6200:00
+10-Jan-2026 12:00
+
+Class-01 | Maths | Geometry
+Class-02 | Maths | Height and Distance
+6100:0001:08:08
+09-Jan-2026 12:00
+
+Class-02 | Maths | Height and Distance
+Class-01 | Maths | Height and Distance
+6000:0000:00
+08-Jan-2026 12:00
+
+Class-01 | Maths | Height and Distance
+Class-10 | Maths | Trigonometry
+5900:0000:00
+07-Jan-2026 12:00
+
+Class-10 | Maths | Trigonometry
+Class-09 | Maths | Trigonometry
+5800:0000:00
+06-Jan-2026 12:00
+
+Class-09 | Maths | Trigonometry
+Class-08 | Maths | Trigonometry
+5700:00
+05-Jan-2026 12:00
+
+Class-08 | Maths | Trigonometry
+Class-07 | Maths | Trigonometry
+5600:00
+03-Jan-2026 12:00
+
+Class-07 | Maths | Trigonometry
+Class-06 | Maths | Trigonometry
+5500:00
+02-Jan-2026 12:00
+
+Class-06 | Maths | Trigonometry
+Class-05 | Maths | Trigonometry
+5400:0001:19:12
+01-Jan-2026 12:00
+
+Class-05 | Maths | Trigonometry
+Class-04 | Maths | Trigonometry
+5300:00
+31-Dec-2025 12:00
+
+Class-04 | Maths | Trigonometry
+Class-03 | Maths | Trigonometry
+5200:00
+30-Dec-2025 12:00
+
+Class-03 | Maths | Trigonometry
+Class-02 | Maths | Trigonometry
+5100:0001:27:00
+29-Dec-2025 12:00
+
+Class-02 | Maths | Trigonometry
+Class-01 | Maths | Trigonometry
+5000:0001:29:50
+27-Dec-2025 12:00
+
+Class-01 | Maths | Trigonometry
+Class-03 | Maths | Quadratic Equation
+4900:00
+26-Dec-2025 12:00
+
+Class-03 | Maths | Quadratic Equation
+Class-02 | Maths | Quadratic Equation
+4800:0001:06:02
+25-Dec-2025 12:00
+
+Class-02 | Maths | Quadratic Equation
+Class-01 | Maths | Polynmial
+4700:00
+24-Dec-2025 12:00
+
+Class-01 | Maths | Polynmial
+Class-14 | Maths | Algebra (max and Min)
+4600:0001:05:52
+23-Dec-2025 12:00
+
+Class-14 | Maths | Algebra (max and Min)
+Class-13 | Maths | Algebraic Identity
+4500:00
+22-Dec-2025 12:00
+
+Class-13 | Maths | Algebraic Identity
+Class-12 | Maths | Algebraic Identity
+4400:00
+20-Dec-2025 12:00
+
+Class-12 | Maths | Algebraic Identity
+Class-11 | Maths | Algebraic Identity
+4300:00
+19-Dec-2025 12:00
+
+Class-11 | Maths | Algebraic Identity
+Class-10 | Maths | Algebraic Result
+4200:0001:07:44
+18-Dec-2025 12:00
+
+Class-10 | Maths | Algebraic Result
+Class-09 | Maths | Algebraic Result
+4100:0001:10:00
+17-Dec-2025 12:00
+
+Class-09 | Maths | Algebraic Result
+Class-08 | Maths | Algebraic Result
+4000:00
+16-Dec-2025 12:00
+
+Class-08 | Maths | Algebraic Result
+Class-07 | Maths | Algebraic Result
+3900:00
+15-Dec-2025 12:00
+
+Class-07 | Maths | Algebraic Result
+Class-06 | Maths | Algebraic Result
+3800:00
+13-Dec-2025 12:00
+
+Class-06 | Maths | Algebraic Result
+Class-05 | Maths | Algebraic Formula
+3700:00
+12-Dec-2025 12:00
+
+Class-05 | Maths | Algebraic Formula
+Class-04 | Maths | Algebraic Formula
+3600:00
+10-Dec-2025 12:00
+
+Class-04 | Maths | Algebraic Formula
+Class-03 | Maths | Algebraic Formula
+3500:00
+09-Dec-2025 12:00
+
+Class-03 | Maths | Algebraic Formula
+Class-02 | Maths | Algebraic Formula
+3400:00
+08-Dec-2025 12:00
+
+Class-02 | Maths | Algebraic Formula
+Class-01 | Maths | Algebraic Formula
+3300:0001:22:00
+06-Dec-2025 12:00
+
+Class-01 | Maths | Algebraic Formula
+Class-01 | Maths | Componendo and Dividendo
+3200:00
+05-Dec-2025 12:00
+
+Class-01 | Maths | Componendo and Dividendo
+Class-02 | Maths | Series
+3100:0050:00
+04-Dec-2025 12:00
+
+Class-02 | Maths | Series
+Class-01 | Maths | Series
+3000:00
+03-Dec-2025 12:00
+
+Class-01 | Maths | Series
+Class-01 | Maths | BODMAS
+2900:00
+02-Dec-2025 12:00
+
+Class-01 | Maths | BODMAS
+Class-02 | Maths | Fraction
+2800:00
+01-Dec-2025 12:00
+
+Class-02 | Maths | Fraction
+Class-01 | Maths | Fraction
+2700:0001:28:16
+29-Nov-2025 12:00
+
+Class-01 | Maths | Fraction
+Class-02 | Maths | AP and GP
+2600:00
+28-Nov-2025 12:00
+
+Class-02 | Maths | AP and GP
+Class-01 | Maths | AP and GP
+2500:00
+27-Nov-2025 12:00
+
+Class-01 | Maths | AP and GP
+Class-06 | Maths | Power Surds Indices
+2400:0001:16:56
+26-Nov-2025 12:00
+
+Class-06 | Maths | Power Surds Indices
+Class-05 | Maths | Power Surds Indices
+2300:00
+25-Nov-2025 12:00
+
+Class-05 | Maths | Power Surds Indices
+Class-04 | Maths | Power Surds Indices
+2200:00
+24-Nov-2025 12:00
+
+Class-04 | Maths | Power Surds Indices
+Class-03 | Maths | Power Surds Indices
+2100:00
+22-Nov-2025 12:00
+
+Class-03 | Maths | Power Surds Indices
+Class-02 | Maths | Power Surds Indices
+2000:00
+21-Nov-2025 12:00
+
+Class-02 | Maths | Power Surds Indices
+Class-01 | Maths | Power Surds Indices
+1900:00
+20-Nov-2025 12:00
+
+Class-01 | Maths | Power Surds Indices
+Class-01 | Maths | Number Of Factor
+1800:00
+19-Nov-2025 12:00
+
+Class-01 | Maths | Number Of Factor
+Class- 01 | Maths | Number Of Trailing Zero
+1700:00
+18-Nov-2025 12:00
+
+Class- 01 | Maths | Number Of Trailing Zero
+Class- 01 | Maths | Unit Digit
+1600:0001:29:12
+17-Nov-2025 12:00
+
+Class- 01 | Maths | Unit Digit
+Class- 04 | Maths | Remainder Theorem
+1500:00
+15-Nov-2025 12:00
+
+Class- 04 | Maths | Remainder Theorem
+Class- 03 | Maths | Remainder Theorem
+1400:0002:28:41
+14-Nov-2025 12:00
+
+Class- 03 | Maths | Remainder Theorem
+Class- 02 | Maths | Remainder Theorem
+1300:00
+13-Nov-2025 12:00
+
+Class- 02 | Maths | Remainder Theorem
+Class- 01 | Maths | Remainder Theorem
+1200:00
+12-Nov-2025 12:00
+
+Class- 01 | Maths | Remainder Theorem
+Class- 05 | Maths | Divisibility
+1100:00
+11-Nov-2025 12:00
+
+Class- 05 | Maths | Divisibility
+Class- 04 | Maths | Divisibility
+1000:00
+10-Nov-2025 12:00
+
+Class- 04 | Maths | Divisibility
+Class- 03 | Maths | Divisibility
+900:00
+07-Nov-2025 12:00
+
+Class- 03 | Maths | Divisibility
+Class- 02 | Maths | Divisibility
+800:00
+06-Nov-2025 12:00
+
+Class- 02 | Maths | Divisibility
+Class- 01 | Maths | Divisibility
+700:00
+05-Nov-2025 12:00
+
+Class- 01 | Maths | Divisibility
+Class- 04 | Maths | Classification Of Number
+600:00
+04-Nov-2025 12:00
+
+Class- 04 | Maths | Classification Of Number
+Class- 03 | Maths | Classification Of Number
+500:00
+03-Nov-2025 12:00
+
+Class- 03 | Maths | Classification Of Number
+Class- 02 | Maths | Classification Of Number
+400:0001:00:40
+01-Nov-2025 12:00
+
+Class- 02 | Maths | Classification Of Number
+Class- 01 | Maths | Classification Of Number
+300:00
+31-Oct-2025 12:00
+
+Class- 01 | Maths | Classification Of Number
+Class- 02 | Maths | Number Of Digit
+200:00
+30-Oct-2025 12:00
+
+Class- 02 | Maths | Number Of Digit
+Class- 01 | Maths | Number Of Digit
+100:00
+29-Oct-2025 12:00
+
+Class- 01 | Maths | Number Of Digit

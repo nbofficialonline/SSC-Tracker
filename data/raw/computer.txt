@@ -1,0 +1,141 @@
+Class-29 | Computer | Computer Hardware
+Class-28 | Computer | Computer Hardware
+2800:00
+07-May-2026 19:30
+
+Class-28 | Computer | Computer Hardware
+Class-27 | Computer | Computer Hardware
+2700:00
+06-May-2026 19:30
+
+Class-27 | Computer | Computer Hardware
+Class-26 | Computer | Computer Hardware
+2600:00
+05-May-2026 19:30
+
+Class-26 | Computer | Computer Hardware
+Class-24 | Computer | Computer Hardware
+2500:00
+04-May-2026 19:30
+
+Class-24 | Computer | Computer Hardware
+Class-23 | Computer | Computer Hardware
+2400:00
+01-May-2026 19:30
+
+Class-23 | Computer | Computer Hardware
+Class-23 | Computer | Computer Hardware
+2300:00
+30-Apr-2026 19:30
+
+Class-23 | Computer | Computer Hardware
+Class-22 | Computer | Computer Hardware
+2200:00
+29-Apr-2026 19:30
+
+Class-22 | Computer | Computer Hardware
+Class-21 | Computer | Computer Hardware
+2100:0001:00:48
+28-Apr-2026 19:30
+
+Class-21 | Computer | Computer Hardware
+Class-20 | Computer | Computer Hardware
+2000:00
+27-Apr-2026 19:30
+
+Class-20 | Computer | Computer Hardware
+Class-19 | Computer | Computer Hardware
+1900:0043:50
+16-Apr-2026 19:30
+
+Class-19 | Computer | Computer Hardware
+Class-18 | Computer | Computer Hardware
+1800:00
+15-Apr-2026 19:30
+
+Class-18 | Computer | Computer Hardware
+Class-17 | Computer | Computer Hardware
+1700:00
+14-Apr-2026 19:30
+
+Class-17 | Computer | Computer Hardware
+Class-16 | Computer | Computer Hardware
+1600:00
+13-Apr-2026 19:30
+
+Class-16 | Computer | Computer Hardware
+Class-15 | Computer | Computer Hardware
+1500:00
+10-Apr-2026 19:30
+
+Class-15 | Computer | Computer Hardware
+Class-14 | Computer | Computer Hardware
+1400:00
+08-Apr-2026 19:30
+
+Class-14 | Computer | Computer Hardware
+Class-13 | Computer | Computer Hardware
+1300:00
+07-Apr-2026 19:30
+
+Class-13 | Computer | Computer Hardware
+Class-12 | Computer | Computer Hardware
+1200:00
+06-Apr-2026 19:30
+
+Class-12 | Computer | Computer Hardware
+Class-11 | Computer | Introduction
+1100:00
+03-Apr-2026 19:30
+
+Class-11 | Computer | Introduction
+Class-10 | Computer | Introduction
+1000:00
+02-Apr-2026 19:30
+
+Class-10 | Computer | Introduction
+Class-09 | Computer | Introduction
+900:00
+01-Apr-2026 19:30
+
+Class-09 | Computer | Introduction
+Class-08 | Computer | Introduction
+800:00
+30-Mar-2026 19:30
+
+Class-08 | Computer | Introduction
+Class-07 | Computer | Introduction
+700:0054:18
+27-Mar-2026 19:30
+
+Class-07 | Computer | Introduction
+Class-06 | Computer | Introduction
+600:00
+26-Mar-2026 19:30
+
+Class-06 | Computer | Introduction
+Class-05 | Computer | Introduction
+500:00
+25-Mar-2026 19:30
+
+Class-05 | Computer | Introduction
+Class-04 | Computer | Introduction
+400:00
+24-Mar-2026 19:30
+
+Class-04 | Computer | Introduction
+Class-03 | Computer | Introduction
+300:00
+23-Mar-2026 19:30
+
+Class-03 | Computer | Introduction
+Class-02 | Computer | Computer Architecture
+200:0000:00
+20-Mar-2026 19:30
+
+Class-02 | Computer | Computer Architecture
+Class-01 | Computer | Introduction
+100:0058:40
+19-Mar-2026 19:30
+
+Class-01 | Computer | Introduction

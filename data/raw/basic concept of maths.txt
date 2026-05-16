@@ -1,0 +1,149 @@
+3000:00
+13-Apr-2026 11:00
+
+Class-01 | Decimal Point Approximation
+Class-01 |  Approximation (Concept & Application)
+2900:00
+12-Apr-2026 11:00
+
+Class-01 | Approximation (Concept & Application)
+Class-01 | Digital Sum (Concept & Application)
+2800:00
+11-Apr-2026 11:00
+
+Class-01 | Digital Sum (Concept & Application)
+Class-01 | Last Two Digit (Concept & Application)
+2700:00
+10-Apr-2026 11:00
+
+Class-01 | Last Two Digit (Concept & Application)
+Class-01 | Divisibility (Concept & Application)
+2600:00
+09-Apr-2026 11:00
+
+Class-01 | Divisibility (Concept & Application)
+Class-01 | Decimal (Concept & Application)
+2500:00
+08-Apr-2026 11:00
+
+Class-01 | Decimal (Concept & Application)
+Class-01 | Unit Digit (Concept & Application)
+2400:00
+07-Apr-2026 11:00
+
+Class-01 | Unit Digit (Concept & Application)
+Class-01 |  Number Of Trailing (Concept & Application)
+2300:00
+06-Apr-2026 09:00
+
+Class-01 | Number Of Trailing (Concept & Application)
+Class-02 | HCF Basic
+2200:00
+26-Dec-2025 13:03
+
+Class-02 | HCF Basic
+Class-01 | LCM Basic
+2100:00
+26-Dec-2025 13:00
+
+Class-01 | LCM Basic
+Class-01 | Ratio & Proportion Basic
+2000:0043:01
+24-Oct-2025 12:00
+
+Class-01 | Ratio & Proportion Basic
+Class-01 | Square and Cube Root (Method)
+1900:00
+06-Oct-2025 17:00
+
+Class-01 | Square and Cube Root (Method)
+Class-01 | Quadratic Equation
+1800:00
+03-Oct-2025 16:00
+
+Class-01 | Quadratic Equation
+Class-01 | Unit Conversion
+1700:00
+26-Sep-2025 16:00
+
+Class-01 | Unit Conversion
+Class-01 | BODMAS
+1600:0001:19:45
+21-Apr-2025 09:21
+
+Class-01 | BODMAS
+Class-01 | Mix Fraction
+1587508:1201:27:32
+17-Apr-2025 12:00
+
+Class-01 | Mix Fraction
+Class-02 | Fraction
+1400:0058:29
+04-Apr-2025 14:02
+
+Class-02 | Fraction
+Class-01 | Fraction
+1300:0001:16:30
+04-Apr-2025 14:00
+
+Class-01 | Fraction
+Class-01 | Number Of Factor
+1200:0001:25:07
+03-Apr-2025 15:11
+
+Class-01 | Number Of Factor
+Class-01 | Number Of Zeros
+1100:00
+03-Apr-2025 15:00
+
+Class-01 | Number Of Zeros
+Class-02 | Remainder Theorem
+1000:00
+02-Apr-2025 16:04
+
+Class-02 | Remainder Theorem
+Class-01 | Remainder Theorem
+900:0059:08
+02-Apr-2025 16:00
+
+Class-01 | Remainder Theorem
+Class-01 | Unit Digit
+800:0001:00:34
+02-Apr-2025 15:00
+
+Class-01 | Unit Digit
+Class-02 | Classification Of Number
+700:0001:03:07
+02-Apr-2025 14:02
+
+Class-02 | Classification Of Number
+Class-01 | Classification Of Number
+600:0001:09:00
+02-Apr-2025 14:00
+
+Class-01 | Classification Of Number
+Class-01 | Digital Sum
+500:0002:03:25
+01-Apr-2025 15:00
+
+Class-01 | Digital Sum
+Class-02 | Decimal
+400:0001:21:00
+01-Apr-2025 14:06
+
+Class-02 | Decimal
+Class-01 | Decimal
+300:0001:36:59
+01-Apr-2025 14:04
+
+Class-01 | Decimal
+Class-02 | Divisibility
+277066:2600:00
+01-Apr-2025 14:02
+
+Class-02 | Divisibility
+Class-01 | Divisibility
+186614:0201:29:08
+01-Apr-2025 14:00
+
+Class-01 | Divisibility

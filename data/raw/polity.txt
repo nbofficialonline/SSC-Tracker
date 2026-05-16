@@ -1,0 +1,176 @@
+Class-37 | Polity | Powers of Governor
+Class-36 | Polity | Powers of Governor
+3500:0001:06:49
+23-Aug-2025 07:00
+
+Class-36 | Polity | Powers of Governor
+Class-35 | Polity | Powers of Governor
+3400:00
+22-Aug-2025 07:00
+
+Class-35 | Polity | Powers of Governor
+Class-34 | Polity | Powers of Governor
+3300:0055:40
+21-Aug-2025 07:00
+
+Class-34 | Polity | Powers of Governor
+Class-33 | Polity | Powers of Governor
+3200:0051:21
+20-Aug-2025 07:00
+
+Class-33 | Polity | Powers of Governor
+Class-32 | Polity | Powers of Governor
+3100:0048:00
+19-Aug-2025 07:00
+
+Class-32 | Polity | Powers of Governor
+Class-31 | Polity | Powers of Governor
+3000:00
+18-Aug-2025 07:00
+
+Class-31 | Polity | Powers of Governor
+Class-30 | Polity | Powers of Governor
+2900:00
+14-Aug-2025 07:00
+
+Class-30 | Polity | Powers of Governor
+Class-29 | Polity | State Executive
+2800:00
+13-Aug-2025 07:00
+
+Class-29 | Polity | State Executive
+Class-28 | Polity | Judiciary in India
+2700:0053:22
+12-Aug-2025 07:00
+
+Class-28 | Polity | Judiciary in India
+Class-26 | Polity | Judiciary in India
+2600:0049:52
+11-Aug-2025 07:00
+
+Class-26 | Polity | Judiciary in India
+Class-25 | Polity | Union Legislative
+2500:00
+08-Aug-2025 07:00
+
+Class-25 | Polity | Union Legislative
+Class-24 | Polity | Parliament
+2400:0043:49
+07-Aug-2025 07:00
+
+Class-24 | Polity | Parliament
+Class-23 | Polity | Parliament
+2300:00
+06-Aug-2025 07:00
+
+Class-23 | Polity | Parliament
+Class-22 | Polity | Parliament
+2200:00
+05-Aug-2025 07:00
+
+Class-22 | Polity | Parliament
+Class-21 | Polity | Comptroller & Auditor Genral of India
+2100:0035:13
+04-Aug-2025 07:00
+
+Class-21 | Polity | Comptroller & Auditor Genral of India
+Class-20 | Polity | Vice President
+2000:0055:20
+02-Aug-2025 07:00
+
+Class-20 | Polity | Vice President
+Class-19 | Polity | Powers of President
+1900:00
+01-Aug-2025 07:00
+
+Class-19 | Polity | Powers of President
+Class-18 | Polity | Union Executive
+1800:0052:31
+31-Jul-2025 07:00
+
+Class-18 | Polity | Union Executive
+Class-17 | Polity | Union
+1700:00
+30-Jul-2025 07:00
+
+Class-17 | Polity | Union
+Class-16 | Polity | Dirrective Principle of State Policy
+1600:00
+29-Jul-2025 07:00
+
+Class-16 | Polity | Dirrective Principle of State Policy
+Class-15 | Polity | Dirrective Principle of State Policy
+1500:0045:29
+28-Jul-2025 07:00
+
+Class-15 | Polity | Dirrective Principle of State Policy
+Class-14 | Polity | Fundamental Rights
+1400:0053:37
+26-Jul-2025 07:00
+
+Class-14 | Polity | Fundamental Rights
+Class-13 | Polity | Fundamental Rights
+1300:0050:37
+25-Jul-2025 07:00
+
+Class-13 | Polity | Fundamental Rights
+Class-12 | Polity | Fundamental Rights
+1200:00
+24-Jul-2025 07:00
+
+Class-12 | Polity | Fundamental Rights
+Class-11 | Polity | Citizenship
+1100:0041:54
+23-Jul-2025 07:00
+
+Class-11 | Polity | Citizenship
+Class-10 | Polity | Preamble & Schedules Of Indian Constitution
+1000:0052:16
+22-Jul-2025 07:00
+
+Class-10 | Polity | Preamble & Schedules Of Indian Constitution
+Class-09 | Polity | Preamble & Schedules Of Indian Constitution
+900:0001:08:32
+21-Jul-2025 07:00
+
+Class-09 | Polity | Preamble & Schedules Of Indian Constitution
+Class-08 | Polity | Features & Sources Of The Constitution
+800:0059:06
+19-Jul-2025 07:00
+
+Class-08 | Polity | Features & Sources Of The Constitution
+Class-07 | Polity | Making Of Indian Constitution
+700:0051:07
+18-Jul-2025 07:00
+
+Class-07 | Polity | Making Of Indian Constitution
+Class-06 | Polity | Constituent Assembly
+600:0000:00
+17-Jul-2025 07:00
+
+Class-06 | Polity | Constituent Assembly
+Class-05 | Polity | Constituent Assembly
+500:0037:30
+16-Jul-2025 07:00
+
+Class-05 | Polity | Constituent Assembly
+Class-04 | Polity | Crown Rule
+400:00
+15-Jul-2025 07:00
+
+Class-04 | Polity | Crown Rule
+Class-03 | Polity | Crown Rule
+300:00
+14-Jul-2025 07:00
+
+Class-03 | Polity | Crown Rule
+Class-02 | Polity | Company Rule
+200:00
+12-Jul-2025 07:00
+
+Class-02 | Polity | Company Rule
+Class-01 | Polity | Constitutional Development
+100:0034:26
+11-Jul-2025 07:00
+
+Class-01 | Polity | Constitutional Development

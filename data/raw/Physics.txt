@@ -1,0 +1,231 @@
+Class-47 | Physics | Last Class
+Class- 46 | Physics | Units and Dimensions
+4600:0059:51
+03-Oct-2025 21:00
+
+Class- 46 | Physics | Units and Dimensions
+Class- 45 | Physics | Satellite and Keplar's laws
+4500:00
+01-Oct-2025 21:00
+
+Class- 45 | Physics | Satellite and Keplar's laws
+Class- 44 | Physics | Work, Power and Energy
+4400:0047:31
+30-Sep-2025 21:00
+
+Class- 44 | Physics | Work, Power and Energy
+Class- 43 | Physics | Work, Power and Energy
+4300:00
+29-Sep-2025 21:00
+
+Class- 43 | Physics | Work, Power and Energy
+Class- 42 | Physics | Projectile Motion
+4200:0050:56
+26-Sep-2025 21:00
+
+Class- 42 | Physics | Projectile Motion
+Class- 41 | Physics | Gravitation and Lift
+4100:00
+25-Sep-2025 21:00
+
+Class- 41 | Physics | Gravitation and Lift
+Class-40 | Physics | Uniform circular motion
+4000:00
+24-Sep-2025 21:00
+
+Class-40 | Physics | Uniform circular motion
+Class-39 | Physics | Newton's laws of motion
+3900:00
+23-Sep-2025 21:00
+
+Class-39 | Physics | Newton's laws of motion
+Class-38 | Physics | Newton's laws of motion
+3800:00
+19-Sep-2025 21:00
+
+Class-38 | Physics | Newton's laws of motion
+Class-37 | Physics | Newton's laws of motion
+3700:0050:32
+18-Sep-2025 21:00
+
+Class-37 | Physics | Newton's laws of motion
+Class-36 | Physics | Newton's laws of motion
+3600:00
+17-Sep-2025 21:00
+
+Class-36 | Physics | Newton's laws of motion
+Class-35 | Physics | Kinematics
+3500:0054:16
+16-Sep-2025 21:00
+
+Class-35 | Physics | Kinematics
+Class-34 | Physics | Kinematics
+3400:0001:02:48
+13-Sep-2025 21:00
+
+Class-34 | Physics | Kinematics
+Class-33 | Physics | Kinematics
+3300:0001:06:40
+12-Sep-2025 21:00
+
+Class-33 | Physics | Kinematics
+Class-32 | Physics | Kinematics
+3200:00
+10-Sep-2025 21:00
+
+Class-32 | Physics | Kinematics
+Class-31 | Physics | Kinematics
+3100:00
+08-Sep-2025 21:00
+
+Class-31 | Physics | Kinematics
+Class-30 | Physics | Fluid
+3000:00
+05-Sep-2025 21:00
+
+Class-30 | Physics | Fluid
+Class-29 | Physics | Fluid
+2900:00
+03-Sep-2025 21:00
+
+Class-29 | Physics | Fluid
+Class-28 | Physics | Fluid
+2800:00
+02-Sep-2025 21:00
+
+Class-28 | Physics | Fluid
+Class-27 | Physics | Heat
+2700:00
+29-Aug-2025 21:00
+
+Class-27 | Physics | Heat
+Class-26 | Physics | Heat
+2600:00
+28-Aug-2025 21:00
+
+Class-26 | Physics | Heat
+Class-25 | Physics | Heat
+2500:00
+22-Aug-2025 21:00
+
+Class-25 | Physics | Heat
+Class-24 | Physics | Heat
+2400:00
+21-Aug-2025 21:00
+
+Class-24 | Physics | Heat
+Class-23 | Physics | Heat
+2300:00
+20-Aug-2025 21:00
+
+Class-23 | Physics | Heat
+Class-22 | Physics | Wave
+2200:00
+19-Aug-2025 21:00
+
+Class-22 | Physics | Wave
+Class-21 | Physics | Wave
+2100:00
+18-Aug-2025 21:00
+
+Class-21 | Physics | Wave
+Class-20 | Physics | Wave
+2000:00
+14-Aug-2025 21:00
+
+Class-20 | Physics | Wave
+Class-19 | Physics | Wave
+1900:00
+12-Aug-2025 21:00
+
+Class-19 | Physics | Wave
+Class-18 | Physics | Electricity
+1800:0049:04
+08-Aug-2025 21:00
+
+Class-18 | Physics | Electricity
+Class-17 | Physics | Electricity
+1700:00
+07-Aug-2025 21:00
+
+Class-17 | Physics | Electricity
+Class-16 | Physics | Electricity
+1600:0051:51
+06-Aug-2025 21:00
+
+Class-16 | Physics | Electricity
+Class-15 | Physics | Electricity
+1500:00
+05-Aug-2025 21:00
+
+Class-15 | Physics | Electricity
+Class-14 | Physics | Electricity
+1400:00
+04-Aug-2025 21:00
+
+Class-14 | Physics | Electricity
+Class-13 | Physics | Electricity
+1300:00
+01-Aug-2025 21:00
+
+Class-13 | Physics | Electricity
+Class-12 | Physics | Electricity
+1200:00
+31-Jul-2025 21:00
+
+Class-12 | Physics | Electricity
+Class-11 | Physics | Optics
+1100:00
+30-Jul-2025 21:00
+
+Class-11 | Physics | Optics
+Class-10 | Physics | Optics
+1000:00
+29-Jul-2025 21:00
+
+Class-10 | Physics | Optics
+Class-09 | Physics | Optics
+900:00
+25-Jul-2025 21:00
+
+Class-09 | Physics | Optics
+Class-08 | Physics | Optics
+800:00
+24-Jul-2025 19:45
+
+Class-08 | Physics | Optics
+Class-07 | Physics | Optics
+700:00
+23-Jul-2025 19:45
+
+Class-07 | Physics | Optics
+Class-06 | Physics | Optics
+600:00
+22-Jul-2025 19:45
+
+Class-06 | Physics | Optics
+Class-05 | Physics | Optics
+500:00
+21-Jul-2025 19:45
+
+Class-05 | Physics | Optics
+Class-04 | Physics | Optics
+400:00
+17-Jul-2025 19:45
+
+Class-04 | Physics | Optics
+Class-03 | Physics | Optics
+300:0001:10:40
+16-Jul-2025 19:45
+
+Class-03 | Physics | Optics
+Class-02 | Physics | Optics
+200:00
+15-Jul-2025 19:45
+
+Class-02 | Physics | Optics
+Class-01 | Physics | Intro
+100:0058:48
+14-Jul-2025 19:45
+
+Class-01 | Physics | Intro

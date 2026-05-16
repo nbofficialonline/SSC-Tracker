@@ -1,0 +1,201 @@
+Class-40 | Modern History | Indian National Congress
+Class-39 | Modern History | Indian National Congress
+4000:0030:51
+26-Aug-2025 08:15
+
+Class-39 | Modern History | Indian National Congress
+Class-38 | Modern History | Indian National Congress
+3900:00
+25-Aug-2025 08:15
+
+Class-38 | Modern History | Indian National Congress
+Class-37 | Modern History | Indian National Congress
+3800:0058:48
+24-Aug-2025 12:45
+
+Class-37 | Modern History | Indian National Congress
+Class-36 | Modern History | Indian National Congress
+3700:0050:31
+23-Aug-2025 08:15
+
+Class-36 | Modern History | Indian National Congress
+Class-35 | Modern History | Indian National Congress
+3600:00
+22-Aug-2025 08:15
+
+Class-35 | Modern History | Indian National Congress
+Class-34 | Modern History | Indian National Congress
+3500:00
+21-Aug-2025 08:15
+
+Class-34 | Modern History | Indian National Congress
+Class-33 | Modern History | Indian National Congress
+3400:00
+20-Aug-2025 08:15
+
+Class-33 | Modern History | Indian National Congress
+Class-32 | Modern History | Indian National Congress
+3300:00
+19-Aug-2025 08:15
+
+Class-32 | Modern History | Indian National Congress
+Class-31 | Modern History | Indian National Congress
+3200:0044:56
+18-Aug-2025 08:15
+
+Class-31 | Modern History | Indian National Congress
+Class-30 | Modern History | Indian National Congress
+3100:00
+14-Aug-2025 08:15
+
+Class-30 | Modern History | Indian National Congress
+Class-29 | Modern History | Governors, Gov. General, Viceroys
+3000:00
+13-Aug-2025 08:15
+
+Class-29 | Modern History | Governors, Gov. General, Viceroys
+Class-28 | Modern History | Governors, Gov. General, Viceroys
+2900:00
+12-Aug-2025 08:15
+
+Class-28 | Modern History | Governors, Gov. General, Viceroys
+Class-28 | Modern History | Governors, Gov. General, Viceroys
+2800:00
+12-Aug-2025 08:15
+
+Class-28 | Modern History | Governors, Gov. General, Viceroys
+Class-27 | Modern History | Revolt of 1857
+2700:00
+11-Aug-2025 08:15
+
+Class-27 | Modern History | Revolt of 1857
+Class-26 | Modern History | Independent States
+2600:00
+08-Aug-2025 08:15
+
+Class-26 | Modern History | Independent States
+Class-25 | Modern History | Independent States
+2500:00
+07-Aug-2025 08:15
+
+Class-25 | Modern History | Independent States
+Class-24 | Modern History | Rise of Independent states in India
+2400:00
+06-Aug-2025 08:15
+
+Class-24 | Modern History | Rise of Independent states in India
+Class-23 | Modern History | Advent of Europeans in India
+2300:0055:04
+05-Aug-2025 08:15
+
+Class-23 | Modern History | Advent of Europeans in India
+Class-22 | Modern History | Advent of Europeans in India
+2200:0049:36
+04-Aug-2025 08:15
+
+Class-22 | Modern History | Advent of Europeans in India
+Class-21 | Modern History | Downfall of Mughal Empire
+2100:00
+02-Aug-2025 08:15
+
+Class-21 | Modern History | Downfall of Mughal Empire
+Class-20 | Medieval History | Mughal Empire(Shahjahan)
+2000:00
+01-Aug-2025 08:15
+
+Class-20 | Medieval History | Mughal Empire(Shahjahan)
+Class-19 | Medieval History | Mughal Empire(Akbar)
+1900:0055:28
+31-Jul-2025 08:15
+
+Class-19 | Medieval History | Mughal Empire(Akbar)
+Class-18 | Medieval History | Mughal Empire
+1800:00
+30-Jul-2025 08:15
+
+Class-18 | Medieval History | Mughal Empire
+Class-17 | Medieval History | Independent States
+1700:0036:56
+29-Jul-2025 08:15
+
+Class-17 | Medieval History | Independent States
+Class-16 | Medieval History | Tuglaq Dynasty
+1600:00
+28-Jul-2025 08:15
+
+Class-16 | Medieval History | Tuglaq Dynasty
+Class-15 | Medieval History | Khilji Dynasty
+1500:0054:51
+26-Jul-2025 08:15
+
+Class-15 | Medieval History | Khilji Dynasty
+Class-14 | Medieval History | Delhi Sultanate
+1400:00
+25-Jul-2025 08:15
+
+Class-14 | Medieval History | Delhi Sultanate
+Class-13 | Medieval History | Muhammad Ghori
+1300:00
+24-Jul-2025 08:15
+
+Class-13 | Medieval History | Muhammad Ghori
+Class-12 | Medieval History | Islam
+1200:0055:46
+23-Jul-2025 08:15
+
+Class-12 | Medieval History | Islam
+Class-11 | History | Rajput Era & Miscellaneous
+1100:0039:44
+22-Jul-2025 08:15
+
+Class-11 | History | Rajput Era & Miscellaneous
+Class-10 | History | South India & Chola Empire
+1000:0045:28
+21-Jul-2025 08:15
+
+Class-10 | History | South India & Chola Empire
+Class-09 | History | Gupta & Post Gupta Period
+900:00
+19-Jul-2025 08:15
+
+Class-09 | History | Gupta & Post Gupta Period
+Class-08 | History | Post Mauryan Period
+800:0040:02
+18-Jul-2025 08:15
+
+Class-08 | History | Post Mauryan Period
+Class-07 | History | Mauryan Empire
+700:00
+17-Jul-2025 14:00
+
+Class-07 | History | Mauryan Empire
+Class-06 | History | Pre Mauryan Period
+600:00
+16-Jul-2025 14:00
+
+Class-06 | History | Pre Mauryan Period
+Class-05 | History | Jainism & Buddhism
+500:00
+15-Jul-2025 14:00
+
+Class-05 | History | Jainism & Buddhism
+Class-04 | History | Mahajanpadas
+400:00
+14-Jul-2025 14:00
+
+Class-04 | History | Mahajanpadas
+Class-03 | History | Vedic Period
+3754:55
+12-Jul-2025 14:00
+
+Class-03 | History | Vedic Period
+Class-02 | History | Indus Valley Civilization
+200:00
+11-Jul-2025 14:00
+
+Class-02 | History | Indus Valley Civilization
+Class-01 | History | Prehistoric Period Stone Age
+100:0059:05
+10-Jul-2025 14:00
+
+Class-01 | History | Prehistoric Period Stone Age

@@ -1,2 +1,4 @@
-2026/05/16-17:40:01.430 1a70 Creating DB C:\Users\ASUS\Desktop\Projects\SSC Tracker\.codex-cdp-profile\Default\GCM Store\Encryption since it was missing.
-2026/05/16-17:40:01.467 1a70 Reusing MANIFEST C:\Users\ASUS\Desktop\Projects\SSC Tracker\.codex-cdp-profile\Default\GCM Store\Encryption/MANIFEST-000001
+2026/05/16-17:46:59.871 3de8 Creating DB C:\Users\ASUS\Desktop\Projects\SSC Tracker\.codex-cdp-profile\Default\GCM Store\Encryption since it was missing.
+2026/05/16-17:46:59.896 3de8 Reusing MANIFEST C:\Users\ASUS\Desktop\Projects\SSC Tracker\.codex-cdp-profile\Default\GCM Store\Encryption/MANIFEST-000001
+2026/05/16-17:46:59.897 3de8 Recovering log #3
+2026/05/16-17:46:59.898 3de8 Reusing old log C:\Users\ASUS\Desktop\Projects\SSC Tracker\.codex-cdp-profile\Default\GCM Store\Encryption/000003.log 

@@ -161,7 +161,7 @@
 
     /* â”€â”€ Main â”€â”€ */
     .main{min-width:0;padding:22px;background:var(--bg);transition:background .3s}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;animation:fadeUp .22s ease}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
     .title h1{font-size:22px;color:var(--text);font-weight:800;margin-bottom:2px}
     .title p{font-size:12px;color:var(--muted);font-weight:500}
     .actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
@@ -188,7 +188,7 @@
     .metric{
       background:var(--surface);border:1px solid var(--border);border-radius:16px;
       padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;
-      animation:fadeUp .25s ease;transition:transform .2s,box-shadow .2s,background .3s,border-color .3s;
+      transition:transform .2s,box-shadow .2s,background .3s,border-color .3s;
     }
     .metric:before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal))}
     .metric:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
@@ -201,7 +201,7 @@
     .card{
       margin-top:13px;padding:18px;border-radius:16px;
       background:var(--surface);border:1px solid var(--border);
-      box-shadow:var(--shadow);animation:fadeUp .25s ease;
+      box-shadow:var(--shadow);
       transition:background .3s,border-color .3s;
     }
     .card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}
@@ -389,7 +389,7 @@
     .admin-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 13px}
     .admin-tabs button{border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text2);padding:8px 13px;font-weight:700;font-size:13px;transition:var(--tr)}
     .admin-tabs button.active,.admin-tabs button:hover{color:#fff;background:var(--pr);border-color:var(--pr);transform:translateY(-1px)}
-    .admin-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:13px;animation:fadeUp .22s ease}
+    .admin-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:13px}
     .user-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--border)}
     .user-row:first-of-type{border-top:0}
     .setting-row{display:flex;align-items:center;justify-content:space-between;gap:13px;padding:13px;border:1px solid var(--border);border-radius:13px;background:var(--surface2)}
@@ -484,8 +484,8 @@ var state = {
   filters:{q:'',category:'',status:'all',priority:'all'},
   busyTopics:{},busyTopic:'',
   admin:null,adminToken:'',adminUsers:[],adminDashboard:null,adminDetail:null,
-  adminDetailFilter:'',adminTab:'users',adminUserFilter:{q:'',status:'all'},
-  studyTimerSec:0,studyTimerRunning:false,studyTimerInterval:null,
+  adminDetailFilter:'',adminTab:'users',adminSection:'dashboard',adminUserFilter:{q:'',status:'all'},
+  userSection:'dashboard',studyTimerSec:0,studyTimerRunning:false,studyTimerInterval:null,studySessionStartedAt:null,studySessions:[],
   filterTimer:null,theme:'light',streak:0
 };
 
@@ -494,6 +494,7 @@ var CACHE_TTL = 3600000; // 1h
 function cacheSet(k,v){try{localStorage.setItem('ssc_'+k,JSON.stringify({v:v,t:Date.now()}))}catch(e){}}
 function cacheGet(k){try{var d=JSON.parse(localStorage.getItem('ssc_'+k)||'null');if(d&&Date.now()-d.t<CACHE_TTL)return d.v}catch(e){}return null}
 function cacheClear(k){try{localStorage.removeItem('ssc_'+k)}catch(e){}}
+function userStorageKey(suffix){return state.user&&state.user.username?'ssc_'+suffix+'_'+state.user.username:''}
 
 /* â”€â”€ Theme â”€â”€ */
 function loadTheme(){
@@ -801,7 +802,7 @@ async function doAdminLogin(){
   try{
     var r=await api('POST','/auth/login',{username:u,password:p});
     if(!r||!r.ok){toast(r&&r.error||'Invalid admin credentials','err');return}
-    state.admin=r.user;state.adminToken='';state.screen='admin';
+    state.admin=r.user;state.adminToken='';state.screen='admin';state.adminSection='dashboard';state.adminTab='users';
     state.adminDashboard=null;state.adminUsers=[];
     renderAdmin();adminRefresh();
   }catch(err){fail(err)}
@@ -812,10 +813,10 @@ async function doAdminLogin(){
 function shell(title,subtitle,active,body,adminMode){
   var who=adminMode?((state.admin&&state.admin.username)||'admin'):((state.user&&state.user.username)||'user');
   var navItems=adminMode?[
-    {label:'Dashboard',act:'dashboard',click:'adminRefresh()'},
-    {label:'Users',act:'users',click:'scrollAdminUsers()'},
-    {label:'Logs',act:'logs',click:'adminRefresh()'},
-    {label:'Settings',act:'settings',click:'adminRefresh()'},
+    {label:'Dashboard',act:'dashboard',click:'adminNavigate(&quot;dashboard&quot;)'},
+    {label:'Users',act:'users',click:'adminNavigate(&quot;users&quot;)'},
+    {label:'Logs',act:'logs',click:'adminNavigate(&quot;logs&quot;)'},
+    {label:'Settings',act:'settings',click:'adminNavigate(&quot;settings&quot;)'},
     {label:'Logout',act:'',click:'adminLogoutUi()'}
   ]:[
     {label:'Dashboard',act:'dashboard',click:'reloadUser()'},
@@ -1267,6 +1268,16 @@ function adminDaysRemainingForUser(u){
   var ms=new Date(u.expiresAt)-Date.now();
   if(ms<0)return-1;return Math.ceil(ms/86400000);
 }
+function adminNavigate(section){
+  state.adminSection=section||'dashboard';
+  if(['users','logs','settings','create'].indexOf(state.adminSection)!==-1)state.adminTab=state.adminSection;
+  state.adminDetail=null;
+  renderAdmin();
+}
+function adminTitle(){
+  var labels={dashboard:'Dashboard',users:'Users',logs:'Activity Logs',settings:'Site Settings',create:'New User'};
+  return labels[state.adminSection]||'Admin Console';
+}
 
 function renderAdmin(){
   if(!state.admin){renderLogin();return}
@@ -1286,33 +1297,38 @@ function renderAdmin(){
     body+='<div class="metric"><b>'+escapeHtml(statValue('expiringSoon')||0)+'</b><span>Expiring in 7d</span></div>';
     body+='</div>';
 
-    // Admin tabs
-    body+='<div class="card" style="margin-top:13px"><div class="admin-tabs">';
-    ['users','logs','settings','create'].forEach(function(tab){
-      var labels={users:'Users',logs:'Logs',settings:'Site Settings',create:'New User'};
-      body+='<button class="'+(state.adminTab===tab?'active':'')+'" onclick="state.adminTab=&quot;'+tab+'&quot;;renderAdmin()">'+labels[tab]+'</button>';
-    });
-    body+='</div>';
+    if(state.adminSection==='dashboard'){
+      body+='<div class="card"><div class="card-head"><h3>Overview</h3><span class="muted small">Use the sidebar to manage users, logs, and settings.</span></div>';
+      body+=renderAdminLogs(logs.slice(0,8));
+      body+='</div>';
+    } else {
+      body+='<div class="card" style="margin-top:13px"><div class="admin-tabs">';
+      ['users','logs','settings','create'].forEach(function(tab){
+        var labels={users:'Users',logs:'Logs',settings:'Site Settings',create:'New User'};
+        body+='<button class="'+(state.adminTab===tab?'active':'')+'" onclick="adminNavigate(&quot;'+tab+'&quot;)">'+labels[tab]+'</button>';
+      });
+      body+='</div>';
 
-    if(state.adminTab==='users'){
-      body+=renderAdminUsers();
-    } else if(state.adminTab==='logs'){
-      body+=renderAdminLogs(logs);
-    } else if(state.adminTab==='settings'){
-      body+=renderAdminSettings(settings);
-    } else if(state.adminTab==='create'){
-      body+=renderAdminCreate();
+      if(state.adminTab==='users'){
+        body+=renderAdminUsers();
+      } else if(state.adminTab==='logs'){
+        body+=renderAdminLogs(logs);
+      } else if(state.adminTab==='settings'){
+        body+=renderAdminSettings(settings);
+      } else if(state.adminTab==='create'){
+        body+=renderAdminCreate();
+      }
+      body+='</div>';
     }
-    body+='</div>';
 
     // User detail
     if(state.adminDetail){body+=renderAdminDetail()}
   }
 
   el('app').innerHTML=shell(
-    'Admin Console',
+    adminTitle(),
     'Logged in as '+escapeHtml(state.admin.username||'')+' - '+escapeHtml(statValue('totalUsers')||0)+' students',
-    'dashboard',body,true
+    state.adminSection,body,true
   );
   normalizeInteractiveControls(el('app'));
 }
@@ -1431,7 +1447,7 @@ function adminRefreshStatsChrome(){
 function adminRenderUsersCardIfVisible(){renderAdmin()}
 
 async function adminRefresh(){
-  state.loading=true;renderAdmin();
+  state.loading=true;
   try{
     const [dash, users] = await Promise.all([
       api('GET', '/admin/dashboard'),
@@ -1440,7 +1456,7 @@ async function adminRefresh(){
     if(!dash.ok || !users.ok){toast('Admin load failed','err');return}
     state.adminDashboard=dash.dashboard;
     state.adminUsers=users.users||[];
-    toast('Dashboard loaded','ok');
+    toast('Data refreshed','ok');
   }catch(err){fail(err)}
   finally{state.loading=false;renderAdmin()}
 }
@@ -1622,7 +1638,7 @@ async function adminRebuildTopics(){
 
 function adminLogoutUi(){
   state.screen='login';state.admin=null;state.adminToken='';
-  state.adminUsers=[];state.adminDashboard=null;state.adminDetail=null;
+  state.adminUsers=[];state.adminDashboard=null;state.adminDetail=null;state.adminSection='dashboard';state.adminTab='users';
   renderLogin();
 }
 

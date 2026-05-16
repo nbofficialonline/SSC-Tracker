@@ -3,7 +3,13 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const User = require('../models/User');
 const SiteSetting = require('../models/SiteSetting');
-const { categoryStats, overallProgress, seedProgress, topicsWithProgress } = require('../services/topics');
+const {
+  categoryStats,
+  missingProgressEntries,
+  overallProgress,
+  seedProgress,
+  topicsWithProgress,
+} = require('../services/topics');
 const { authLimiter } = require('../middleware/rateLimiter');
 const { validateLogin, validateRegister } = require('../middleware/validate');
 const { requireLogin } = require('../middleware/auth');
@@ -66,6 +72,11 @@ router.post('/login', authLimiter, validateLogin, async (req, res, next) => {
 
     if (user.isExpired() && user.role !== 'admin') {
       return res.status(403).json({ ok: false, error: 'Account expired. Contact admin.' });
+    }
+
+    const missingProgress = missingProgressEntries(user.progress);
+    if (missingProgress.length) {
+      user.progress.push(...missingProgress);
     }
 
     // Regenerate session to prevent session fixation

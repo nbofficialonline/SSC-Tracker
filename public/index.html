@@ -24,7 +24,7 @@
         --shadow3:0 20px 60px rgba(15,23,42,.2);
         --r:12px;--r2:20px;
         --tr:0.2s cubic-bezier(.4,0,.2,1);
-        --sidebar-w:260px;
+        --sidebar-w:280px;
         --font:'Sora',sans-serif;
         --mono:'JetBrains Mono',monospace;
       }
@@ -139,9 +139,10 @@
     .nav{display:grid;gap:4px;margin-bottom:6px}
     .nav button{
       width:100%;border:0;border-radius:10px;background:transparent;
-      color:rgba(255,255,255,.62);padding:10px 12px;
-      text-align:left;font-weight:700;font-size:13px;
+      color:rgba(255,255,255,.72);padding:12px 14px;
+      text-align:left;font-weight:800;font-size:14px;line-height:1.25;
       transition:var(--tr);display:flex;align-items:center;gap:8px;
+      white-space:normal;word-break:normal;
     }
     .nav button:hover,.nav button.active{background:rgba(245,158,11,.15);color:var(--gold-l)}
     .nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
@@ -149,9 +150,9 @@
     .side-card{
       margin-top:auto;padding:12px;border-radius:13px;
       background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-      font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.65);
+      font-size:12px;line-height:1.5;color:rgba(255,255,255,.72);
     }
-    .side-card b{display:block;color:#fff;font-size:13px;margin-bottom:3px}
+    .side-card b{display:block;color:#fff;font-size:14px;margin-bottom:3px;word-break:break-word}
     .streak-badge{
       display:inline-flex;align-items:center;gap:5px;
       background:linear-gradient(135deg,#f97316,var(--gold));
@@ -343,6 +344,7 @@
     .timer-display{font-size:22px;font-weight:700;color:var(--gold);min-width:70px}
     .timer-label{font-size:11px;color:var(--muted);font-family:var(--font);font-weight:700;flex:1}
     .timer-running .timer-display{animation:pulse 1.5s ease-in-out infinite}
+    .study-focus{display:grid;grid-template-columns:minmax(260px,1fr) 1.4fr;gap:13px}
 
     /* â”€â”€ Empty / loading â”€â”€ */
     .empty{padding:30px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--border);border-radius:14px;margin-top:13px}
@@ -429,6 +431,7 @@
     /* â”€â”€ Responsive â”€â”€ */
     @media(max-width:980px){
       .dashboard-grid,.donut-wrap{grid-template-columns:1fr}
+      .study-focus{grid-template-columns:1fr}
       .donut{margin:0 auto}
     }
     @media(max-width:860px){
@@ -621,13 +624,45 @@ function fail(err){toast(err&&err.message?err.message:String(err),'err')}
 function render(){if(state.screen==='login')renderLogin();else if(state.screen==='user')renderUser();else if(state.screen==='admin')renderAdmin()}
 
 /* â”€â”€ Timer â”€â”€ */
+function loadStudySessions(){
+  try{
+    var key=userStorageKey('study_sessions');
+    state.studySessions=key?JSON.parse(localStorage.getItem(key)||'[]'):[];
+  }catch(e){state.studySessions=[]}
+}
+function saveStudySessions(){
+  try{
+    var key=userStorageKey('study_sessions');
+    if(key)localStorage.setItem(key,JSON.stringify(state.studySessions.slice(0,200)));
+  }catch(e){}
+}
+function totalStudySeconds(){
+  return (state.studySessions||[]).reduce(function(sum,s){return sum+Number(s.durationSec||0)},0)+(state.studyTimerRunning?state.studyTimerSec:0);
+}
+function todayStudySeconds(){
+  var today=new Date().toISOString().slice(0,10);
+  return (state.studySessions||[]).filter(function(s){return String(s.date||'').slice(0,10)===today}).reduce(function(sum,s){return sum+Number(s.durationSec||0)},0)+(state.studyTimerRunning?state.studyTimerSec:0);
+}
+function recordStudySession(){
+  if(!state.studyTimerSec)return;
+  var started=state.studySessionStartedAt||new Date(Date.now()-state.studyTimerSec*1000).toISOString();
+  state.studySessions.unshift({startedAt:started,endedAt:new Date().toISOString(),date:new Date().toISOString().slice(0,10),durationSec:state.studyTimerSec});
+  saveStudySessions();
+}
+function fmtHours(sec){
+  var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60);
+  return h? h+'h '+String(m).padStart(2,'0')+'m' : m+'m';
+}
 function startTimer(){
   if(state.studyTimerRunning)return;
   state.studyTimerRunning=true;recordStudyToday();
+  state.studySessionStartedAt=new Date().toISOString();
   state.studyTimerInterval=setInterval(function(){
     state.studyTimerSec++;
     var d=el('timerDisplay');if(d)d.textContent=fmtTimer(state.studyTimerSec);
     var b=el('timerBar');if(b)b.classList.add('timer-running');
+    var today=el('studyToday');if(today)today.textContent=fmtHours(todayStudySeconds());
+    var total=el('studyTotal');if(total)total.textContent=fmtHours(totalStudySeconds());
   },1000);
   var d=el('timerDisplay');if(d)d.textContent=fmtTimer(state.studyTimerSec);
   toast('Study timer started ','ok');
@@ -637,10 +672,14 @@ function pauseTimer(){
   state.studyTimerRunning=false;
   clearInterval(state.studyTimerInterval);
   var b=el('timerBar');if(b)b.classList.remove('timer-running');
+  recordStudySession();
   toast('Timer paused at '+fmtTimer(state.studyTimerSec),'');
+  state.studyTimerSec=0;state.studySessionStartedAt=null;
+  renderUser();
 }
 function resetTimer(){
-  pauseTimer();state.studyTimerSec=0;
+  if(state.studyTimerRunning){clearInterval(state.studyTimerInterval)}
+  state.studyTimerRunning=false;state.studyTimerSec=0;state.studySessionStartedAt=null;
   var d=el('timerDisplay');if(d)d.textContent='00:00';
 }
 
@@ -778,6 +817,7 @@ async function doLogin(){
     } else {
       state.selectedCategory='';state.filters.category='';
     }
+    state.userSection='dashboard';
     renderUser();
   }catch(err){fail(err)}
   finally{if(btn){btn.disabled=false;btn.innerHTML='Login'}}
@@ -819,21 +859,13 @@ function shell(title,subtitle,active,body,adminMode){
     {label:'Settings',act:'settings',click:'adminNavigate(&quot;settings&quot;)'},
     {label:'Logout',act:'',click:'adminLogoutUi()'}
   ]:[
-    {label:'Dashboard',act:'dashboard',click:'reloadUser()'},
-    {label:'Topics',act:'topics',click:'scrollTopics()'},
-    {label:'Export CSV',act:'',click:'exportCsv()'},
+    {label:'Dashboard',act:'dashboard',click:'userNavigate(&quot;dashboard&quot;)'},
+    {label:'Topics',act:'topics',click:'userNavigate(&quot;topics&quot;)'},
+    {label:'Study Time',act:'study',click:'userNavigate(&quot;study&quot;)'},
     {label:'Logout',act:'',click:'logout()'}
   ];
 
   var streakHtml=state.streak>0?'<div class="streak-badge">'+state.streak+' day streak</div>':'';
-  var timerHtml=!adminMode?('<div class="timer-bar" id="timerBar">'+
-    '<span class="timer-display" id="timerDisplay">'+fmtTimer(state.studyTimerSec)+'</span>'+
-    '<span class="timer-label">Study session<br><span class="muted" style="font-size:10px;font-weight:500">Press <span class="kbd">T</span> to toggle</span></span>'+
-    '<button class="btn sm ghost" onclick="'+(state.studyTimerRunning?'pauseTimer()':'startTimer()')+'\">'+
-    (state.studyTimerRunning?'Pause':'Start')+'</button>'+
-    '<button class="btn sm ghost" onclick="resetTimer()" title="Reset">Reset</button>'+
-    '</div>'):'';
-
   return (
     '<div class="app">'+
     '<button class="hamburger" onclick="openSidebar()" style="position:fixed;top:12px;left:12px;z-index:20" id="hamburgerBtn">'+
@@ -841,11 +873,11 @@ function shell(title,subtitle,active,body,adminMode){
     '<aside class="sidebar">'+
     '<div class="brand"><div class="brand-mark">SSC</div><div><h2>Prep Tracker</h2><p>'+(adminMode?'Admin console':'Study dashboard')+'</p></div></div>'+
     '<nav class="nav">'+
-    navItems.map(function(n){return '<button class="'+(active===n.act?'active':'')+'" onclick="'+n.click+';closeSidebar()"><span class="nav-icon">'+n.label.split(' ')[0]+'</span>'+n.label.split(' ').slice(1).join(' ')+'</button>'}).join('')+
+    navItems.map(function(n){return '<button class="'+(active===n.act?'active':'')+'" onclick="'+n.click+';closeSidebar()">'+escapeHtml(n.label)+'</button>'}).join('')+
     '</nav>'+
     '<div class="side-divider"></div>'+
     '<div class="side-card"><b>'+escapeHtml(who)+'</b>'+
-    (adminMode?'Admin panel':'Click a folder to load topics')+
+    (adminMode?'Admin panel':'Study progress')+
     streakHtml+
     '</div>'+
     '</aside>'+
@@ -861,7 +893,6 @@ function shell(title,subtitle,active,body,adminMode){
       :'<button class="btn ghost sm" onclick="reloadUser()">Refresh</button><button id="themeBtn" class="theme-btn" onclick="toggleTheme()" title="Toggle dark mode">'+(state.theme==='dark'?'Light':'Dark')+'</button><button class="btn danger sm" onclick="resetAll()">Reset</button><button class="btn dark sm" onclick="logout()">Logout</button>'
     )+
     '</div></div>'+
-    timerHtml+
     body+
     '</main></div>'
   );
@@ -959,6 +990,11 @@ function setFilterDebounced(key,value){
   clearTimeout(state.filterTimer);
   state.filterTimer=setTimeout(function(){setFilter(key,value)},160);
 }
+function userNavigate(section){
+  state.userSection=section||'dashboard';
+  renderUser();
+  if(state.userSection==='topics'&&state.selectedCategory)setTimeout(scrollTopics,40);
+}
 
 /* â”€â”€ Charts â”€â”€ */
 function renderDonutChart(stats){
@@ -989,6 +1025,32 @@ function renderCategoryDistribution(cats){
   if(!top.length)return '<div class="empty">No subjects yet. Build master topics first.</div>';
   return '<div class="chart-list">'+top.map(function(c){return renderChartRow(c.name,c.total||0,total,'')}).join('')+'</div>';
 }
+function renderStudyTime(){
+  var sessions=state.studySessions||[];
+  var body='';
+  body+='<div class="grid" style="margin-top:6px">';
+  body+='<div class="metric"><b id="studyToday">'+fmtHours(todayStudySeconds())+'</b><span>Studied today</span><small>Recorded from completed sessions</small></div>';
+  body+='<div class="metric"><b id="studyTotal">'+fmtHours(totalStudySeconds())+'</b><span>Total study time</span><small>'+sessions.length+' saved sessions</small></div>';
+  body+='<div class="metric"><b>'+fmtTimer(state.studyTimerSec)+'</b><span>Current session</span><small>'+(state.studyTimerRunning?'Running':'Not running')+'</small></div>';
+  body+='</div>';
+  body+='<div class="card"><div class="card-head"><h3>Session timer</h3><span class="muted small">Start when you begin studying. Pause saves the session.</span></div>';
+  body+='<div class="timer-bar" id="timerBar">'+
+    '<span class="timer-display" id="timerDisplay">'+fmtTimer(state.studyTimerSec)+'</span>'+
+    '<span class="timer-label">Current study session<br><span class="muted" style="font-size:10px;font-weight:500">Press <span class="kbd">T</span> to toggle</span></span>'+
+    '<button class="btn sm ghost" onclick="'+(state.studyTimerRunning?'pauseTimer()':'startTimer()')+'">'+(state.studyTimerRunning?'Pause & Save':'Start')+'</button>'+
+    '<button class="btn sm ghost" onclick="resetTimer()" title="Reset current timer">Reset</button>'+
+    '</div></div>';
+  body+='<div class="card"><div class="card-head"><h3>Recent sessions</h3><span class="muted small">'+sessions.length+' total</span></div>';
+  if(!sessions.length){
+    body+='<div class="empty" style="margin:0">No study sessions recorded yet.</div>';
+  }else{
+    body+='<div class="chart-list">'+sessions.slice(0,20).map(function(s){
+      return '<div class="setting-row"><div><b>'+escapeHtml(fmtHours(Number(s.durationSec||0)))+'</b><br><span class="small muted">'+escapeHtml(new Date(s.startedAt).toLocaleString())+'</span></div><span class="pill active">'+escapeHtml(s.date||'')+'</span></div>';
+    }).join('')+'</div>';
+  }
+  body+='</div>';
+  return body;
+}
 function loadingTopicHtml(){
   return '<div style="margin-top:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface)"><div class="loader-lines"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div></div>';
 }
@@ -996,6 +1058,7 @@ function loadingTopicHtml(){
 /* â”€â”€ Render user â”€â”€ */
 function renderUser(){
   if(!state.user){renderLogin();return}
+  loadStudySessions();
   var s=topicStats(currentTopicScope());
   var cats=getCategories();
   var overall=getOverallProgress();
@@ -1010,34 +1073,30 @@ function renderUser(){
 
   var body='';
 
+  if(state.userSection==='study'){
+    body=renderStudyTime();
+    el('app').innerHTML=shell('Study Time','Track every focused study session',state.userSection,body,false);
+    normalizeInteractiveControls(el('app'));
+    return;
+  }
+
   // Metrics
   body+='<div class="grid" style="margin-top:6px">';
   body+=overallCard;
   body+='<div class="metric"><b id="userProgressPct">'+s.percent+'%</b><span>Subject progress</span><small><em id="userProgressDone" style="font-style:normal">'+s.done+'</em>/<em id="userProgressTotal" style="font-style:normal">'+s.total+'</em> loaded topics</small></div>';
   body+='<div class="metric"><b id="userPendingCount">'+s.pending+'</b><span>Pending topics</span><small><em id="userHighPendingCount" style="font-style:normal">'+s.highPending+'</em> high-priority</small></div>';
-  body+='<div class="metric"><b>'+cats.length+'</b><span>Subjects available</span><small>Click any folder to load</small></div>';
+  body+='<div class="metric"><b>'+fmtHours(totalStudySeconds())+'</b><span>Study time</span><small>'+fmtHours(todayStudySeconds())+' today</small></div>';
   body+='<div class="metric"><b>'+escapeHtml(shortDate(state.user.expiresAt))+'</b><span>Account validity</span><small>'+escapeHtml(fmtDate(state.user.expiresAt))+'</small></div>';
   body+='</div>';
 
-  // Hero card
   body+='<div class="card hero-card">';
-  body+='<div class="card-head"><h3>Study dashboard</h3><span class="pill active">'+escapeHtml(selectedLabel)+'</span></div>';
-  body+='<div class="progress hero-progress"><div id="userHeroProgressBar" class="bar" style="width:'+s.percent+'%\"></div></div>';
-  body+='<p class="muted small" style="margin-top:9px">All subjects are preloaded. Select a folder to focus, or use <span class="kbd">/</span> to search across everything.</p>';
-  body+='</div>';
-
-  // Dashboard grid
-  body+='<div class="dashboard-grid">';
-  body+='<div class="card chart-card"><div class="card-head"><h3>Subject progress</h3><span class="muted small">Loaded subject</span></div>';
-  body+=renderDonutChart(s);
-  body+='</div>';
-  body+='<div class="card chart-card"><div class="card-head"><h3>Priority spread</h3><span class="muted small">All loaded topics</span></div>';
-  body+=state.topics.length?renderPriorityBars(state.topics):renderCategoryDistribution(cats);
-  body+='</div>';
+  body+='<div class="card-head"><h3>'+escapeHtml(selectedLabel)+' progress</h3><span class="pill active">'+s.done+'/'+s.total+' done</span></div>';
+  body+='<div class="progress hero-progress"><div id="userHeroProgressBar" class="bar" style="width:'+s.percent+'%"></div></div>';
+  body+='<div class="chart-list" style="margin-top:12px">'+renderChartRow('Completed',s.done,s.total,'green')+renderChartRow('Pending',s.pending,s.total,'warn')+renderChartRow('High priority pending',s.highPending,s.total,'')+'</div>';
   body+='</div>';
 
   // Folders
-  body+='<div class="card"><div class="card-head"><h3>Subjects</h3><span class="muted small">'+cats.length+' available</span></div>';
+  body+='<div class="card"><div class="card-head"><h3>Subjects</h3><span class="muted small">Click a folder to view topics</span></div>';
   if(!cats.length){
     body+='<div class="empty">No subjects found. Run setupRawFilesSheet() and buildMasterTopicsFromRawFiles() first.</div>';
   } else {
@@ -1053,6 +1112,16 @@ function renderUser(){
     body+='</div>';
   }
   body+='</div>';
+
+  if(state.userSection!=='topics'){
+    el('app').innerHTML=shell(
+      state.user.name||state.user.username,
+      state.user.username+' - '+overall.percent+'% overall complete',
+      state.userSection,body,false
+    );
+    normalizeInteractiveControls(el('app'));
+    return;
+  }
 
   // Filters
   body+='<div class="card"><div class="card-head"><h3>Search & Filters</h3><span class=\"muted small\">'+shown.length+' shown</span></div>';
@@ -1131,7 +1200,7 @@ function renderUser(){
 /* â”€â”€ Load category â”€â”€ */
 async function loadCategory(category,shouldScroll){
   if(!state.user||!category)return;
-  state.selectedCategory=category;state.filters.category=category;
+  state.userSection='topics';state.selectedCategory=category;state.filters.category=category;
   if(state.topics.length>=totalPrepTopics()&&totalPrepTopics()>0){
     renderUser();
     if(shouldScroll)setTimeout(scrollTopics,40);
@@ -1247,7 +1316,7 @@ async function resetAll(){
 
 function logout(){
   pauseTimer();state.screen='login';state.user=null;state.categories=[];state.categoryProgress={};
-  state.overallProgress=null;state.selectedCategory='';state.topics=[];
+  state.overallProgress=null;state.selectedCategory='';state.topics=[];state.userSection='dashboard';state.studySessions=[];
   state.filters={q:'',category:'',status:'all',priority:'all'};renderLogin();
 }
 function scrollTopics(){var n=el('topicList');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}

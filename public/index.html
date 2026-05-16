@@ -455,8 +455,7 @@
 
     </style>
     
-</head
-  >
+  </head>
 
   <body>
     
@@ -536,6 +535,27 @@ loadStreak();
 
 /* â”€â”€ Utils â”€â”€ */
 function el(id){return document.getElementById(id)}
+function normalizeInteractiveControls(root){
+  (root||document).querySelectorAll('button:not([type])').forEach(function(btn){
+    btn.setAttribute('type','button');
+  });
+}
+document.addEventListener('click',function(e){
+  var btn=e.target&&e.target.closest?e.target.closest('button'):null;
+  if(btn&&!btn.hasAttribute('type'))btn.setAttribute('type','button');
+},true);
+document.addEventListener('submit',function(e){
+  e.preventDefault();
+},true);
+if(window.MutationObserver){
+  new MutationObserver(function(records){
+    records.forEach(function(record){
+      record.addedNodes.forEach(function(node){
+        if(node.nodeType===1)normalizeInteractiveControls(node);
+      });
+    });
+  }).observe(document.documentElement,{childList:true,subtree:true});
+}
 function escapeHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function escapeAttr(s){return String(s==null?'':s).replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function jsArg(v){return escapeAttr(JSON.stringify(String(v==null?'':v)))}
@@ -729,6 +749,7 @@ function renderLogin(){
     // Admin login
     '<div id="tabAdmin" class="login-form '+(state.loginTab==='admin'?'active':'')+'">'+'<div class="field"><label>Admin Username</label><input id="au" type="text" placeholder="admin username" autocomplete="username"/></div>'+'<div class="field"><label>Admin Password</label><input id="ap" type="password" placeholder="password" autocomplete="current-password"/></div>'+'<button class="login-btn" id="adminLoginBtn" onclick="doAdminLogin()" style="background:linear-gradient(135deg,var(--pr-l),var(--pr))">Admin Login</button>'+'</div>'+
     '</div></div>';
+  normalizeInteractiveControls(el('app'));
   setTimeout(function(){var i=el('lu');if(i)i.focus()},100);
   // Enter key support
   setTimeout(function(){
@@ -1103,6 +1124,7 @@ function renderUser(){
     state.user.username+' - '+(state.selectedCategory||'all subjects')+' - '+s.percent+'% complete',
     'topics',body,false
   );
+  normalizeInteractiveControls(el('app'));
 }
 
 /* â”€â”€ Load category â”€â”€ */
@@ -1292,6 +1314,7 @@ function renderAdmin(){
     'Logged in as '+escapeHtml(state.admin.username||'')+' - '+escapeHtml(statValue('totalUsers')||0)+' students',
     'dashboard',body,true
   );
+  normalizeInteractiveControls(el('app'));
 }
 
 function renderAdminUsers(){

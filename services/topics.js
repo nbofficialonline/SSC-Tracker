@@ -67,9 +67,17 @@ function seedProgress() {
   return ALL_TOPICS.map((t) => ({ topicId: t.topicId, completed: false, completedAt: null }));
 }
 
+function missingProgressEntries(progress) {
+  const existingIds = new Set((progress || []).map((p) => p.topicId));
+  return ALL_TOPICS
+    .filter((t) => !existingIds.has(t.topicId))
+    .map((t) => ({ topicId: t.topicId, completed: false, completedAt: null }));
+}
+
 module.exports = {
   ALL_TOPICS,
   categoryStats,
+  missingProgressEntries,
   overallProgress,
   seedProgress,
   topicsWithProgress,

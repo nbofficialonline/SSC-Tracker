@@ -748,18 +748,15 @@ async function doLogin(){
     var r=await api('POST','/auth/login',{username:u,password:p});
     if(!r||!r.ok){toast(r&&r.error||'Invalid credentials','err');return}
     state.user=r.user;state.screen='user';
-    state.categories=r.categories||[];
+    hydratePreloadedTopics(r.topics||[],r.categories||[],r.overallProgress);
     cacheSet('cats_'+state.user.username,state.categories);
-    // Try restore last category
     var lastCat=cacheGet('lastcat_'+state.user.username);
-    if(lastCat&&state.categories.find(function(c){return c.category===lastCat})){
-      state.overallProgress=null;state.overallProgressLoading=true;
-      renderUser();fetchOverallProgress();
-      loadCategory(lastCat,false);
+    if(lastCat&&state.categories.find(function(c){return (c.name||c.category)===lastCat})){
+      state.selectedCategory=lastCat;state.filters.category=lastCat;
     } else {
-      state.overallProgress=null;state.overallProgressLoading=true;
-      renderUser();fetchOverallProgress();
+      state.selectedCategory='';state.filters.category='';
     }
+    renderUser();
   }catch(err){fail(err)}
   finally{if(btn){btn.disabled=false;btn.innerHTML='Login'}}
 }
@@ -856,7 +853,8 @@ function topicStats(list){
 }
 function updateCategoryProgress(category,topics){
   category=String(category||'General');
-  var s=topicStats(topics||[]);
+  var relevant=(topics||[]).filter(function(t){return (t.category||'General')===category});
+  var s=topicStats(relevant.length?relevant:(topics||[]));
   state.categoryProgress[category]={total:s.total,done:s.done,percent:s.percent,pending:s.pending,highPending:s.highPending};
 }
 function totalPrepTopics(){return(state.categories||[]).reduce(function(sum,c){return sum+Number(c.total||0)},0)}
@@ -893,6 +891,16 @@ function getCategories(){
   state.topics.forEach(function(t){var c=t.category||'General';if(!map[c])map[c]={total:0,done:0};map[c].total++;if(t.completed)map[c].done++});
   return Object.keys(map).map(function(name){return{name:name,total:map[name].total,done:map[name].done,percent:pct(map[name].done,map[name].total),loaded:true}});
 }
+function hydratePreloadedTopics(topics,categories,overallProgress){
+  state.topics=topics||[];
+  state.categories=categories||state.categories||[];
+  state.categoryProgress={};
+  state.categories.forEach(function(c){
+    var name=c.name||c.category||'General';
+    state.categoryProgress[name]={total:Number(c.total||0),done:Number(c.done||0),percent:Number(c.percent||0),pending:Number(c.pending||0),highPending:Number(c.highPending||0)};
+  });
+  if(overallProgress)setOverallProgress(overallProgress);
+}
 function filteredTopics(){
   var q=state.filters.q.trim().toLowerCase();
   return state.topics.filter(function(t){
@@ -903,6 +911,10 @@ function filteredTopics(){
     if(q){var hay=[t.topicName,t.category,t.subsection].join(' ').toLowerCase();if(hay.indexOf(q)===-1)return false}
     return true;
   });
+}
+function currentTopicScope(){
+  if(!state.selectedCategory)return state.topics;
+  return state.topics.filter(function(t){return t.category===state.selectedCategory});
 }
 function groupTopics(list){
   var grouped={};
@@ -916,7 +928,7 @@ function groupTopics(list){
 }
 function setFilter(key,value){
   if(key==='category'){
-    if(value){loadCategory(value,true)}else{state.filters.category=state.selectedCategory||'';renderUser()}
+    if(value){loadCategory(value,true)}else{state.selectedCategory='';state.filters.category='';renderUser()}
     return;
   }
   state.filters[key]=value;renderUser();
@@ -962,7 +974,7 @@ function loadingTopicHtml(){
 /* â”€â”€ Render user â”€â”€ */
 function renderUser(){
   if(!state.user){renderLogin();return}
-  var s=topicStats(state.topics);
+  var s=topicStats(currentTopicScope());
   var cats=getCategories();
   var overall=getOverallProgress();
   var overallCard=state.overallProgressLoading||!overall
@@ -970,7 +982,7 @@ function renderUser(){
     :'<div class="metric"><b id="overallProgressPct">'+overall.percent+'%</b><span>Overall progress</span><small id="overallProgressMessage"><em id="overallProgressDone" style="font-style:normal">'+overall.done+'</em>/<em id="overallProgressTotal" style="font-style:normal">'+overall.total+'</em> topics completed</small></div>';
   var shown=filteredTopics();
   var grouped=groupTopics(shown);
-  var selectedLabel=state.selectedCategory||'No subject selected';
+  var selectedLabel=state.selectedCategory||'All subjects';
   var openDetails=Boolean(state.filters.q.trim());
   var catOptions=cats.map(function(c){return'<option value="'+escapeAttr(c.name)+'"'+(state.selectedCategory===c.name?' selected':'')+'>'+escapeHtml(c.name)+'</option>'}).join('');
 
@@ -989,7 +1001,7 @@ function renderUser(){
   body+='<div class="card hero-card">';
   body+='<div class="card-head"><h3>Study dashboard</h3><span class="pill active">'+escapeHtml(selectedLabel)+'</span></div>';
   body+='<div class="progress hero-progress"><div id="userHeroProgressBar" class="bar" style="width:'+s.percent+'%\"></div></div>';
-  body+='<p class="muted small" style="margin-top:9px">Select a folder below to load topics. Use <span class="kbd">/</span> to search. <span class="kbd">T</span> toggles the study timer.</p>';
+  body+='<p class="muted small" style="margin-top:9px">All subjects are preloaded. Select a folder to focus, or use <span class="kbd">/</span> to search across everything.</p>';
   body+='</div>';
 
   // Dashboard grid
@@ -1031,17 +1043,15 @@ function renderUser(){
 
   // Topic list
   body+='<div id="topicList">';
-  body+='<div class="topic-list-head"><div><h3>'+escapeHtml(selectedLabel)+'</h3><p>'+(state.selectedCategory?'Tick topics after completing a class.':'Choose a subject folder above.')+'</p></div>';
+  body+='<div class="topic-list-head"><div><h3>'+escapeHtml(selectedLabel)+'</h3><p>Tick topics after completing a class.</p></div>';
   body+='<div class="tlh-actions"><span class="pill">'+shown.length+' topics</span>';
-  if(state.selectedCategory&&shown.length>0){
+  if(shown.length>0){
     body+='<button class="btn sm green" onclick="exportCsv()" title="Export CSV">CSV</button>';
   }
   body+='</div></div>';
 
   if(state.loadingCategory){
     body+=loadingTopicHtml();
-  } else if(!state.selectedCategory){
-    body+='<div class="empty">No subject loaded. Click a folder above to get started.</div>';
   } else if(!shown.length){
     body+='<div class="empty">No topics match the current filters.</div>';
   } else {
@@ -1090,7 +1100,7 @@ function renderUser(){
 
   el('app').innerHTML=shell(
     state.user.name||state.user.username,
-    state.user.username+' - '+(state.selectedCategory||'select a subject')+' - '+s.percent+'% complete',
+    state.user.username+' - '+(state.selectedCategory||'all subjects')+' - '+s.percent+'% complete',
     'topics',body,false
   );
 }
@@ -1098,7 +1108,13 @@ function renderUser(){
 /* â”€â”€ Load category â”€â”€ */
 async function loadCategory(category,shouldScroll){
   if(!state.user||!category)return;
-  state.loadingCategory=true;state.selectedCategory=category;state.filters.category=category;state.topics=[];
+  state.selectedCategory=category;state.filters.category=category;
+  if(state.topics.length>=totalPrepTopics()&&totalPrepTopics()>0){
+    renderUser();
+    if(shouldScroll)setTimeout(scrollTopics,40);
+    return;
+  }
+  state.loadingCategory=true;state.topics=[];
   renderUser();
   if(shouldScroll)setTimeout(scrollTopics,40);
   try{
@@ -1123,11 +1139,10 @@ async function reloadUser(){
   try{
     var r=await api('GET','/user/categories');
     if(!r.ok){toast(r.error||'Could not refresh','err');return}
-    state.user=r.user;state.categories=r.categories||[];
+    state.user=r.user||state.user;
+    hydratePreloadedTopics(r.topics||[],r.categories||[],r.overallProgress);
     cacheSet('cats_'+state.user.username,state.categories);
-    if(r.overallProgress){setOverallProgress(r.overallProgress)}else{state.overallProgress=null;state.overallProgressLoading=true;fetchOverallProgress()}
-    if(state.selectedCategory){state.loading=false;await loadCategory(state.selectedCategory,false)}
-    else{state.topics=[];toast('Refreshed','ok')}
+    toast('Refreshed','ok');
   }catch(err){fail(err)}
   finally{state.loading=false;renderUser()}
 }
@@ -1142,7 +1157,7 @@ async function toggleTopicUi(topicId,checkbox){
   var nextCompleted=checkbox?Boolean(checkbox.checked):!oldCompleted;
   item.completed=nextCompleted;item.completedAt=nextCompleted?oldCompletedAt||new Date().toISOString():null;
   state.busyTopics[topicId]=true;state.busyTopic=topicId;
-  updateCategoryProgress(state.selectedCategory||item.category,state.topics);
+  updateCategoryProgress(item.category,state.topics);
   paintTopicCheckbox(checkbox,nextCompleted,true);refreshUserProgressChrome();
   adjustOverallProgress(nextCompleted===oldCompleted?0:nextCompleted?1:-1);
   if(nextCompleted)recordStudyToday();
@@ -1150,13 +1165,14 @@ async function toggleTopicUi(topicId,checkbox){
     var r=await api('POST','/user/toggle-topic',{topicId:topicId});
     if(!r.ok)throw new Error(r.error||'Update failed');
     var saved=Boolean(r.completed);
-    if(saved!==nextCompleted)adjustOverallProgress(saved?1:-1);
+    if(r.overallProgress)setOverallProgress(r.overallProgress);
+    else if(saved!==nextCompleted)adjustOverallProgress(saved?1:-1);
     item.completed=saved;item.completedAt=r.completedAt||null;
-    updateCategoryProgress(state.selectedCategory||item.category,state.topics);
+    updateCategoryProgress(item.category,state.topics);
     paintTopicCheckbox(checkbox,item.completed,false);refreshUserProgressChrome();
   }catch(err){
     item.completed=oldCompleted;item.completedAt=oldCompletedAt;
-    updateCategoryProgress(state.selectedCategory||item.category,state.topics);
+    updateCategoryProgress(item.category,state.topics);
     paintTopicCheckbox(checkbox,oldCompleted,false);refreshUserProgressChrome();
     adjustOverallProgress(nextCompleted===oldCompleted?0:oldCompleted?1:-1);
     fail(err);
@@ -1174,7 +1190,7 @@ function paintTopicCheckbox(checkbox,completed,saving){
 }
 
 function refreshUserProgressChrome(){
-  var s=topicStats(state.topics);
+  var s=topicStats(currentTopicScope());
   var nodes={userProgressPct:s.percent+'%',userProgressDone:s.done,userProgressTotal:s.total,userPendingCount:s.pending,userHighPendingCount:s.highPending};
   Object.keys(nodes).forEach(function(id){var n=el(id);if(n)n.textContent=nodes[id]});
   var bar=el('userHeroProgressBar');if(bar)bar.style.width=s.percent+'%';
@@ -1201,7 +1217,7 @@ async function resetAll(){
     if(r&&r.ok===false){toast(r.error||'Reset failed','err');return}
     state.topics.forEach(function(t){t.completed=false;t.completedAt=null});
     state.categoryProgress={};setOverallProgress({total:totalPrepTopics(),done:0});
-    if(state.selectedCategory)updateCategoryProgress(state.selectedCategory,state.topics);
+    state.categories.forEach(function(c){updateCategoryProgress(c.name||c.category,state.topics)});
     renderUser();toast('Progress reset','ok');
   }catch(err){fail(err)}
 }

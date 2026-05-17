@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Log = require('../models/Log');
+const StudySession = require('../models/StudySession');
 const SiteSetting = require('../models/SiteSetting');
 const { requireAdmin } = require('../middleware/auth');
 const { adminLimiter } = require('../middleware/rateLimiter');
@@ -12,6 +13,14 @@ const { ALL_TOPICS, overallProgress, seedProgress, topicsWithProgress } = requir
 
 router.use(requireAdmin);
 router.use(adminLimiter);
+
+// POST /api/admin/flush-cache
+// Clears browser cache/storage via headers. Client also clears local state.
+router.post('/flush-cache', (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.set('Clear-Site-Data', '"cache", "storage"');
+  res.json({ ok: true });
+});
 
 // GET /api/admin/dashboard
 // Returns counts for the top stats bar
@@ -70,7 +79,7 @@ router.get('/users', async (req, res, next) => {
     const page = Math.max(1, parseInt(req.query.page) || 1);
     const limit = Math.min(100, Math.max(10, parseInt(req.query.limit) || 50));
 
-    const filter = { role: 'user' };
+    const filter = {};
     if (q) {
       filter.$or = [
         { username: { $regex: q, $options: 'i' } },
@@ -79,12 +88,19 @@ router.get('/users', async (req, res, next) => {
     }
 
     const now = new Date();
+    if (status === 'admin') {
+      filter.role = 'admin';
+    } else if (status !== 'all') {
+      filter.role = 'user';
+    }
     if (status === 'disabled') filter.disabled = true;
     if (status === 'active') {
+      filter.role = 'user';
       filter.disabled = false;
       filter.$and = [{ $or: [{ expiresAt: null }, { expiresAt: { $gt: now } }] }];
     }
     if (status === 'expired') {
+      filter.role = 'user';
       filter.expiresAt = { $lte: now };
       filter.disabled = false;
     }
@@ -99,11 +115,12 @@ router.get('/users', async (req, res, next) => {
     ]);
 
     const enriched = users.map(u => {
-      const expired = u.expiresAt && new Date() > u.expiresAt;
-      const status = u.disabled ? 'disabled' : expired ? 'expired' : 'active';
-      const daysRemaining = u.expiresAt
+      const isAdmin = u.role === 'admin';
+      const expired = !isAdmin && u.expiresAt && new Date() > u.expiresAt;
+      const status = isAdmin ? 'admin' : u.disabled ? 'disabled' : expired ? 'expired' : 'active';
+      const daysRemaining = isAdmin ? null : (u.expiresAt
         ? Math.ceil((u.expiresAt - now) / 86400000)
-        : null;
+        : null);
       const progress = overallProgress(u.progress);
       const { progress: _progress, ...safeUser } = u;
       return {
@@ -334,6 +351,7 @@ router.post('/users/:username/reset-progress', async (req, res, next) => {
     user.progress.forEach(p => { p.completed = false; p.completedAt = null; });
     await user.save();
     await Log.deleteMany({ username });
+    await StudySession.deleteMany({ username });
 
     return res.json({ ok: true });
   } catch (err) { next(err); }
@@ -352,6 +370,7 @@ router.delete('/users/:username', async (req, res, next) => {
 
     await User.deleteOne({ username });
     await Log.deleteMany({ username });
+    await StudySession.deleteMany({ username });
 
     return res.json({ ok: true });
   } catch (err) { next(err); }

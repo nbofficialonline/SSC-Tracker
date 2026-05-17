@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const User = require('../models/User');
 const SiteSetting = require('../models/SiteSetting');
+const { getStudyPayload } = require('../services/studySessions');
 const {
   categoryStats,
   missingProgressEntries,
@@ -95,12 +96,15 @@ router.post('/login', authLimiter, validateLogin, async (req, res, next) => {
     user.lastLoginAt = new Date();
     await user.save();
 
+    const studyPayload = await getStudyPayload(user.username);
+
     return res.json({
       ok: true,
       user: req.session.user,
       categories: categoryStats(user.progress),
       topics: topicsWithProgress(user.progress),
       overallProgress: overallProgress(user.progress),
+      ...studyPayload,
     });
   } catch (err) { next(err); }
 });

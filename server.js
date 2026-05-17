@@ -6,6 +6,7 @@ const { MongoStore } = require('connect-mongo');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
+const compression = require('compression');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
@@ -73,6 +74,9 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 
+// ── Response Compression ────────────────────────────────
+app.use(compression({ level: 6 }));
+
 // ── Body parsers ─────────────────────────────────────────
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: true, limit: '50kb' }));
@@ -111,6 +115,11 @@ app.use(csrfMiddleware);
 // ── Static files ─────────────────────────────────────────
 app.use(express.static(path.join(__dirname, 'public'), {
   maxAge: process.env.NODE_ENV === 'production' ? '1d' : 0,
+  setHeaders(res, filePath) {
+    if (filePath.endsWith(path.sep + 'index.html')) {
+      res.setHeader('Cache-Control', 'no-store');
+    }
+  },
 }));
 
 // ── API Routes ────────────────────────────────────────────
@@ -121,6 +130,7 @@ app.use('/api/admin', adminRoutes);
 
 // ── SPA fallback ─────────────────────────────────────────
 app.use((req, res) => {
+  res.setHeader('Cache-Control', 'no-store');
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

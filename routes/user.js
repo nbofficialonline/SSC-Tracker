@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Log = require('../models/Log');
+const StudySession = require('../models/StudySession');
 const { requireLogin } = require('../middleware/auth');
 const { apiLimiter } = require('../middleware/rateLimiter');
 const { body, validationResult } = require('express-validator');
@@ -11,6 +12,7 @@ const {
   overallProgress,
   topicsWithProgress,
 } = require('../services/topics');
+const { getStudyPayload } = require('../services/studySessions');
 
 // All user routes require login
 router.use(requireLogin);
@@ -28,12 +30,15 @@ router.get('/categories', async (req, res, next) => {
     const user = await User.findOne({ username }).lean();
     if (!user) return res.status(404).json({ ok: false, error: 'User not found.' });
 
+    const studyPayload = await getStudyPayload(username);
+
     return res.json({
       ok: true,
       user: req.session.user,
       categories: categoryStats(user.progress),
       topics: topicsWithProgress(user.progress),
       overallProgress: overallProgress(user.progress),
+      ...studyPayload,
     });
   } catch (err) { next(err); }
 });
@@ -70,6 +75,41 @@ router.get('/overall-progress', async (req, res, next) => {
     });
   } catch (err) { next(err); }
 });
+
+router.get('/study-sessions', async (req, res, next) => {
+  try {
+    const payload = await getStudyPayload(req.session.user.username);
+    res.json({ ok: true, ...payload });
+  } catch (err) { next(err); }
+});
+
+router.post('/study-sessions',
+  body('startedAt').isISO8601().toDate(),
+  body('endedAt').isISO8601().toDate(),
+  body('durationSec').isInt({ min: 1, max: 24 * 60 * 60 }),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(422).json({ ok: false, error: 'Invalid study session.' });
+
+      const startedAt = req.body.startedAt;
+      const endedAt = req.body.endedAt;
+      if (endedAt <= startedAt) {
+        return res.status(422).json({ ok: false, error: 'Study session end must be after start.' });
+      }
+
+      await StudySession.create({
+        username: req.session.user.username,
+        startedAt,
+        endedAt,
+        durationSec: Number(req.body.durationSec),
+      });
+
+      const payload = await getStudyPayload(req.session.user.username);
+      res.status(201).json({ ok: true, ...payload });
+    } catch (err) { next(err); }
+  }
+);
 
 // POST /api/user/toggle-topic
 // Body: { topicId: string }
@@ -167,6 +207,7 @@ router.post('/reset-progress', async (req, res, next) => {
       { $set: { 'progress.$[].completed': false, 'progress.$[].completedAt': null } }
     );
     await Log.deleteMany({ username });
+    await StudySession.deleteMany({ username });
     res.json({ ok: true });
   } catch (err) { next(err); }
 });

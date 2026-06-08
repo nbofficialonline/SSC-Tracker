@@ -84,6 +84,9 @@ router.get('/users', async (req, res, next) => {
       filter.$or = [
         { username: { $regex: q, $options: 'i' } },
         { name: { $regex: q, $options: 'i' } },
+        { userId: { $regex: q, $options: 'i' } },
+        { email: { $regex: q, $options: 'i' } },
+        { mobile: { $regex: q, $options: 'i' } },
       ];
     }
 
@@ -143,6 +146,8 @@ router.post('/users/create',
   body('username').trim().isLength({ min: 3, max: 50 }).matches(/^[a-zA-Z0-9_.-]+$/),
   body('password').isLength({ min: 6, max: 128 }),
   body('name').optional().trim().isLength({ max: 100 }),
+  body('email').optional({ checkFalsy: true }).trim().toLowerCase().isEmail().matches(/^[a-zA-Z0-9._%+-]+@gmail\.com$/).withMessage('Email must be a valid @gmail.com address.'),
+  body('mobile').optional({ checkFalsy: true }).trim().matches(/^[0-9]{10}$/).withMessage('Mobile must be exactly 10 digits.'),
   body('expiryDays').optional().isInt({ min: 1, max: 3650 }),
   async (req, res, next) => {
     try {
@@ -151,6 +156,8 @@ router.post('/users/create',
 
       const username = req.body.username.toLowerCase().trim();
       const { password, name, expiryDays } = req.body;
+      const email = req.body.email ? req.body.email.toLowerCase().trim() : '';
+      const mobile = req.body.mobile ? req.body.mobile.trim() : '';
 
       const exists = await User.findOne({ username });
       if (exists) return res.status(409).json({ ok: false, error: 'Username already exists.' });
@@ -168,11 +175,13 @@ router.post('/users/create',
         username,
         passwordHash,
         name: (name || username).trim(),
+        email,
+        mobile,
         expiresAt,
         progress: seedProgress(),
       });
 
-      return res.status(201).json({ ok: true, username: user.username, expiresAt: user.expiresAt });
+      return res.status(201).json({ ok: true, username: user.username, userId: user.userId, expiresAt: user.expiresAt });
     } catch (err) { next(err); }
   }
 );
@@ -290,8 +299,11 @@ router.get('/users/:username/detail', async (req, res, next) => {
     return res.json({
       ok: true,
       user: {
+        userId: user.userId,
         username: user.username,
         name: user.name,
+        email: user.email,
+        mobile: user.mobile,
         role: user.role,
         disabled: user.disabled,
         expiresAt: user.expiresAt,

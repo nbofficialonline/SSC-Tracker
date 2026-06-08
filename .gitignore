@@ -3,3 +3,6 @@ node_modules/
 .env.*
 *.log
 dist/
+.codex*
+./codex-cdp-profile/
+

@@ -12,7 +12,7 @@
     />
     <style>
       :root{
-        --brand:#d97706;--brand-2:#0f766e;--brand-3:#1d4ed8;--brand-soft:#f3b164;
+        --brand:#d97706;--brand-2:#0f766e;--brand-3:#1d4ed8;--brand-soft:#f3b164;--pr:#111827;--pr-d:#251b10;--pr-l:#d97706;--gold:#d97706;--gold-l:#f3b164;--gold-d:#b45309;--teal:#0f766e;--teal-l:#14b8a6;--red:#ef4444;--red-bg:#fee2e2;--green:#10b981;--green-bg:#d1fae5;
         --bg:#f6f1e8;--bg-2:#efe7db;--surface:#fffdf8;--surface2:#f5efe5;
         --text:#1c1d22;--text2:#353c47;--muted:#788192;
         --border:#e4ddd3;--border2:#cdbfae;
@@ -33,26 +33,12 @@
         --shadow:0 12px 30px rgba(0,0,0,.45);
         --shadow2:0 24px 60px rgba(0,0,0,.5);
         --shadow3:0 40px 120px rgba(0,0,0,.6);
-        --brand:#d79921;--brand-2:#8f9d6a;--brand-3:#7e9cd8;--brand-soft:#d65d0e;
+        --brand:#d79921;--brand-2:#8f9d6a;--brand-3:#7e9cd8;--brand-soft:#d65d0e;--pr:#d79921;--pr-d:#1b130c;--pr-l:#fabd2f;--gold:#d79921;--gold-l:#fabd2f;--gold-d:#d65d0e;--teal:#8f9d6a;--teal-l:#b8bb26;--red:#fb4934;--red-bg:#3c1f1a;--green:#8f9d6a;--green-bg:#2d331d;
       }
       *{box-sizing:border-box;margin:0;padding:0}
       html,body{min-height:100%;font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s}
       body{position:relative}
-      body::before{
-        content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
-        background:
-          radial-gradient(circle at 12% 18%, rgba(245,158,11,.2), transparent 42%),
-          radial-gradient(circle at 85% 12%, rgba(15,118,110,.2), transparent 44%),
-          radial-gradient(circle at 52% 90%, rgba(29,78,216,.16), transparent 48%),
-          linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0));
-      }
-      [data-theme=dark] body::before{
-        background:
-          radial-gradient(circle at 12% 18%, rgba(215,153,33,.16), transparent 40%),
-          radial-gradient(circle at 80% 12%, rgba(143,157,106,.12), transparent 42%),
-          radial-gradient(circle at 50% 90%, rgba(126,156,216,.12), transparent 44%),
-          linear-gradient(180deg, rgba(34,26,15,.75), rgba(34,26,15,0));
-      }
+      body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--bg)}
       [data-theme=dark] .sidebar{background:linear-gradient(175deg,#2a2116 0%,#1b130c 100%)}
       [data-theme=dark] .topbar{border-color:var(--border2)}
       [data-theme=dark] .topic-list-head{background:linear-gradient(135deg,#3a2f1d,#2a2116);border-color:#4a3b24}
@@ -76,26 +62,26 @@
       .login-page{
         min-height:100vh;display:flex;align-items:center;justify-content:center;
         padding:34px 18px;
-        background:linear-gradient(135deg,#0c111a 0%,#0c1730 55%,#0a0f1b 100%);
+        background:linear-gradient(135deg,#f7f2ea 0%,#fffaf3 58%,#eef7f5 100%);
         position:relative;overflow:hidden;
       }
-      .login-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.38}
+      .login-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.2}
       .login-orb.a{width:380px;height:380px;background:radial-gradient(circle,#f59e0b,transparent);top:-80px;left:-80px}
       .login-orb.b{width:320px;height:320px;background:radial-gradient(circle,#0f766e,transparent);bottom:-80px;right:-90px}
-      .login-orb.c{width:240px;height:240px;background:radial-gradient(circle,#1d4ed8,transparent);top:45%;left:60%}
+      .login-orb.c{width:240px;height:240px;background:radial-gradient(circle,#d79921,transparent);top:45%;left:60%}
       .login-wrap{
-        width:min(980px,96vw);display:grid;grid-template-columns:1.05fr .95fr;gap:20px;
+        width:min(560px,96vw);display:grid;grid-template-columns:1fr;gap:20px;
         align-items:stretch;position:relative;z-index:1;animation:pageIn .5s ease;
       }
       .login-card{
         padding:40px 36px;border-radius:26px;position:relative;z-index:1;
-        background:rgba(9,12,20,.85);
-        border:1px solid rgba(245,158,11,.22);
-        box-shadow:0 30px 70px rgba(0,0,0,.45);
+        background:rgba(255,252,247,.94);
+        border:1px solid #e5d8c8;
+        box-shadow:0 30px 70px rgba(58,42,25,.18);
         backdrop-filter:blur(24px);
-        color:#f8fafc;
+        color:#131a22;
       }
-      .login-logo{text-align:left;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid rgba(245,158,11,.18)}
+      .login-logo{text-align:left;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid #e5d8c8}
       .login-mark{
         width:64px;height:64px;border-radius:18px;
         display:flex;align-items:center;justify-content:center;
@@ -105,23 +91,23 @@
         animation:float 4s ease-in-out infinite;
         margin-bottom:12px;
       }
-      .login-logo h1{color:#fff;font-size:20px;font-weight:800;margin-bottom:4px}
+      .login-logo h1{color:#131a22;font-size:20px;font-weight:800;margin-bottom:4px}
       .login-logo p{color:var(--brand-soft);font-size:12px;font-weight:600;letter-spacing:.3px}
-      .login-logo small{display:block;margin-top:3px;color:rgba(255,255,255,.5);font-size:11px}
-      .tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:20px}
-      .tab{flex:1;border:0;background:transparent;color:rgba(255,255,255,.52);padding:10px 6px;font-size:12.5px;font-weight:700;position:relative;transition:var(--tr)}
-      .tab.active{color:#fff}
+      .login-logo small{display:block;margin-top:3px;color:#7c8492;font-size:11px}
+      .tabs{display:flex;border-bottom:1px solid #e5d8c8;margin-bottom:20px}
+      .tab{flex:1;border:0;background:transparent;color:#7c8492;padding:10px 6px;font-size:12.5px;font-weight:700;position:relative;transition:var(--tr)}
+      .tab.active{color:#111827}
       .tab.active:after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--brand);border-radius:999px}
-      .login-form{display:none;animation:fadeUp .22s ease}
+      .login-form{display:none}
       .login-form.active{display:block}
       .field{margin-bottom:14px}
-      .field label{display:block;color:rgba(255,255,255,.72);font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:7px}
+      .field label{display:block;color:#5b6473;font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-bottom:7px}
       .field input,.field select{
         width:100%;min-height:44px;border:1.5px solid rgba(245,158,11,.32);border-radius:12px;
-        padding:10px 13px;color:#fff;background:rgba(255,255,255,.08);font-size:14px;outline:none;transition:var(--tr);
+        padding:10px 13px;color:#111827;background:#fffdf8;font-size:14px;outline:none;transition:var(--tr);
       }
-      .field input::placeholder{color:rgba(255,255,255,.4)}
-      .field input:focus,.field select:focus{border-color:var(--brand);background:rgba(255,255,255,.15);box-shadow:0 0 0 3px rgba(245,158,11,.2)}
+      .field input::placeholder{color:#9aa3af}
+      .field input:focus,.field select:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.16)}
       .login-btn{
         width:100%;min-height:46px;border:0;border-radius:12px;
         background:linear-gradient(135deg,#f59e0b,#f97316);
@@ -131,11 +117,8 @@
       }
       .login-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(245,158,11,.4)}
       .login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-      .note{margin-top:12px;padding:11px 13px;border-radius:12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);color:rgba(255,255,255,.68);font-size:12px;line-height:1.55}
-      .login-side{
-        border-radius:26px;padding:32px;background:linear-gradient(160deg,rgba(255,255,255,.95),rgba(255,247,237,.9));
-        box-shadow:0 24px 60px rgba(8,12,20,.32);color:#1c1d22;display:flex;align-items:center;
-      }
+      .note{margin-top:12px;padding:11px 13px;border-radius:12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.22);color:#5b6473;font-size:12px;line-height:1.55}
+      .login-side{display:none}
       .login-side-inner{display:grid;gap:12px}
       .login-side-badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:#0f172a;color:#fff;padding:5px 10px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;width:max-content}
       .login-side h2{font-size:22px}
@@ -153,7 +136,7 @@
         height:100vh;position:sticky;top:0;padding:20px 14px;color:#f4ede2;
         background:linear-gradient(175deg,#3a2f1d 0%,#251b10 100%);
         box-shadow:6px 0 24px rgba(20,16,10,.35);
-        animation:pageIn .32s ease;z-index:10;display:flex;flex-direction:column;gap:0;
+        z-index:10;display:flex;flex-direction:column;gap:0;
         overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;
       }
       .sidebar::-webkit-scrollbar{width:4px}
@@ -337,9 +320,9 @@
 
       /* Hero card */
       .hero-card{
-        position:relative;overflow:hidden;background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 60%,rgba(255,247,237,.9) 100%);
+        position:relative;overflow:hidden;background:var(--surface);
       }
-      .hero-card:after{content:'';position:absolute;width:180px;height:180px;right:-60px;top:-70px;border-radius:50%;background:rgba(245,158,11,.14);pointer-events:none}
+      .hero-card:after{display:none}
 
       /* Study timer */
       .timer-bar{
@@ -350,6 +333,20 @@
       .timer-label{font-size:11px;color:var(--muted);font-family:var(--font);font-weight:700;flex:1}
       .timer-running .timer-display{animation:pulse 1.5s ease-in-out infinite}
       .study-focus{display:grid;grid-template-columns:minmax(260px,1fr) 1.4fr;gap:13px}
+      .time-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:14px;margin-top:14px}
+      .time-chart{height:160px;display:flex;align-items:end;gap:6px;padding:18px 6px 8px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);overflow:hidden}
+      .time-bar{flex:1;min-width:6px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;color:var(--muted);font-size:10px;font-weight:700}
+      .time-bar span{width:100%;min-height:4px;border-radius:999px;background:linear-gradient(180deg,var(--brand),var(--brand-2))}
+      .time-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+      .time-kpi{padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface2)}
+      .time-kpi b{display:block;font-size:18px;color:var(--text);line-height:1}
+      .time-kpi span{display:block;margin-top:5px;font-size:11px;color:var(--muted);font-weight:700}
+      .month-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+      .month-tab{border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text2);padding:6px 9px;font-size:11px;font-weight:700}
+      .month-tab.active{background:#111827;color:#fff;border-color:#111827}
+      .time-table{width:100%;border-collapse:collapse;font-size:13px}
+      .time-table th,.time-table td{padding:10px 8px;border-top:1px solid var(--border);text-align:left;color:var(--text2)}
+      .time-table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px}
 
       /* Empty / loading */
       .empty{padding:30px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--border);border-radius:16px;margin-top:13px}
@@ -504,7 +501,7 @@ var state = {
   busyTopics:{},busyTopic:'',
   admin:null,adminToken:'',adminUsers:[],adminDashboard:null,adminDetail:null,
   adminDetailFilter:'',adminTab:'users',adminSection:'dashboard',adminUserFilter:{q:'',status:'all'},
-  userSection:'dashboard',studyTimerSec:0,studyTimerRunning:false,studyTimerInterval:null,studySessionStartedAt:null,studySessions:[],studyStats:{totalSec:0,todaySec:0,sessionCount:0},
+  userSection:'dashboard',profile:null,profileLoading:false,timeTracker:null,timeTrackerLoading:false,timeMonth:'',studyTimerSec:0,studyTimerRunning:false,studyTimerInterval:null,studySessionStartedAt:null,studyTimerSaving:false,studySessions:[],studyStats:{totalSec:0,todaySec:0,sessionCount:0},
   filterTimer:null,theme:'light',streak:0
 };
 
@@ -525,7 +522,8 @@ function cacheBootstrap(payload){
     categories:payload.categories||state.categories||[],
     overallProgress:payload.overallProgress||state.overallProgress||null,
     studySessions:payload.studySessions||state.studySessions||[],
-    studyStats:payload.studyStats||state.studyStats||{totalSec:0,todaySec:0,sessionCount:0}
+    studyStats:payload.studyStats||state.studyStats||{totalSec:0,todaySec:0,sessionCount:0},
+    timeTracker:payload.timeTracker||state.timeTracker||null
   });
 }
 function applyCachedBootstrap(){
@@ -536,6 +534,7 @@ function applyCachedBootstrap(){
   if(cached.overallProgress)setOverallProgress(cached.overallProgress);
   state.studySessions=cached.studySessions||state.studySessions;
   state.studyStats=cached.studyStats||state.studyStats;
+  state.timeTracker=cached.timeTracker||state.timeTracker;
   calculateStreakFromSessions();
   return true;
 }
@@ -616,10 +615,19 @@ function shortDate(d){if(!d)return 'No limit';try{var ms=new Date(d)-Date.now();
 function fmtTimer(s){var m=Math.floor(s/60);var sec=s%60;return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')}
 // Fetch the CSRF token once on page load and store it
 var CSRF_TOKEN = "";
+var LOCAL_APP_ORIGIN = "http://localhost:3000";
+var API_BASE = /^https?:$/.test(window.location.protocol) ? "" : LOCAL_APP_ORIGIN;
+var LOCAL_HOSTS = ["localhost", "127.0.0.1", "::1"];
+if (
+  window.location.protocol === "file:" ||
+  (LOCAL_HOSTS.indexOf(window.location.hostname) !== -1 && window.location.port && window.location.port !== "3000")
+) {
+  window.location.replace(LOCAL_APP_ORIGIN + "/");
+}
 
 async function initCsrf() {
   try {
-    const r = await fetch("/api/csrf-token", { credentials: "include" });
+    const r = await fetch(API_BASE + "/api/csrf-token", { credentials: "include" });
     const data = await r.json();
     CSRF_TOKEN = data.csrfToken || "";
   } catch (e) {
@@ -628,7 +636,7 @@ async function initCsrf() {
 }
 
 // Universal API call helper (replaces gs())
-async function api(method, path, body) {
+async function api(method, path, body, retryingCsrf) {
   const opts = {
     method: method.toUpperCase(),
     credentials: "include",
@@ -640,7 +648,7 @@ async function api(method, path, body) {
   if (body && method.toUpperCase() !== "GET") {
     opts.body = JSON.stringify(body);
   }
-  const res = await fetch("/api" + path, opts);
+  const res = await fetch(API_BASE + "/api" + path, opts);
 
   if (res.status === 401) {
     // Session expired
@@ -654,6 +662,10 @@ async function api(method, path, body) {
 
   const data = await res.json();
   if (!res.ok || data.ok === false) {
+    if (res.status === 403 && !retryingCsrf && /csrf/i.test(data.error || "")) {
+      await initCsrf();
+      return api(method, path, body, true);
+    }
     throw new Error(data.error || `HTTP ${res.status}`);
   }
   return data;
@@ -674,16 +686,20 @@ function render(){if(state.screen==='login')renderLogin();else if(state.screen==
 function hydrateStudy(payload){
   state.studySessions=(payload&&payload.studySessions)||state.studySessions||[];
   state.studyStats=(payload&&payload.studyStats)||state.studyStats||{totalSec:0,todaySec:0,sessionCount:0};
+  state.timeTracker=(payload&&payload.timeTracker)||state.timeTracker||{sessions:[],weekly:{daily:[]},monthly:{daily:[]}};
   calculateStreakFromSessions();
   cacheBootstrap(payload||{});
 }
 async function loadStudySessions(){
   if(!state.user)return;
+  state.timeTrackerLoading=true;
+  if(state.userSection==='study')renderUser();
   try{
     var r=await api('GET','/user/study-sessions');
     hydrateStudy(r);
     renderUser();
   }catch(e){fail(e)}
+  finally{state.timeTrackerLoading=false;if(state.userSection==='study')renderUser()}
 }
 function totalStudySeconds(){
   return Number((state.studyStats&&state.studyStats.totalSec)||0)+(state.studyTimerRunning?state.studyTimerSec:0);
@@ -696,13 +712,20 @@ async function recordStudySession(){
   var started=state.studySessionStartedAt||new Date(Date.now()-state.studyTimerSec*1000).toISOString();
   var r=await api('POST','/user/study-sessions',{startedAt:started,endedAt:new Date().toISOString(),durationSec:state.studyTimerSec});
   hydrateStudy(r);
+  return r;
 }
 function fmtHours(sec){
   var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60);
   return h? h+'h '+String(m).padStart(2,'0')+'m' : m+'m';
 }
+function fmtSessionTime(sec){
+  sec=Math.max(0,Number(sec||0));
+  var h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;
+  return (h?String(h).padStart(2,'0')+':':'')+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
 function startTimer(){
-  if(state.studyTimerRunning)return;
+  if(state.studyTimerRunning||state.studyTimerSaving)return;
+  state.studyTimerSec=0;
   state.studyTimerRunning=true;recordStudyToday();
   state.studySessionStartedAt=new Date().toISOString();
   state.studyTimerInterval=setInterval(function(){
@@ -713,7 +736,7 @@ function startTimer(){
     var total=el('studyTotal');if(total)total.textContent=fmtHours(totalStudySeconds());
   },1000);
   var d=el('timerDisplay');if(d)d.textContent=fmtTimer(state.studyTimerSec);
-  toast('Study timer started ','ok');
+  toast('Study timer started','ok');
 }
 async function pauseTimer(){
   if(!state.studyTimerRunning)return;
@@ -721,13 +744,23 @@ async function pauseTimer(){
   clearInterval(state.studyTimerInterval);
   var b=el('timerBar');if(b)b.classList.remove('timer-running');
   var savedSec=state.studyTimerSec;
+  state.studyTimerSaving=true;
+  refreshTimerButton();
   try{
     await recordStudySession();
     toast('Saved study session: '+fmtTimer(savedSec),'ok');
   }catch(e){fail(e)}
   finally{
-    state.studyTimerSec=0;state.studySessionStartedAt=null;
+    state.studyTimerSaving=false;state.studyTimerSec=0;state.studySessionStartedAt=null;
     renderUser();
+  }
+}
+function refreshTimerButton(){
+  var btn=el('timerActionBtn');
+  if(btn){
+    btn.disabled=Boolean(state.studyTimerSaving);
+    btn.textContent=state.studyTimerSaving?'Saving...':(state.studyTimerRunning?'End Study Session':'Start');
+    btn.setAttribute('onclick',state.studyTimerRunning?'pauseTimer()':'startTimer()');
   }
 }
 function resetTimer(){
@@ -750,7 +783,6 @@ function closeSidebar(){
 document.addEventListener('keydown',function(e){
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT')return;
   if(e.key==='/'&&state.screen==='user'){e.preventDefault();var s=document.querySelector('.filters input');if(s){s.focus();s.select()}}
-  if(e.key==='t'&&state.screen==='user'){e.preventDefault();if(state.studyTimerRunning)pauseTimer();else startTimer()}
   if(e.key==='Escape'){closeModal()}
 });
 
@@ -782,20 +814,28 @@ async function markSubsectionDone(category,subsection,done){
   if(!state.user)return;
   var items=state.topics.filter(function(t){return t.category===category&&t.subsection===subsection&&t.completed!==done});
   if(!items.length){toast('Nothing to change','');return}
+  var previous=items.map(function(t){return{topicId:t.topicId,completed:t.completed,completedAt:t.completedAt||null}});
   recordStudyToday();
-  for(var i=0;i<items.length;i++){
-    var t=items[i];
-    if(state.busyTopics[t.topicId])continue;
-    t.completed=done;t.completedAt=done?new Date().toISOString():null;
-    state.busyTopics[t.topicId]=true;
-    try{await api('POST','/user/toggle-topic',{topicId:t.topicId})}catch(e){}
-    delete state.busyTopics[t.topicId];
-  }
+  items.forEach(function(t){t.completed=done;t.completedAt=done?new Date().toISOString():null;state.busyTopics[t.topicId]=true});
   updateCategoryProgress(category,state.topics);
   refreshUserProgressChrome();
+  adjustOverallProgress(done?items.length:-items.length);
   renderUser();
-  cacheTopicList(category,state.topics,getOverallProgress());
-  toast((done?'Marked all done':'Marked all pending')+': '+subsection,'ok');
+  try{
+    var r=await api('POST','/user/set-topics-completion',{topicIds:items.map(function(t){return t.topicId}),completed:done});
+    if(r.overallProgress)setOverallProgress(r.overallProgress);
+    toast((done?'Marked all done':'Marked all pending')+': '+subsection,'ok');
+  }catch(err){
+    previous.forEach(function(p){var item=state.topics.find(function(t){return t.topicId===p.topicId});if(item){item.completed=p.completed;item.completedAt=p.completedAt}});
+    updateCategoryProgress(category,state.topics);
+    adjustOverallProgress(done?-items.length:items.length);
+    fail(err);
+  }finally{
+    items.forEach(function(t){delete state.busyTopics[t.topicId]});
+    refreshUserProgressChrome();
+    cacheTopicList(category,state.topics,getOverallProgress());
+    renderUser();
+  }
 }
 
 /* â”€â”€ Mark all in category group â”€â”€ */
@@ -803,20 +843,28 @@ async function markGroupDone(category,done){
   if(!state.user)return;
   var items=state.topics.filter(function(t){return t.category===category&&t.completed!==done});
   if(!items.length){toast('Nothing to change','');return}
+  var previous=items.map(function(t){return{topicId:t.topicId,completed:t.completed,completedAt:t.completedAt||null}});
   recordStudyToday();
-  for(var i=0;i<items.length;i++){
-    var t=items[i];
-    if(state.busyTopics[t.topicId])continue;
-    t.completed=done;t.completedAt=done?new Date().toISOString():null;
-    state.busyTopics[t.topicId]=true;
-    try{await api('POST','/user/toggle-topic',{topicId:t.topicId})}catch(e){}
-    delete state.busyTopics[t.topicId];
-  }
+  items.forEach(function(t){t.completed=done;t.completedAt=done?new Date().toISOString():null;state.busyTopics[t.topicId]=true});
   updateCategoryProgress(category,state.topics);
   refreshUserProgressChrome();
+  adjustOverallProgress(done?items.length:-items.length);
   renderUser();
-  cacheTopicList(category,state.topics,getOverallProgress());
-  toast((done?'Entire group done':'Group reset')+': '+category,'ok');
+  try{
+    var r=await api('POST','/user/set-topics-completion',{topicIds:items.map(function(t){return t.topicId}),completed:done});
+    if(r.overallProgress)setOverallProgress(r.overallProgress);
+    toast((done?'Entire group done':'Group reset')+': '+category,'ok');
+  }catch(err){
+    previous.forEach(function(p){var item=state.topics.find(function(t){return t.topicId===p.topicId});if(item){item.completed=p.completed;item.completedAt=p.completedAt}});
+    updateCategoryProgress(category,state.topics);
+    adjustOverallProgress(done?-items.length:items.length);
+    fail(err);
+  }finally{
+    items.forEach(function(t){delete state.busyTopics[t.topicId]});
+    refreshUserProgressChrome();
+    cacheTopicList(category,state.topics,getOverallProgress());
+    renderUser();
+  }
 }
 
 /* â”€â”€ Login â”€â”€ */
@@ -841,35 +889,36 @@ function renderLogin(){
     // User login
     '<div id="tabUser" class="login-form '+(state.loginTab==='user'?'active':'')+'">'+'<div class="field"><label>Username</label><input id="lu" type="text" placeholder="your username" autocomplete="username"/></div>'+'<div class="field"><label>Password</label><input id="lp" type="password" placeholder="password" autocomplete="current-password"/></div>'+'<button class="login-btn" id="loginBtn" onclick="doLogin()">Login</button>'+'</div>'+
     // Register
-    '<div id="tabRegister" class="login-form '+(state.loginTab==='register'?'active':'')+'">'+'<div class="field"><label>Name</label><input id="rn" type="text" placeholder="Your full name"/></div>'+'<div class="field"><label>Username</label><input id="ru" type="text" placeholder="choose a username" autocomplete="username"/></div>'+'<div class="field"><label>Password</label><input id="rp" type="password" placeholder="min 6 chars" autocomplete="new-password"/></div>'+'<button class="login-btn" id="regBtn" onclick="doRegister()">Register</button>'+'<div class="note">Registrations may be disabled by admin. Contact your instructor for access.</div>'+'</div>'+
+    '<div id="tabRegister" class="login-form '+(state.loginTab==='register'?'active':'')+'">'+'<div class="field"><label>Name</label><input id="rn" type="text" placeholder="Your full name"/></div>'+'<div class="field"><label>Gmail</label><input id="re" type="email" placeholder="name@gmail.com" autocomplete="email"/></div>'+'<div class="field"><label>Mobile</label><input id="rm" type="tel" maxlength="10" inputmode="numeric" placeholder="10 digit mobile number"/></div>'+'<div class="field"><label>Username</label><input id="ru" type="text" placeholder="choose a username" autocomplete="username"/></div>'+'<div class="field"><label>Password</label><input id="rp" type="password" placeholder="min 6 chars" autocomplete="new-password"/></div>'+'<button class="login-btn" id="regBtn" onclick="doRegister()">Register</button>'+'<div class="note">Use a Gmail address only. Mobile number must be exactly 10 digits.</div>'+'</div>'+
     // Admin login
-    '<div id="tabAdmin" class="login-form '+(state.loginTab==='admin'?'active':'')+'">'+'<div class="field"><label>Admin Username</label><input id="au" type="text" placeholder="admin username" autocomplete="username"/></div>'+'<div class="field"><label>Admin Password</label><input id="ap" type="password" placeholder="password" autocomplete="current-password"/></div>'+'<button class="login-btn" id="adminLoginBtn" onclick="doAdminLogin()" style="background:linear-gradient(135deg,var(--brand-2),var(--brand-3))">Admin Login</button>'+'</div>'+
-    '</div>'+
-    '<div class="login-side">'+
-    '<div class="login-side-inner">'+
-    '<div class="login-side-badge">Careerwill Study Companion</div>'+
-    '<h2>Plan. Practice. Progress.</h2>'+
-    '<p>Built for Careerwill SSC CGL batches with topic-wise coverage, study time tracking, and admin controls.</p>'+
-    '<div class="login-list">'+
-    '<div><b>Subject-wise tracking</b><span>See progress by subject and priority.</span></div>'+
-    '<div><b>Study timer</b><span>Capture focused time and streaks.</span></div>'+
-    '<div><b>Admin console</b><span>Manage access and reset progress quickly.</span></div>'+
-    '</div>'+
-    '<div class="login-badges"><span>Batch-ready</span><span>Fast filters</span><span>CSV export</span></div>'+
-    '</div>'+
+    '<div id="tabAdmin" class="login-form '+(state.loginTab==='admin'?'active':'')+'">'+'<div class="field"><label>Admin Username</label><input id="au" type="text" placeholder="admin username" autocomplete="username"/></div>'+'<div class="field"><label>Admin Password</label><input id="ap" type="password" placeholder="password" autocomplete="current-password"/></div>'+'<button class="login-btn" id="adminLoginBtn" onclick="doAdminLogin()" style="background:linear-gradient(135deg,var(--pr-l),var(--pr))">Admin Login</button>'+'</div>'+
     '</div>'+
     '</div></div>';
   normalizeInteractiveControls(el('app'));
   setTimeout(function(){var i=el('lu');if(i)i.focus()},100);
   // Enter key support
   setTimeout(function(){
-    ['lu','lp','ru','rp','rn','au','ap'].forEach(function(id){
+    ['lu','lp','ru','rp','rn','re','rm','au','ap'].forEach(function(id){
       var inp=el(id);if(!inp)return;
       inp.addEventListener('keydown',function(e){if(e.key==='Enter'){if(state.loginTab==='user')doLogin();else if(state.loginTab==='register')doRegister();else doAdminLogin()}});
     });
   },150);
 }
-function switchTab(t){state.loginTab=t;renderLogin()}
+function switchTab(t){
+  state.loginTab=t;
+  var tabMap={user:'tabUser',register:'tabRegister',admin:'tabAdmin'};
+  var focusMap={user:'lu',register:'rn',admin:'au'};
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(btn){
+    var label=btn.textContent.trim().toLowerCase();
+    var isActive=(t==='user'&&label.indexOf('student')!==-1)||(t==='register'&&label.indexOf('register')!==-1)||(t==='admin'&&label.indexOf('admin')!==-1);
+    btn.classList.toggle('active',isActive);
+  });
+  Object.keys(tabMap).forEach(function(key){
+    var form=el(tabMap[key]);
+    if(form)form.classList.toggle('active',key===t);
+  });
+  setTimeout(function(){var input=el(focusMap[t]);if(input)input.focus()},20);
+}
 
 async function doLogin(){
   var u=(el('lu').value||'').trim(),p=el('lp').value||'';
@@ -888,11 +937,13 @@ async function doLogin(){
 }
 
 async function doRegister(){
-  var n=(el('rn').value||'').trim(),u=(el('ru').value||'').trim(),p=el('rp').value||'';
-  if(!u||!p){toast('Username and password required','err');return}
+  var n=(el('rn').value||'').trim(),e=(el('re').value||'').trim().toLowerCase(),m=(el('rm').value||'').trim(),u=(el('ru').value||'').trim(),p=el('rp').value||'';
+  if(!n||!e||!m||!u||!p){toast('Fill all signup fields','err');return}
+  if(!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(e)){toast('Only @gmail.com email addresses are allowed','err');return}
+  if(!/^[0-9]{10}$/.test(m)){toast('Mobile number must be exactly 10 digits','err');return}
   var btn=el('regBtn');btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
   try{
-    var r=await api('POST','/auth/register',{username:u,password:p,name:n});
+    var r=await api('POST','/auth/register',{username:u,password:p,name:n,email:e,mobile:m});
     if(!r.ok){toast(r.error||'Registration failed','err');return}
     toast('Account created! Please login.','ok');switchTab('user');
   }catch(err){fail(err)}
@@ -926,6 +977,7 @@ function shell(title,subtitle,active,body,adminMode){
     {label:'Dashboard',act:'dashboard',click:'userNavigate(&quot;dashboard&quot;)'},
     {label:'Topics',act:'topics',click:'userNavigate(&quot;topics&quot;)'},
     {label:'Study Time',act:'study',click:'userNavigate(&quot;study&quot;)'},
+    {label:'My Profile',act:'profile',click:'userNavigate(&quot;profile&quot;)'},
     {label:'Logout',act:'',click:'logout()'}
   ];
 
@@ -1065,6 +1117,46 @@ function userNavigate(section){
   state.userSection=section||'dashboard';
   renderUser();
   if(state.userSection==='topics'&&state.selectedCategory)setTimeout(scrollTopics,40);
+  if(state.userSection==='profile')loadProfile();
+}
+async function loadProfile(){
+  if(!state.user)return;
+  state.profileLoading=true;
+  try{
+    var r=await api('GET','/user/profile');
+    state.profile=r.profile||null;
+    if(r.overallProgress)setOverallProgress(r.overallProgress);
+    if(r.studyStats)state.studyStats=r.studyStats;
+  }catch(err){fail(err)}
+  finally{state.profileLoading=false;if(state.userSection==='profile')renderUser()}
+}
+function renderProfile(){
+  var p=state.profile||state.user||{};
+  var overall=getOverallProgress()||{done:0,total:0,percent:0,pending:0};
+  var body='';
+  if(state.profileLoading&&!state.profile){
+    body+='<div class="card loading"><div><div class="spinner" style="margin:0 auto 10px"></div>Loading profile...</div></div>';
+    return body;
+  }
+  body+='<div class="grid" style="margin-top:6px">';
+  body+='<div class="metric"><b>'+escapeHtml(p.userId||'Pending')+'</b><span>User ID</span><small>Unique tracker identity</small></div>';
+  body+='<div class="metric"><b>'+overall.percent+'%</b><span>Overall progress</span><small>'+overall.done+'/'+overall.total+' topics completed</small></div>';
+  body+='<div class="metric"><b>'+fmtHours(Number((state.studyStats&&state.studyStats.totalSec)||0))+'</b><span>Total study time</span><small>'+Number((state.studyStats&&state.studyStats.sessionCount)||0)+' saved sessions</small></div>';
+  body+='</div>';
+  body+='<div class="card"><div class="card-head"><h3>My Profile</h3><span class="pill active">'+escapeHtml(p.role||'user')+'</span></div>';
+  body+='<div class="table-wrap"><table><tbody>'+
+    '<tr><th>Name</th><td>'+escapeHtml(p.name||'')+'</td></tr>'+
+    '<tr><th>Username</th><td>'+escapeHtml(p.username||'')+'</td></tr>'+
+    '<tr><th>Gmail</th><td>'+escapeHtml(p.email||'Not set')+'</td></tr>'+
+    '<tr><th>Mobile</th><td>'+escapeHtml(p.mobile||'Not set')+'</td></tr>'+
+    '<tr><th>Account validity</th><td>'+escapeHtml(fmtDate(p.expiresAt))+'</td></tr>'+
+    '<tr><th>Joined</th><td>'+escapeHtml(p.createdAt?new Date(p.createdAt).toLocaleString('en-IN'):'')+'</td></tr>'+
+    '<tr><th>Last login</th><td>'+escapeHtml(p.lastLoginAt?new Date(p.lastLoginAt).toLocaleString('en-IN'):'')+'</td></tr>'+
+    '</tbody></table></div></div>';
+  body+='<div class="card hero-card"><div class="card-head"><h3>Progress Summary</h3><span class="pill">'+overall.pending+' pending</span></div>'+
+    '<div class="progress hero-progress"><div class="bar" style="width:'+overall.percent+'%"></div></div>'+
+    '<div class="chart-list" style="margin-top:12px">'+renderChartRow('Completed',overall.done,overall.total,'green')+renderChartRow('Pending',overall.pending,overall.total,'warn')+'</div></div>';
+  return body;
 }
 
 /* â”€â”€ Charts â”€â”€ */
@@ -1096,28 +1188,111 @@ function renderCategoryDistribution(cats){
   if(!top.length)return '<div class="empty">No subjects yet. Build master topics first.</div>';
   return '<div class="chart-list">'+top.map(function(c){return renderChartRow(c.name,c.total||0,total,'')}).join('')+'</div>';
 }
+function renderTimeChart(summary){
+  summary=summary||{daily:[],totalSeconds:0,avgDailySeconds:0};
+  var daily=summary.daily||[];
+  var max=daily.reduce(function(m,d){return Math.max(m,Number(d.totalSeconds||0))},0)||1;
+  var bars=daily.map(function(d,idx){
+    var h=Math.max(4,Math.round((Number(d.totalSeconds||0)/max)*120));
+    var showLabel=daily.length<=14||idx===0||idx===daily.length-1||(idx+1)%5===0||Number(d.totalSeconds||0)>0;
+    return '<div class="time-bar" title="'+escapeAttr(d.date+' - '+fmtSessionTime(d.totalSeconds))+'"><span style="height:'+h+'px"></span><em style="font-style:normal">'+(showLabel?escapeHtml(d.label):'&nbsp;')+'</em></div>';
+  }).join('');
+  return '<div class="time-chart">'+bars+'</div>'+
+    '<div class="time-kpis">'+
+    '<div class="time-kpi"><b>'+fmtHours(summary.totalSeconds)+'</b><span>Total studied</span></div>'+
+    '<div class="time-kpi"><b>'+fmtHours(summary.avgDailySeconds)+'</b><span>Avg daily</span></div>'+
+    '</div>';
+}
+function timeMonthKeyFromDate(dateText){
+  dateText=String(dateText||'');
+  var m=dateText.match(/^(\d{4})-(\d{2})-/);
+  if(m)return m[1]+'-'+m[2];
+  var d=new Date(dateText);
+  if(isNaN(d.getTime()))return '';
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+function currentTimeMonthKey(){
+  var d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+function timeMonthLabel(key){
+  var p=String(key||'').split('-');
+  if(p.length!==2)return 'This month';
+  return new Date(Number(p[0]),Number(p[1])-1,1).toLocaleDateString('en-IN',{month:'long',year:'numeric'});
+}
+function timeMonthOptions(sessions){
+  var seen={},out=[];
+  function add(key){if(!key||seen[key])return;seen[key]=true;out.push(key)}
+  add(currentTimeMonthKey());
+  (sessions||[]).forEach(function(s){add(timeMonthKeyFromDate(s.date||s.startIso||s.startedAt||s.endIso))});
+  out.sort(function(a,b){return String(b).localeCompare(String(a))});
+  return out;
+}
+function setTimeMonth(monthKey){
+  state.timeMonth=monthKey||currentTimeMonthKey();
+  renderUser();
+}
+function filterSessionsForMonth(sessions,monthKey){
+  return (sessions||[]).filter(function(s){return timeMonthKeyFromDate(s.date||s.startIso||s.startedAt||s.endIso)===monthKey});
+}
+function buildCalendarMonthSummary(sessions,monthKey){
+  monthKey=monthKey||currentTimeMonthKey();
+  var parts=monthKey.split('-'),year=Number(parts[0]),month=Number(parts[1])-1;
+  var days=new Date(year,month+1,0).getDate(),map={},daily=[],totalSeconds=0;
+  (sessions||[]).forEach(function(s){
+    var date=String(s.date||'');
+    if(!date&&(s.startIso||s.startedAt))date=new Date(s.startIso||s.startedAt).toISOString().slice(0,10);
+    map[date]=(map[date]||0)+Number(s.totalSeconds||s.durationSec||0);
+  });
+  for(var d=1;d<=days;d++){
+    var key=monthKey+'-'+String(d).padStart(2,'0'),seconds=Number(map[key]||0);
+    totalSeconds+=seconds;
+    daily.push({date:key,label:String(d),totalSeconds:seconds});
+  }
+  return{days:days,totalSeconds:totalSeconds,totalHours:Math.round((totalSeconds/3600)*10)/10,avgDailySeconds:Math.round(totalSeconds/days),daily:daily};
+}
 function renderStudyTime(){
-  var sessions=state.studySessions||[];
+  var tracker=state.timeTracker||{sessions:state.studySessions||[],weekly:{daily:[]},monthly:{daily:[]}};
+  var allSessions=tracker.sessions||state.studySessions||[];
+  var monthOptions=timeMonthOptions(allSessions);
+  var selectedMonth=state.timeMonth||currentTimeMonthKey();
+  if(monthOptions.indexOf(selectedMonth)===-1)selectedMonth=monthOptions[0]||currentTimeMonthKey();
+  state.timeMonth=selectedMonth;
+  var sessions=filterSessionsForMonth(allSessions,selectedMonth);
+  var monthSummary=buildCalendarMonthSummary(sessions,selectedMonth);
+  var monthTabs='<div class="month-tabs">'+monthOptions.slice(0,8).map(function(m){
+    return '<button class="month-tab'+(m===selectedMonth?' active':'')+'" onclick="setTimeMonth('+jsArg(m)+')">'+escapeHtml(timeMonthLabel(m))+'</button>';
+  }).join('')+'</div>';
   var body='';
   body+='<div class="grid" style="margin-top:6px">';
   body+='<div class="metric"><b id="studyToday">'+fmtHours(todayStudySeconds())+'</b><span>Studied today</span><small>Recorded from completed sessions</small></div>';
-  body+='<div class="metric"><b id="studyTotal">'+fmtHours(totalStudySeconds())+'</b><span>Total study time</span><small>'+sessions.length+' saved sessions</small></div>';
+  body+='<div class="metric"><b id="studyTotal">'+fmtHours(totalStudySeconds())+'</b><span>Total study time</span><small>'+allSessions.length+' saved sessions</small></div>';
   body+='<div class="metric"><b>'+fmtTimer(state.studyTimerSec)+'</b><span>Current session</span><small>'+(state.studyTimerRunning?'Running':'Not running')+'</small></div>';
   body+='</div>';
   body+='<div class="card"><div class="card-head"><h3>Session timer</h3><span class="muted small">Start when you begin studying. Pause saves the session.</span></div>';
   body+='<div class="timer-bar" id="timerBar">'+
     '<span class="timer-display" id="timerDisplay">'+fmtTimer(state.studyTimerSec)+'</span>'+
-    '<span class="timer-label">Current study session<br><span class="muted" style="font-size:10px;font-weight:500">Press <span class="kbd">T</span> to toggle</span></span>'+
-    '<button class="btn sm ghost" onclick="'+(state.studyTimerRunning?'pauseTimer()':'startTimer()')+'">'+(state.studyTimerRunning?'Pause & Save':'Start')+'</button>'+
+    '<span class="timer-label">Current study session<br><span class="muted" style="font-size:10px;font-weight:500">Timer starts only from this button</span></span>'+
+    '<button id="timerActionBtn" class="btn sm ghost" '+(state.studyTimerSaving?'disabled ':'')+'onclick="'+(state.studyTimerRunning?'pauseTimer()':'startTimer()')+'">'+(state.studyTimerSaving?'Saving...':(state.studyTimerRunning?'End Study Session':'Start'))+'</button>'+
     '<button class="btn sm ghost" onclick="resetTimer()" title="Reset current timer">Reset</button>'+
     '</div></div>';
-  body+='<div class="card"><div class="card-head"><h3>Recent sessions</h3><span class="muted small">'+sessions.length+' total</span></div>';
-  if(!sessions.length){
-    body+='<div class="empty" style="margin:0">No study sessions recorded yet.</div>';
+  body+='<div class="time-summary-grid">';
+  body+='<div class="card chart-card"><div class="card-head"><h3>Weekly study time</h3><span class="muted small">Last 7 days</span></div>'+renderTimeChart(tracker.weekly)+'</div>';
+  body+='<div class="card chart-card"><div class="card-head"><h3>Monthly study time - '+escapeHtml(timeMonthLabel(selectedMonth))+'</h3>'+monthTabs+'</div>'+renderTimeChart(monthSummary)+'</div>';
+  body+='</div>';
+  body+='<div class="card" style="margin-top:14px"><div class="card-head"><h3>Time sessions - '+escapeHtml(timeMonthLabel(selectedMonth))+'</h3><button class="btn sm ghost" onclick="loadStudySessions()">Refresh</button></div>';
+  if(state.timeTrackerLoading){
+    body+='<div class="loader-lines"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>';
+  }else if(!sessions.length){
+    body+='<div class="empty" style="margin:0">No study sessions saved for '+escapeHtml(timeMonthLabel(selectedMonth))+'. Start the timer, then use End Study Session to save it.</div>';
   }else{
-    body+='<div class="chart-list">'+sessions.slice(0,20).map(function(s){
-      return '<div class="setting-row"><div><b>'+escapeHtml(fmtHours(Number(s.durationSec||0)))+'</b><br><span class="small muted">'+escapeHtml(new Date(s.startedAt).toLocaleString())+'</span></div><span class="pill active">'+escapeHtml(s.date||'')+'</span></div>';
-    }).join('')+'</div>';
+    body+='<table class="time-table"><thead><tr><th>Date</th><th>Start Time - End Time</th><th>Total Time of session</th></tr></thead><tbody>';
+    body+=sessions.map(function(s){
+      var start=s.startTime||new Date(s.startIso||s.startedAt).toLocaleTimeString();
+      var end=s.endTime||new Date(s.endIso||s.endedAt).toLocaleTimeString();
+      return '<tr><td>'+escapeHtml(s.date||'')+'</td><td>'+escapeHtml(start+' - '+end)+'</td><td>'+escapeHtml(fmtSessionTime(s.totalSeconds||s.durationSec))+'</td></tr>';
+    }).join('');
+    body+='</tbody></table>';
   }
   body+='</div>';
   return body;
@@ -1146,6 +1321,12 @@ function renderUser(){
   if(state.userSection==='study'){
     body=renderStudyTime();
     el('app').innerHTML=shell('Study Time','Track every focused study session',state.userSection,body,false);
+    normalizeInteractiveControls(el('app'));
+    return;
+  }
+  if(state.userSection==='profile'){
+    body=renderProfile();
+    el('app').innerHTML=shell('My Profile','Account details and progress summary',state.userSection,body,false);
     normalizeInteractiveControls(el('app'));
     return;
   }
@@ -1328,12 +1509,13 @@ async function toggleTopicUi(topicId,checkbox){
   adjustOverallProgress(nextCompleted===oldCompleted?0:nextCompleted?1:-1);
   if(nextCompleted)recordStudyToday();
   try{
-    var r=await api('POST','/user/toggle-topic',{topicId:topicId});
+    var r=await api('POST','/user/set-topics-completion',{topicIds:[topicId],completed:nextCompleted});
     if(!r.ok)throw new Error(r.error||'Update failed');
     var saved=Boolean(r.completed);
+    var changed=(r.changedTopics||[]).find(function(t){return t.topicId===topicId});
     if(r.overallProgress)setOverallProgress(r.overallProgress);
     else if(saved!==nextCompleted)adjustOverallProgress(saved?1:-1);
-    item.completed=saved;item.completedAt=r.completedAt||null;
+    item.completed=saved;item.completedAt=(changed&&changed.completedAt)||item.completedAt||null;
     updateCategoryProgress(item.category,state.topics);
     paintTopicCheckbox(checkbox,item.completed,false);refreshUserProgressChrome();
   }catch(err){
@@ -1393,9 +1575,12 @@ async function resetAll(){
   }catch(err){fail(err)}
 }
 
-function logout(){
-  pauseTimer();cacheClear('bootstrap');cacheClearPrefix('topics_');state.screen='login';state.user=null;state.categories=[];state.categoryProgress={};
-  state.overallProgress=null;state.selectedCategory='';state.topics=[];state.userSection='dashboard';state.studySessions=[];
+async function logout(){
+  if(state.studyTimerRunning)await pauseTimer();
+  try{await api('POST','/auth/logout',{})}catch(e){}
+  await initCsrf();
+  cacheClear('bootstrap');cacheClearPrefix('topics_');state.screen='login';state.user=null;state.categories=[];state.categoryProgress={};
+  state.overallProgress=null;state.selectedCategory='';state.topics=[];state.userSection='dashboard';state.profile=null;state.timeTracker=null;state.studySessions=[];
   state.filters={q:'',category:'',status:'all',priority:'all'};renderLogin();
 }
 function scrollTopics(){var n=el('topicList');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}
@@ -1527,7 +1712,8 @@ function renderAdminUserCard(u){
     '<div class="admin-user-head">'+
     '<div class="admin-user-info">'+
     '<div class="admin-user-title"><b>'+escapeHtml(u.name||username)+'</b> <span class="pill '+statusCls+'">'+escapeHtml(isAdmin?'admin':u.status||'active')+'</span></div>'+
-    '<div class="admin-user-meta"><span class="small muted">@'+escapeHtml(username)+'</span><span class="small muted">'+escapeHtml(daysStr)+'</span></div>'+
+    '<div class="admin-user-meta"><span class="small muted">@'+escapeHtml(username)+'</span><span class="small muted">'+escapeHtml(u.userId||'No ID')+'</span><span class="small muted">'+escapeHtml(daysStr)+'</span></div>'+
+    '<div class="admin-user-meta"><span class="small muted">'+escapeHtml(u.email||'No email')+'</span><span class="small muted">'+escapeHtml(u.mobile||'No mobile')+'</span></div>'+
     '<div class="progress" style="width:140px"><div class="bar" style="width:'+escapeAttr(u.progressPct||0)+'%"></div></div>'+
     '<span class="small muted">'+escapeHtml(u.completedTopics||0)+'/'+escapeHtml(u.totalTopics||0)+' topics</span>'+
     '</div>'+
@@ -1557,6 +1743,8 @@ function renderAdminSettings(settings){
 function renderAdminCreate(){
   return'<div style="display:grid;gap:11px;max-width:420px">'+
     '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Name</label><input id="cn" type="text" placeholder="Full name" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
+    '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Gmail optional</label><input id="ce" type="email" placeholder="name@gmail.com" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
+    '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Mobile optional</label><input id="cm" type="tel" maxlength="10" inputmode="numeric" placeholder="10 digit mobile" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
     '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Username</label><input id="cu" type="text" placeholder="username" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
     '<div class="field" style="margin-bottom:0"><label style="color:var(--text2)">Password</label><input id="cp" type="password" placeholder="min 6 chars" style="width:100%;min-height:40px;border:1.5px solid var(--border);border-radius:10px;padding:8px 11px;background:var(--surface);color:var(--text);outline:none;font-size:13px"></div>'+
     '<div style="display:flex;gap:8px">'+
@@ -1676,17 +1864,21 @@ async function adminCreateUserAction(){
   var username=(el('cu')&&el('cu').value||'').trim();
   var password=el('cp')&&el('cp').value||'';
   var name=(el('cn')&&el('cn').value||'').trim();
+  var email=(el('ce')&&el('ce').value||'').trim().toLowerCase();
+  var mobile=(el('cm')&&el('cm').value||'').trim();
   var amount=Number(el('ca')&&el('ca').value||0);
   var unit=el('cunit')&&el('cunit').value||'days';
   var expiryDays=unit==='weeks'?amount*7:unit==='months'?amount*30:amount;
+  if(email&&!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email)){toast('Email must be @gmail.com when provided','err');return}
+  if(mobile&&!/^[0-9]{10}$/.test(mobile)){toast('Mobile must be 10 digits when provided','err');return}
   try{
-    var r=await api('POST','/admin/users/create',{username:username,password:password,name:name,expiryDays:expiryDays});
+    var r=await api('POST','/admin/users/create',{username:username,password:password,name:name,email:email,mobile:mobile,expiryDays:expiryDays});
     if(!r.ok){toast(r.error||'Create failed','err');return}
     var total=Number(statValue('masterTopics')||0);
-    var created={username:r.username||username,name:name||username,role:'user',status:'active',disabled:false,expiresAt:r.expiresAt||'',daysRemaining:'',completedTopics:0,totalTopics:total,progressPct:0,lastLoginAt:''};
+    var created={username:r.username||username,userId:r.userId||'',name:name||username,email:email,mobile:mobile,role:'user',status:'active',disabled:false,expiresAt:r.expiresAt||'',daysRemaining:'',completedTopics:0,totalTopics:total,progressPct:0,lastLoginAt:''};
     created.status=adminStatusForUser(created);created.daysRemaining=adminDaysRemainingForUser(created);
     state.adminUsers.unshift(created);adminRefreshStatsChrome();renderAdmin();
-    if(el('cu'))el('cu').value='';if(el('cp'))el('cp').value='';if(el('cn'))el('cn').value='';if(el('ca'))el('ca').value='';
+    if(el('cu'))el('cu').value='';if(el('cp'))el('cp').value='';if(el('cn'))el('cn').value='';if(el('ce'))el('ce').value='';if(el('cm'))el('cm').value='';if(el('ca'))el('ca').value='';
     toast('User created','ok');
   }catch(err){fail(err)}
 }
@@ -1828,7 +2020,9 @@ async function adminRebuildTopics(){
   finally{if(btn){btn.disabled=false;btn.textContent='Rebuild'}}
 }
 
-function adminLogoutUi(){
+async function adminLogoutUi(){
+  try{await api('POST','/auth/logout',{})}catch(e){}
+  await initCsrf();
   state.screen='login';state.admin=null;state.adminToken='';
   state.adminUsers=[];state.adminDashboard=null;state.adminDetail=null;state.adminSection='dashboard';state.adminTab='users';
   renderLogin();
@@ -1840,7 +2034,7 @@ function closeModal(){state.adminDetail=null;if(state.screen==='admin')renderAdm
 async function bootstrap() {
   await initCsrf();
   try {
-    const r = await fetch("/api/auth/me", { credentials: "include" });
+    const r = await fetch(API_BASE + "/api/auth/me", { credentials: "include" });
     const data = await r.json();
     if (data.ok && data.user) {
       if (data.user.role === "admin") {

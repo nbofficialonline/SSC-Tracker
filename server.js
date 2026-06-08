@@ -18,6 +18,7 @@ const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
 
 const app = express();
+app.set('trust proxy', 1);
 
 const mongoSanitizeOptions = { replaceWith: '_' };
 
@@ -103,7 +104,7 @@ app.use(session({
   }),
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',  // HTTPS only in prod
+    secure: process.env.SECURE_COOKIES === 'true',
     sameSite: 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000,       // 7 days in ms
   }

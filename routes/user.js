@@ -43,6 +43,35 @@ router.get('/categories', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+// GET /api/user/profile
+router.get('/profile', async (req, res, next) => {
+  try {
+    const username = req.session.user.username;
+    const user = await User.findOne({ username }, { passwordHash: 0 }).lean();
+    if (!user) return res.status(404).json({ ok: false, error: 'User not found.' });
+
+    const progress = overallProgress(user.progress);
+    const studyPayload = await getStudyPayload(username);
+
+    return res.json({
+      ok: true,
+      profile: {
+        userId: user.userId,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        mobile: user.mobile,
+        role: user.role,
+        expiresAt: user.expiresAt,
+        createdAt: user.createdAt,
+        lastLoginAt: user.lastLoginAt,
+      },
+      overallProgress: progress,
+      studyStats: studyPayload.studyStats,
+    });
+  } catch (err) { next(err); }
+});
+
 // GET /api/user/topics?category=Maths+Arithmetic
 // Returns topics for one category, or all topics if no category is supplied.
 router.get('/topics', async (req, res, next) => {
@@ -158,6 +187,65 @@ router.post('/toggle-topic',
         topicId,
         completed: nextState,
         completedAt: progressEntry.completedAt,
+        overallProgress: overallProgress(user.progress),
+      });
+    } catch (err) { next(err); }
+  }
+);
+
+// POST /api/user/set-topics-completion
+// Body: { topicIds: string[], completed: boolean }
+// Updates a group of topics in one round trip for subject/subsection actions.
+router.post('/set-topics-completion',
+  body('topicIds').isArray({ min: 1, max: 500 }).withMessage('topicIds must be a non-empty array.'),
+  body('topicIds.*').trim().notEmpty().isLength({ max: 200 }),
+  body('completed').isBoolean().withMessage('completed must be boolean.'),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(422).json({ ok: false, error: errors.array()[0].msg });
+
+      const username = req.session.user.username;
+      const topicIds = [...new Set(req.body.topicIds.map((id) => String(id).trim()))];
+      const invalidTopic = topicIds.find((topicId) => !TOPICS_MAP[topicId]);
+      if (invalidTopic) {
+        return res.status(404).json({ ok: false, error: `Topic not found: ${invalidTopic}` });
+      }
+
+      const user = await User.findOne({ username });
+      if (!user) return res.status(404).json({ ok: false, error: 'User not found.' });
+
+      const completed = Boolean(req.body.completed);
+      const completedAt = completed ? new Date() : null;
+      const changedTopics = [];
+
+      topicIds.forEach((topicId) => {
+        let progressEntry = user.progress.find((p) => p.topicId === topicId);
+        if (!progressEntry) {
+          user.progress.push({ topicId, completed: false, completedAt: null });
+          progressEntry = user.progress[user.progress.length - 1];
+        }
+
+        if (progressEntry.completed !== completed) {
+          progressEntry.completed = completed;
+          progressEntry.completedAt = completedAt;
+          changedTopics.push({ topicId, completed, completedAt });
+        }
+      });
+
+      if (changedTopics.length) {
+        await user.save();
+        Log.insertMany(changedTopics.map((topic) => ({
+          username,
+          topicId: topic.topicId,
+          action: completed ? 'completed' : 'uncompleted',
+        }))).catch((err) => console.error('Batch log write failed:', err));
+      }
+
+      return res.json({
+        ok: true,
+        completed,
+        changedTopics,
         overallProgress: overallProgress(user.progress),
       });
     } catch (err) { next(err); }

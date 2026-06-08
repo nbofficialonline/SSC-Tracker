@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 const progressSchema = new mongoose.Schema({
@@ -7,9 +8,12 @@ const progressSchema = new mongoose.Schema({
 }, { _id: false });
 
 const userSchema = new mongoose.Schema({
+  userId:       { type: String, required: true, unique: true, default: () => `SSC-${crypto.randomBytes(4).toString('hex').toUpperCase()}` },
   username:     { type: String, required: true, unique: true, lowercase: true, trim: true, minlength: 3, maxlength: 50 },
   passwordHash: { type: String, required: true },
   name:         { type: String, default: '', trim: true, maxlength: 100 },
+  email:        { type: String, default: '', lowercase: true, trim: true, maxlength: 120 },
+  mobile:       { type: String, default: '', trim: true, maxlength: 10 },
   theme:        { type: String, default: 'light', enum: ['light', 'dark'] },
   role:         { type: String, default: 'user', enum: ['user', 'admin'] },
   disabled:     { type: Boolean, default: false },
@@ -24,6 +28,8 @@ const userSchema = new mongoose.Schema({
 userSchema.index({ role: 1 });
 userSchema.index({ disabled: 1 });
 userSchema.index({ expiresAt: 1 });
+userSchema.index({ email: 1 }, { sparse: true });
+userSchema.index({ mobile: 1 }, { sparse: true });
 // Sparse index for searching by topicId inside progress array
 userSchema.index({ 'progress.topicId': 1 });
 
@@ -41,7 +47,10 @@ userSchema.methods.isActive = function() {
 userSchema.methods.toSafeObject = function() {
   return {
     username: this.username,
+    userId: this.userId,
     name: this.name,
+    email: this.email,
+    mobile: this.mobile,
     theme: this.theme,
     role: this.role,
     disabled: this.disabled,

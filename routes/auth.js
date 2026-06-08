@@ -25,6 +25,8 @@ router.post('/register', authLimiter, validateRegister, async (req, res, next) =
 
     const username = req.body.username.toLowerCase().trim();
     const { password, name } = req.body;
+    const email = req.body.email.toLowerCase().trim();
+    const mobile = req.body.mobile.trim();
 
     const existing = await User.findOne({ username });
     if (existing) {
@@ -37,7 +39,9 @@ router.post('/register', authLimiter, validateRegister, async (req, res, next) =
     const user = await User.create({
       username,
       passwordHash,
-      name: (name || username).trim(),
+      name: name.trim(),
+      email,
+      mobile,
       theme: 'light',
       role: 'user',
     });
@@ -46,7 +50,7 @@ router.post('/register', authLimiter, validateRegister, async (req, res, next) =
     user.progress = seedProgress();
     await user.save();
 
-    return res.status(201).json({ ok: true, username: user.username, name: user.name });
+    return res.status(201).json({ ok: true, username: user.username, userId: user.userId, name: user.name });
   } catch (err) { next(err); }
 });
 
@@ -79,6 +83,9 @@ router.post('/login', authLimiter, validateLogin, async (req, res, next) => {
     if (missingProgress.length) {
       user.progress.push(...missingProgress);
     }
+    if (!user.userId) {
+      user.userId = `SSC-${require('crypto').randomBytes(4).toString('hex').toUpperCase()}`;
+    }
 
     // Regenerate session to prevent session fixation
     await new Promise((resolve, reject) => {
@@ -87,7 +94,10 @@ router.post('/login', authLimiter, validateLogin, async (req, res, next) => {
 
     req.session.user = {
       username: user.username,
+      userId: user.userId,
       name: user.name,
+      email: user.email,
+      mobile: user.mobile,
       theme: user.theme,
       role: user.role,
       expiresAt: user.expiresAt,

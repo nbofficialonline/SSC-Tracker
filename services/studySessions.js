@@ -15,9 +15,13 @@ function summarizeSessions(sessions) {
 }
 
 function formatTime(date) {
-  return new Date(date).toLocaleTimeString('en-IN', {
+  if (date == null) return '';
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleTimeString('en-IN', {
     hour: '2-digit',
     minute: '2-digit',
+    second: '2-digit',
     hour12: true,
     timeZone: 'Asia/Kolkata',
   });
@@ -75,7 +79,10 @@ async function getStudyPayload(username, limit = 50) {
     .limit(limit)
     .lean();
 
-  const allForStats = await StudySession.find({ username }, { durationSec: 1, startedAt: 1 }).lean();
+  const allForStats = await StudySession.find(
+    { username },
+    { durationSec: 1, startedAt: 1, endedAt: 1 }
+  ).lean();
 
   return {
     studySessions: sessions.map((s) => ({

@@ -105,7 +105,11 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: process.env.SECURE_COOKIES === 'true',
-    sameSite: 'strict',
+    // 'lax' lets the session cookie survive page refreshes / top-level navigations
+    // (which 'strict' silently blocks, logging the user out on every reload).
+    // CSRF is handled separately via the csrf-token double-submit cookie, so 'lax' is safe.
+    // Override with COOKIE_SAMESITE=strict|lax|none in production if needed.
+    sameSite: process.env.COOKIE_SAMESITE || 'lax',
     maxAge: 7 * 24 * 60 * 60 * 1000,       // 7 days in ms
   }
 }));
@@ -128,6 +132,11 @@ app.get('/api/csrf-token', csrfTokenRoute);   // Frontend fetches this on load
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);
+
+// ── Unknown API routes → JSON 404 (don't fall through to the SPA HTML) ──
+app.use('/api', (req, res) => {
+  res.status(404).json({ ok: false, error: 'Not found.' });
+});
 
 // ── SPA fallback ─────────────────────────────────────────
 app.use((req, res) => {

@@ -14,7 +14,7 @@ function csrfMiddleware(req, res, next) {
       res.cookie('csrf-token', token, {
         httpOnly: false,          // Must be readable by JS so frontend can set header
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: process.env.COOKIE_SAMESITE || 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
     }
@@ -40,7 +40,7 @@ function csrfTokenRoute(req, res) {
     res.cookie('csrf-token', token, {
       httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.COOKIE_SAMESITE || 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
   }

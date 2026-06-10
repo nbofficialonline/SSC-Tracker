@@ -284,6 +284,47 @@ router.patch('/users/:username/role',
   }
 );
 
+// PATCH /api/admin/users/:username/profile
+// Edit a user's profile fields. Body: { name?, email?, mobile? }
+router.patch('/users/:username/profile',
+  body('name').optional({ checkFalsy: true }).trim().isLength({ max: 100 }).withMessage('Name too long (max 100).'),
+  body('email').optional({ checkFalsy: true }).trim().toLowerCase().matches(/^[a-zA-Z0-9._%+-]+@gmail\.com$/).withMessage('Email must be a valid @gmail.com address.'),
+  body('mobile').optional({ checkFalsy: true }).trim().matches(/^[0-9]{10}$/).withMessage('Mobile must be exactly 10 digits.'),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(422).json({ ok: false, error: errors.array()[0].msg });
+
+      const { username } = req.params;
+      const user = await User.findOne({ username });
+      if (!user) return res.status(404).json({ ok: false, error: 'User not found.' });
+
+      // Only update fields that were actually provided in the request body.
+      if (Object.prototype.hasOwnProperty.call(req.body, 'name')) {
+        user.name = String(req.body.name || '').trim();
+      }
+      if (Object.prototype.hasOwnProperty.call(req.body, 'email')) {
+        user.email = req.body.email ? String(req.body.email).toLowerCase().trim() : '';
+      }
+      if (Object.prototype.hasOwnProperty.call(req.body, 'mobile')) {
+        user.mobile = req.body.mobile ? String(req.body.mobile).trim() : '';
+      }
+
+      await user.save();
+
+      return res.json({
+        ok: true,
+        user: {
+          username: user.username,
+          name: user.name,
+          email: user.email,
+          mobile: user.mobile,
+        },
+      });
+    } catch (err) { next(err); }
+  }
+);
+
 // GET /api/admin/users/:username/detail
 router.get('/users/:username/detail', async (req, res, next) => {
   try {
@@ -416,31 +457,6 @@ router.post('/settings',
     } catch (err) { next(err); }
   }
 );
-
-// POST /api/admin/rebuild-topics
-// Triggers the build-topics script logic (re-parses raw files)
-router.post('/rebuild-topics', async (req, res, next) => {
-  try {
-    const { exec } = require('child_process');
-    const path = require('path');
-    const scriptPath = path.join(__dirname, '../scripts/build-topics.js');
-
-    exec(`node "${scriptPath}"`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return res.status(500).json({ ok: false, error: 'Rebuild failed' });
-      }
-      // Re-load the ALL_TOPICS from disk if we were using it in memory
-      // Since it's a require(), we need to clear the cache if we want live updates
-      delete require.cache[require.resolve('../data/topics.json')];
-      const NEW_TOPICS = require('../data/topics.json');
-      // Update the local ALL_TOPICS reference if possible, but it's a const in this file
-      // Better to just tell the user to restart if they need immediate master list changes in this process
-      // Or we can change ALL_TOPICS to a let.
-      return res.json({ ok: true, count: NEW_TOPICS.length });
-    });
-  } catch (err) { next(err); }
-});
 
 // POST /api/admin/users/:username/seed-topics
 // Ensures user has all topics from the master list in their progress array

@@ -106,6 +106,13 @@ router.post('/login', authLimiter, validateLogin, async (req, res, next) => {
     user.lastLoginAt = new Date();
     await user.save();
 
+    // Persist the regenerated session to the store BEFORE responding. Without this,
+    // the response (and Set-Cookie) can race ahead of the async session-store write,
+    // so a later request (e.g. an F5 hitting /auth/me) finds no session → "logged out".
+    await new Promise((resolve, reject) => {
+      req.session.save(err => err ? reject(err) : resolve());
+    });
+
     const studyPayload = await getStudyPayload(user.username);
 
     return res.json({

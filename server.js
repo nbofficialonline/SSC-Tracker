@@ -37,7 +37,9 @@ function mongoSanitizeMiddleware(req, res, next) {
 }
 
 // ── Connect MongoDB ──────────────────────────────────────
-mongoose.connect(process.env.MONGODB_URI)
+// dbName must match the session store's dbName below, otherwise user data and
+// sessions live in different databases (the URI has no db path → defaults to 'test').
+mongoose.connect(process.env.MONGODB_URI, { dbName: 'ssc_tracker' })
   .then(() => console.log('MongoDB connected'))
   .catch(err => { console.error('MongoDB connection failed:', err); process.exit(1); });
 

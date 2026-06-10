@@ -756,7 +756,7 @@
       .admin-user.saved{animation:savedFlash .8s ease}
 
       /* Profile card */
-      .profile-info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0}
+      .profile-info-grid{display:grid;grid-template-columns:1fr;gap:0}
       .profile-row{
         display:flex;align-items:flex-start;gap:10px;padding:12px 0;
         border-bottom:1px solid var(--border);
@@ -1838,8 +1838,12 @@ function renderUser(){
   if(!state.user){renderLogin();return}
   var s=topicStats(currentTopicScope());
   var cats=getCategories();
-  var overall=getOverallProgress();
-  var overallCard=state.overallProgressLoading||!overall
+  var overallReady=getOverallProgress();
+  // overall may be null right after an F5 (before reloadUser hydrates progress).
+  // Keep the loading flag for the spinner card, but use a zeroed fallback for any
+  // direct .percent/.done reads below so the whole render can't throw → login screen.
+  var overall=overallReady||{done:0,total:0,percent:0,pending:0,highPending:0};
+  var overallCard=state.overallProgressLoading||!overallReady
     ?'<div class="metric"><div class="metric-icon">&#127941;</div><b id="overallProgressPct"><span class="spinner" style="display:inline-block"></span></b><span>Overall Progress</span><small id="overallProgressMessage">Fetching stats…</small></div>'
     :'<div class="metric"><div class="metric-icon">&#127941;</div><b id="overallProgressPct">'+overall.percent+'%</b><span>Overall Progress</span><small id="overallProgressMessage"><em id="overallProgressDone" style="font-style:normal">'+overall.done+'</em> / <em id="overallProgressTotal" style="font-style:normal">'+overall.total+'</em> completed</small></div>';
   var shown=filteredTopics();
@@ -2683,27 +2687,32 @@ function closeModal(){state.adminDetail=null;state.adminDetailEditing=false;if(s
 
 /* â"€â"€ Bootstrap â"€â"€ */
 async function bootstrap() {
-  await initCsrf();
+  // Determine the session first. Only a genuine auth failure (or no session) should
+  // land on the login screen — a later render error must NOT, or a user with a valid
+  // session gets bounced to login on every F5 (see the overall===null guard in renderUser).
+  let data;
   try {
+    await initCsrf();
     const r = await fetch(API_BASE + "/api/auth/me", { credentials: "include" });
-    const data = await r.json();
-    if (data.ok && data.user) {
-      if (data.user.role === "admin") {
-        state.admin = data.user;
-        state.screen = "admin";
-        renderAdmin();
-        adminRefresh();
-      } else {
-        state.user = data.user;
-        state.screen = "user";
-        renderUser();
-        reloadUser();
-      }
-    } else {
-      renderLogin();
-    }
+    data = await r.json();
   } catch (e) {
     renderLogin();
+    return;
+  }
+  if (!data || !data.ok || !data.user) {
+    renderLogin();
+    return;
+  }
+  if (data.user.role === "admin") {
+    state.admin = data.user;
+    state.screen = "admin";
+    renderAdmin();
+    adminRefresh();
+  } else {
+    state.user = data.user;
+    state.screen = "user";
+    renderUser();
+    reloadUser();
   }
 }
 bootstrap();
